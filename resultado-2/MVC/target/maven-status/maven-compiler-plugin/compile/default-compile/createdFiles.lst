@@ -1,0 +1,7 @@
+com\mycompany\mvc\Modelo\Conversor.class
+com\mycompany\mvc\Vista\VentanaConversorTexto.class
+com\mycompany\mvc\Vista\InterfazVista.class
+com\mycompany\mvc\Modelo\ConversorEurosPesetas.class
+com\mycompany\mvc\Controlador\ControlConversor.class
+com\mycompany\mvc\MVC.class
+com\mycompany\mvc\Vista\VentanaConversor.class
