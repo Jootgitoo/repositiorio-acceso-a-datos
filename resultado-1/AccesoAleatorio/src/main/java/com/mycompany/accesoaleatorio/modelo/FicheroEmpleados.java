@@ -23,7 +23,7 @@ public class FicheroEmpleados {
     private final int LONGITUD_CHAR = 2;
     
     //Tamaño fijado para la cadena caracteres
-    private final int CARACTERES_APELLIDO = 10;
+    final int CARACTERES_APELLIDO = 10;
     
     //Tamaño de cada uno de los campos que forman el registro del empleado
     private final int LONGITUD_IDENTIFICADOR = LONGITUD_LONG;
@@ -50,6 +50,10 @@ public class FicheroEmpleados {
 
     public int getLONGITUD_TOTAL() {
         return LONGITUD_TOTAL;
+    }
+
+    public int getLONGITUD_IDENTIFICADOR() {
+        return LONGITUD_IDENTIFICADOR;
     }
 
     public File getRuta() {

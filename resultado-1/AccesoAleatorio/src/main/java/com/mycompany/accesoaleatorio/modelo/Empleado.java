@@ -72,6 +72,7 @@ public class Empleado {
         this.salario = salario;
     }
 
+    
     @Override
     public String toString() {
         return "Empleado{" + "identificador=" + identificador + ", apellido=" + apellido + ", departamento=" + departamento + ", salario=" + salario + '}';

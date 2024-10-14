@@ -20,6 +20,8 @@ public class AccesoAleatorio {
     
         //Creamos un objeto Escritura (hijo de FihceroEmpleados) y le asignamos la ruta donde vamos a crear el archivo
         Escritura modeloE = new Escritura ("archivo_empleados.dat");
+       
+        Lectura modeloL = new Lectura ("archivo_empleados.dat");
         
         //Creamos empleados y los añadimos al archivo
         Empleado empleado1 = new Empleado (1, "García", 2, 2000);
@@ -35,12 +37,10 @@ public class AccesoAleatorio {
         modeloE.escribirSegunIdentificador(empleado4);
         
         
-        Lectura modeloL = new Lectura ("archivo_empleados.dat");
-        Empleado empleadoLeido = modeloL.lecturaEmpleado(80);
-        System.out.println(empleadoLeido.toString());
         
-        
-        
+        modeloE.modificarApellido(empleado4, "Herrera");
+        modeloL.mostrarRegistros();
+
         
     }
 }

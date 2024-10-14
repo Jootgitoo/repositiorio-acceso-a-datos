@@ -3,9 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-
 package com.mycompany.accesoaleatorio.modelo;
-
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -82,23 +80,44 @@ public class Lectura extends FicheroEmpleados{
         // Devolvemos al empleado
         return empleado;
     }
+    
+    
         
-        public LinkedList<Empleado> lecturaTodosEmpleados(String ruta){
+        private String readString (RandomAccessFile inputFile, int inputLength) throws IOException {
+            char[] charArray = new char[inputLength];
+    
+            for (int i = 0; i < inputLength; i++) {
+                charArray[i] = inputFile.readChar();
+            }
+    
+            return new String(charArray).trim();
+        }
+        
+        /**
+         * Ejercicio 3 Funciona!
+         * 
+         * Mostramos todos los registros almacenados
+         *
+         */
+        public void mostrarRegistros (){
             
-            //Guardo los empleados
-            LinkedList<Empleado> listaEmpleado = new LinkedList<>();
+        try (RandomAccessFile file = new RandomAccessFile(getRuta(), "r")) {
             
-            try{
-                //Fichero que voy a leer
-                BufferedReader ficheroALeer = new BufferedReader( new FileReader(ruta));
+            while (file.getFilePointer() < file.length()) {
                 
-                for(int i=0; i<ficheroALeer.)
-                        
-            } catch (FileNotFoundException ex){
-                System.out.println(ex);
+                long identificador = file.readLong();
+                String apellido = readString(file, CARACTERES_APELLIDO);
+                int departamento = file.readInt();
+                double salario = file.readDouble();
+                
+                if (identificador != 0) {
+                  System.out.printf("ID: %d, Apellido: %s, Departamento: %d, Salario: %.2f%n",
+                  identificador, apellido, departamento, salario);
+                }
             }
             
-            
-            return listaEmpleado;
-        }   
+        } catch (IOException ex) {
+            Logger.getLogger(Escritura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
