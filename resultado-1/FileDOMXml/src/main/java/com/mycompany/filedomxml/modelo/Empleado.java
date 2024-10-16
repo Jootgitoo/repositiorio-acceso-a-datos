@@ -3,13 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.mycompany.accesoaleatorio.modelo;
+package com.mycompany.filedomxml.modelo;
+
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  *
  * @author JHM by Jorge Herrera Martín
  * version 1.0
- * Created on 7 oct 2024
+ * Created on 16 oct 2024
  */
 public class Empleado {
     //ATRIBUTOS
