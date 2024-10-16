@@ -161,34 +161,50 @@ public class GestionContenidoDOM {
     private String getTagValue(String tag, Element element){
         
         //Busca los que estén dentro del elemento tag
-        NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
-        Node node = nodeList.item(0);
+        NodeList nodeList = element. //Crea una lista de nodos que sean hijos del elemento
+                getElementsByTagName(tag) //Saca todos los elementos contenidos en el padre y que tienen tag como elemento hijo
+                .item(0). //Coge el primer valor que coincide con tag
+                getChildNodes(); //Coje los nodos hijos (ignora atributos, por ejemplo)
+        
+        Node node = nodeList.item(0); //Creo un nodo con la informacion del nodo hijo
         
         if (node != null){
-            return node.getNodeValue();
+            return node.getNodeValue(); //Si nodo esta vacio lo devuelvo
         } else {
-            return null;
+            return null; //Si no existe ningun nodo que tenga la tag que buscamos devuelve null
         }       
     }
     
-    
-    private Empleado getEmpleado(Node node){
+    /**
+     * 
+     * @param node
+     * @return 
+     */
+    private Empleado getEmpleado(Node node){ //Le estoy pasando un nodo, porque getEmpleados() devuelve una NodeList
+        
+        //ESto es asi porque el metodo .getElementsByTagName devuelve una NodeList
         Empleado emple = new Empleado();
         
-        if (node.getNodeType() == Node.ELEMENT_NODE){
-            Element element = (Element) node;
+        if (node.getNodeType() == Node.ELEMENT_NODE){ //Vernificamos si el nodo es de tipo element (no tiene por que serlo)
+            Element element = (Element) node; //Si lo es, convierte el nodo en un objeto element
+            
+            //El empleado que he creado antes, lo relleno con los datos del element
             emple.setIdentificador(Long.parseLong(getTagValue("identificador", element)));
+            emple.setApellido(getTagValue("apellido", element));
+            emple.setDepartamento(Integer.parseInt(getTagValue("departamento", element)));
+            emple.setSalario(Double.parseDouble(getTagValue("salario", element)));
         }
-        return emple;
+        return emple; //Devuelvo el empleado
     }
     
+    
     public List<Empleado> getEmpleados(){
-        List<Empleado> empleList = new ArrayList<Empleado>();
+        List<Empleado> empleList = new ArrayList<Empleado>(); //Me creo mi lista empleados
         //Me devuelve todos los Empleado que haya
-        NodeList nodeList = this.documento.getElementsByTagName("Empleado");
+        NodeList nodeList = this.documento.getElementsByTagName("Empleado"); //Creo la nodelista donde cojo todos los element (nodos)
         
         for(int i=0; i<nodeList.getLength(); i++){
-            empleList.add(getEmpleado(nodeList.item(i)));
+            empleList.add(getEmpleado(nodeList.item(i))); //Añado los nodos a la lista de empleados
         }
         return empleList;
     }
