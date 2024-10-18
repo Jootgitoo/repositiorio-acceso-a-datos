@@ -210,6 +210,34 @@ public class GestionContenidoDOM {
     }
       
     
+    public void addElemento(String raiz){
+
+        //TERMINAR ESTE MÉTODO
+        
+        //Me devuelve todos los Empleado que haya
+        NodeList nodeList = this.documento.getElementsByTagName("Empleado"); //Creo la nodelista donde cojo todos los element (nodos)
+        
+        for (int i=0; i<nodeList.getLength(); i++){
+            
+           
+            //Creamos un elemento hijo llamado cargo
+            Element elemento = documento.createElement("cargo");
+            
+            Text textoDato = this.documento.createTextNode("Por especificar");
+            
+            elemento.appendChild(textoDato);
+            raiz.appendChild(raiz);
+            
+        }
+        
+
+    }  
+        
+        
+           
+    
+    
+    
     //remove.Chair
             
 }
