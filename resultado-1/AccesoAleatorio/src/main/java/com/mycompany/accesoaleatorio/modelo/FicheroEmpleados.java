@@ -16,7 +16,9 @@ import java.io.File;
  */
 public class FicheroEmpleados {
 
-    //Tamanio de datos en bytes
+    //ATRIBUTOS
+    
+    //Tamaño de datos en bytes
     private final int LONGITUD_LONG = 8;
     private final int LONGITUD_DOUBLE = 8;
     private final int LONGITUD_ENTERO = 4;
@@ -36,10 +38,14 @@ public class FicheroEmpleados {
     
     private File ruta;
     
+//------------------------------------------------------------------------------  
+    //CONSTRUCTOR
     public FicheroEmpleados(String ruta){
         this.ruta = new File(ruta);
     }
-
+    
+//------------------------------------------------------------------------------
+    //MÉTODOS
     public int getCARACTERES_APELLIDO() {
         return CARACTERES_APELLIDO;
     }

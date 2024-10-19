@@ -27,18 +27,18 @@ public class AccesoAleatorio {
         Empleado empleado1 = new Empleado (1, "García", 2, 2000);
         modeloE.escribirSegunIdentificador(empleado1);
         
-        Empleado empleado2 = new Empleado (80, "Pérez", 5, 1300);
+        Empleado empleado2 = new Empleado (2, "Pérez", 5, 1300);
         modeloE.escribirSegunIdentificador(empleado2);
 
-        Empleado empleado3 = new Empleado (2, "Robledo", 1, 1600);
+        Empleado empleado3 = new Empleado (3, "Robledo", 3, 1600);
         modeloE.escribirSegunIdentificador(empleado3);
         
-        Empleado empleado4 = new Empleado (20, "Molina", 1, 1600);
+        Empleado empleado4 = new Empleado (4, "Molina", 4, 1600);
         modeloE.escribirSegunIdentificador(empleado4);
         
+        Empleado empleado5 = new Empleado (4, "Herrera", 1, 1900);
+        modeloE.escribirSegunIdentificador(empleado4);
         
-        
-        modeloE.modificarApellido(empleado4, "Herrera");
         modeloL.mostrarRegistros();
 
         

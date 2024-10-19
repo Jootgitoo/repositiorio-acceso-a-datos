@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -23,28 +24,38 @@ import java.util.logging.Logger;
  */
 public class Lectura extends FicheroEmpleados{
 
+    //CONSTRUCTOR
     public Lectura(String ruta) {
         super(ruta);
     }
    
+//------------------------------------------------------------------------------
+    //Métodos
+    
     /**
-     * Devuelve un empleado con el identificador dado
+     * Devuelve toda la informacion de un empleado
      * 
-     * @param identificador Id del empleado que queremos mostrar
-     * @return  Empleado con sus datos
+     * @param identificador Id del empleado que queremos sacar toda la informacion
+     * @return  Empleado devuelve un tipo "Empleado" donde gracias a la clase Empleado podremos acceder a todos sus datos
      */
     public Empleado lecturaEmpleado(int identificador){
                 
         // RamdomAccessFile para acceso a un fichero de forma aleatoria
         RandomAccessFile randomFile = null; 
+        
+        //Para posicionarnos en una posición del fichero
         int posicion = 0;
+        
+        //Creamos un empleado que será el que luego devolveremos con todos los datos
         Empleado empleado = new Empleado();
+        
         // Creamos un array de byte para la lectura del apellido.
         // El tamaño en bytes será la longitud del apellido que hemos declarado en la clase FicheroEmpleados
         byte [] cadena = new byte [super.getLONGITUD_APELLIDO()]; 
         
         try {
             
+            //Indicamos a que fichero vamos acceder
             randomFile = new RandomAccessFile(getRuta(), "rw");
             
             // La posicion se calcula a partir del Id. 
@@ -52,17 +63,21 @@ public class Lectura extends FicheroEmpleados{
             // Los datos del empleado 3 estarían a partir de la posición 80
             posicion = (identificador-1) * super.getLONGITUD_TOTAL();
             
-            // Verificamos que el id corresponde a una posición menor que la longitud del archivo
-            if (posicion < randomFile.length()) {       
+            // Verificamos que la posicion en la que nos vamos a colocar esté dentro del archivo
+            if (posicion < randomFile.length()) { 
+                //Nos colocamos en esa posicion
                 randomFile.seek(posicion);
                 
                 // Leemos el identificador del empleado
                 empleado.setIdentificador(randomFile.readLong());
+                
                 // Leemos el apellido
                 randomFile.read(cadena);                               
                 empleado.setApellido(new String(cadena));
+                
                 // Leemos el número del departamento
                 empleado.setDepartamento(randomFile.readInt());
+                
                 // Leemos el salario
                 empleado.setSalario(randomFile.readDouble());  
             }      
@@ -81,43 +96,49 @@ public class Lectura extends FicheroEmpleados{
         return empleado;
     }
     
+    // metodo "readString" | metodo auxliar para leer strings de longitud fija ->
+    private String readString (RandomAccessFile inputFile, int inputLength) throws IOException {
+        char[] charArray = new char[inputLength];
     
-        
-        private String readString (RandomAccessFile inputFile, int inputLength) throws IOException {
-            char[] charArray = new char[inputLength];
-    
-            for (int i = 0; i < inputLength; i++) {
-                charArray[i] = inputFile.readChar();
-            }
-    
-            return new String(charArray).trim();
+        for (int i = 0; i < inputLength; i++) {
+          charArray[i] = inputFile.readChar();
         }
+
+        return new String(charArray).trim();
+      }
         
-        /**
-         * Ejercicio 3 Funciona!
-         * 
-         * Mostramos todos los registros almacenados
-         *
-         */
-        public void mostrarRegistros (){
-            
+    /**
+     * Ejercicio 3 Funciona!
+     * 
+     * Mostramos todos los registros almacenados
+     *
+     */
+    public void mostrarRegistros (){
+        
+        
         try (RandomAccessFile file = new RandomAccessFile(getRuta(), "r")) {
-            
             while (file.getFilePointer() < file.length()) {
                 
+                //Leemos el identificador
                 long identificador = file.readLong();
-                String apellido = readString(file, CARACTERES_APELLIDO);
-                int departamento = file.readInt();
-                double salario = file.readDouble();
                 
+                //Guardamos el apellido
+                String apellido = readString(file, CARACTERES_APELLIDO);
+                
+                //Guardamos el departamento
+                int departamento = file.readInt();
+                
+                //Guardamos el salario
+                double salario = file.readDouble();
+
+                //Si el id es distinto de 0 quiere decir que el empleado existe
                 if (identificador != 0) {
                   System.out.printf("ID: %d, Apellido: %s, Departamento: %d, Salario: %.2f%n",
                   identificador, apellido, departamento, salario);
                 }
             }
-            
-        } catch (IOException ex) {
-            Logger.getLogger(Escritura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex){
+            System.out.println(ex);
         }
     }
 }

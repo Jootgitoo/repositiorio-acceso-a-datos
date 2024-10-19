@@ -17,6 +17,7 @@ public class Empleado {
     private String apellido;
     private int departamento;
     private double salario;
+    
 //------------------------------------------------------------------------------
     //CONSTRUCTORES
     public Empleado(){
