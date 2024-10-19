@@ -40,7 +40,7 @@ public class ControladorArchivo implements ActionListener {
         this.ruta = this.vista.getRuta();
         this.nombre = this.vista.getNombre();
         
-        this.modelo.crearArchivo(ruta, nombre);
+        this.modelo.crearFichero(ruta, nombre);
         this.vista.operacionExitosa();
         this.vista.limpiarCampos();
       }
@@ -73,9 +73,4 @@ public class ControladorArchivo implements ActionListener {
       }
     }
   }
-  
-  //------------------------------------------------>
-  //------------------------------------------------>
-  //------------------------------------------------>
-
 }
