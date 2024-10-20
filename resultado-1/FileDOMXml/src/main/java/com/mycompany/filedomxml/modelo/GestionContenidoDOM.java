@@ -43,32 +43,45 @@ public class GestionContenidoDOM {
     DocumentBuilderFactory factory;
     DocumentBuilder builder;
     
+//------------------------------------------------------------------------------    
     //CONSTRUCTOR
+    
     /**
      * 
      * @param nombre Nombre del nodo principal
      */
     public GestionContenidoDOM(String nombre){
         try {
+            
+            //DocumentBuilderFactory con .newInstance() creamos un documento XML de manera estructurada
             factory = DocumentBuilderFactory.newInstance();
+            
+            //Sirve para construir el documento XML
             builder = factory.newDocumentBuilder();
             
+            //Creas un nuevo documento XML
             DOMImplementation implementation = builder.getDOMImplementation();
-            this.documento = (Document) implementation.createDocument(null, nombre, null );
+            
+            //Crea un documento XML 
+            this.documento = (Document) implementation.createDocument(null, //Indica que no hay espacio de nombres
+                    nombre, //Elemento raiz del documento
+                    null ); //No hay elemento doctype definido
+            
+            //Establece la version del documento XML
             this.documento.setXmlVersion("1.0");
             
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(GestionContenidoDOM.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
+//------------------------------------------------------------------------------    
     //MÉTODOS
     
     /**
      * Este método crea un nuevo nodo con el nombre especificado y lo agrega al documento, devolviendo el nodo creado.
      * @param nombreNodo nombre que va a tener el nodo que se va a crear
-     * @return 
+     * @return devuelve el nodo creado
      */
     public Element addNodo(String nombreNodo){
         
@@ -78,19 +91,47 @@ public class GestionContenidoDOM {
         //Añade el nodo creado al documento utilizando el método appendChild
         documento.getDocumentElement().appendChild(nodoPrincipal);
         
+        //Devolvemos el nodo creado
         return nodoPrincipal;
     }
     
+    
+    /**
+     * Este método crea un nodo y lo añade dentro de un nodo padre
+     * @param datoEmple dato del empleado que se va a añadir al nodo
+     * @param elementoPadre Elemeto padre que va a tener el nodo 
+     * @return Devuelve el nodo con el dato añadido
+     */
     public Element addNodo(String datoEmple, Element elementoPadre){
+        
+        //.crateElement --> creamos un nodo llamado el valor de datoEmple
         Element dato = this.documento.createElement(datoEmple);
+        
+        //.appendChild --> añade el nodo creado al documento
         elementoPadre.appendChild(dato);
+        
         return dato;
     }
     
+    
+    /**
+     * Sirve para crear un nodo, con un texto, y un elemento padre
+     * @param datoEmple Nombre del nodo que vas a crear
+     * @param texto Contenido del nodo
+     * @param raiz Elemento padre que va a tener
+     */
     public void addNodoYTexto (String datoEmple, String texto, Element raiz){
+        
+        //.crateElement --> creamos un nodo llamado el valor de datoEmple
         Element dato = this.documento.createElement(datoEmple);
+        
+        //.createTextNode --> Creas el texto que va a tener el nodo
         Text textoDato = this.documento.createTextNode(texto);
+        
+        //.appendChild --> textoDato se añade como hijo al nodo dato
         dato.appendChild(textoDato);
+        
+        //.appendChild --> el nodo dato se añade como hijo a raiz
         raiz.appendChild(dato);
     }
     
@@ -209,27 +250,25 @@ public class GestionContenidoDOM {
         return empleList;
     }
       
-    
-    public void addElemento(String raiz){
-
-        //TERMINAR ESTE MÉTODO
-        
+    //Ejercicio 1 //TERMINAR
+    public void addCargo(Element elemetoRaiz){
+      
         //Me devuelve todos los Empleado que haya
-        NodeList nodeList = this.documento.getElementsByTagName("Empleado"); //Creo la nodelista donde cojo todos los element (nodos)
+        NodeList nodeList = this.documento.getElementsByTagName("Empleado"); //Creo una nodelista donde cojo todos los element (nodos)
         
+        //Va a añadir un elemento llamado Cargo 
         for (int i=0; i<nodeList.getLength(); i++){
-            
-           
+               
             //Creamos un elemento hijo llamado cargo
-            Element elemento = documento.createElement("cargo");
-            
+            Element elemento = documento.createElement("Cargo");
+        
+            //Creamos el texto del elemento hijo, es decir, dentro de cargo tiene que estar Por especificar
             Text textoDato = this.documento.createTextNode("Por especificar");
             
             elemento.appendChild(textoDato);
-            raiz.appendChild(raiz);
+            elemetoRaiz.appendChild(elemento);
             
         }
-        
 
     }  
         
@@ -237,7 +276,10 @@ public class GestionContenidoDOM {
            
     
     
-    
+    //Ejercicio 2
     //remove.Chair
+    
+    //Ejercicio 3
+    //Ejercicio 4
             
 }

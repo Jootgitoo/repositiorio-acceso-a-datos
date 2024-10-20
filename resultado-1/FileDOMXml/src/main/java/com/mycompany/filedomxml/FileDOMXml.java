@@ -36,6 +36,7 @@ public class FileDOMXml {
         
         //A empleados se le añade un hijo llamado empleado con un hijo llamado identificador con el valor de 1
         Element elem = modelo.addNodo("Empleado");
+        //addNodoYTexto --> Primero crea el nodo identificador con el valor 1 y luego lo añade como hijo a elem (que queda como nodo padre)
         modelo.addNodoYTexto("identificador", "1", elem);
         
         elem = modelo.addNodo("Empleado");
@@ -45,9 +46,10 @@ public class FileDOMXml {
         modelo.addNodoYTexto("identificador", "3", elem);
         
 //       modelo.mostrarPantalla();
-        modelo.generarArchivodelDOM("./resources/Empleados.xml");
+//        modelo.generarArchivodelDOM("./resources/Empleados.xml");
 
-       modelo.addElemento("Empleado");
+        elem = modelo.addNodo("Cargo");
+       modelo.addCargo(elem);
 
        modelo.cargarArchivoEnMemoria("./resources/Empleados.xml");
 
