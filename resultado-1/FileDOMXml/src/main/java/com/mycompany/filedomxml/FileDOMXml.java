@@ -46,19 +46,20 @@ public class FileDOMXml {
         modelo.addNodoYTexto("identificador", "3", elem);
         
 //       modelo.mostrarPantalla();
-//        modelo.generarArchivodelDOM("./resources/Empleados.xml");
+        modelo.generarArchivodelDOM("./resources/Empleados.xml");
 
         elem = modelo.addNodo("Cargo");
-       modelo.addCargo(elem);
+       modelo.addCargo();
+       modelo.mostrarPantalla();
 
-       modelo.cargarArchivoEnMemoria("./resources/Empleados.xml");
+       //modelo.cargarArchivoEnMemoria("./resources/Empleados.xml");
 
         //System.out.println(modelo.getElementPrincipal());
         
-        List<Empleado> empleList = modelo.getEmpleados();      
-        for (Empleado e : empleList){
-            System.out.println(e);
-        }
+//        List<Empleado> empleList = modelo.getEmpleados();      
+//        for (Empleado e : empleList){
+//            System.out.println(e);
+//        }
 
 
 //        Conversor modeloConversor = new Conversor("./resources/Empleados.xml", "./resources/empleadosPlantilla.xsl", "./resources/hojaDestino.html");

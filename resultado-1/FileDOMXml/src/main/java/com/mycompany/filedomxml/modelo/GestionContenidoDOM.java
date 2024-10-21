@@ -250,36 +250,112 @@ public class GestionContenidoDOM {
         return empleList;
     }
       
-    //Ejercicio 1 //TERMINAR
-    public void addCargo(Element elemetoRaiz){
+    //Ejercicio 1
+    public void addCargo(){
       
         //Me devuelve todos los Empleado que haya
         NodeList nodeList = this.documento.getElementsByTagName("Empleado"); //Creo una nodelista donde cojo todos los element (nodos)
         
         //Va a añadir un elemento llamado Cargo 
         for (int i=0; i<nodeList.getLength(); i++){
-               
+             
+            //De la nodeList en la posicion de i compruebo que lo q haya sea un empleado y lo obtengo como Element donde posteriormente le añadiré el cargo y el valor de cargo
+            Element empleadoTemporal = (Element) nodeList.item(i);
+            
+            
             //Creamos un elemento hijo llamado cargo
-            Element elemento = documento.createElement("Cargo");
         
-            //Creamos el texto del elemento hijo, es decir, dentro de cargo tiene que estar Por especificar
-            Text textoDato = this.documento.createTextNode("Por especificar");
-            
-            elemento.appendChild(textoDato);
-            elemetoRaiz.appendChild(elemento);
-            
+            addNodoYTexto("Cargo", "Por especificar", empleadoTemporal);
+ 
         }
 
     }  
-        
-        
-           
     
     
     //Ejercicio 2
-    //remove.Chair
+    public void quitarElmentoDeEmpleado(String nombreElemento){
+        //Sacamos la lista
+        NodeList nodeList = this.documento.getElementsByTagName("Empleado");
+        
+        //rrecorro todos los nodos y cojo el nodo actual
+        for(int i=0; i < nodeList.getLength(); i++){
+            
+            Element empleElemento = (Element) nodeList.item(i);
+            
+            //Busco el hijo que quiero eliminar
+            NodeList elementos = empleElemento.getElementsByTagName(nombreElemento);
+            
+            if(elementos.getLength() > 0){ //Si existe lo borro
+                Node elementoABorrar = elementos.item(0);
+                empleElemento.removeChild(elementoABorrar);
+            }
+        }
+        //Actualizo el archivo
+        generarArchivodelDOM("empleados_actualizados.xml");
+    }
+        
     
     //Ejercicio 3
-    //Ejercicio 4
+    /**
+     * 
+     * @param identificador 
+     * @param nuevoSalario 
+     */
+    public void modificarSalarioEmpleado(long identificador, String nuevoSalario){
+        
+        //Cojo a los Empleado y lo meto a una nodeList
+        NodeList nodeList = this.documento.getElementsByTagName("Empleado");
+        
+        boolean encontrado = false;
+        int i = 0;
+
+        
+        while(!encontrado && i < nodeList.getLength()){ //Mientras q encontrado sea false y la i mas pequeña que la longitud de la nodeList
             
+            //Creamos un empleado temporal
+            Element empleadoTemp = (Element) nodeList.item(i);
+            
+            //Ampliamos la i para que busque en el siguiente empleado si es q este no es el que buscamos
+            i++;
+                
+            //Saco el valor del id del empleado 
+            String idEmpleTemp = getTagValue("identificador", empleadoTemp);
+            
+            //compruebo id. Con esto se si este es el empleado que buscamos, ya que le hemos pasado por parametro el id (identificador)
+            if(idEmpleTemp != null && Long.parseLong(idEmpleTemp) == identificador){
+                
+                //Con esto decimos que hemos encontrado el id y el programa no volverá a entrar en el while
+                encontrado = true;
+                
+                //Dentro del empleadoTemporal (empleado el cual quiero cambiar el salario) busco el salario y lo meto en una NodeList(puesto que es lo que devuelve el método
+                //Estamos diciendo guardame en una NodeList todo los Salario que tenga el empleadoTemp
+                NodeList salarioList = empleadoTemp.getElementsByTagName("Salario");
+                
+                //
+                if(salarioList.getLength() > 0){ //Si tiene un salario
+                    
+                    //Obtengo de la nodeList la posicion 0 (en este caso la nodeList solo va a tener 1 elemento que va ser en la pos 0 y es el salario
+                    salarioList.item(0)
+                            .setTextContent(nuevoSalario); //Modificas el CONTENIDO que tenga la etiqueta en la pos 0 (en este caso modifica el salario por salarioNuevo)
+                    
+                } else { //Si no existe el nodo 
+                    
+                    //Añado el nodo Salario (<Salario> </Salario> y el meto el valor nuevoSalario)
+                    addNodoYTexto("Salario", nuevoSalario, empleadoTemp);
+                    
+                }
+                
+                //lo guardo en el archivo todo
+                generarArchivodelDOM("empleados_actualizados.xml");
+ 
+            }
+         
+        }
+        
+        //Aqui no ha encontrado el empleado
+        System.out.println("No encuentro al empleado");
+        
+    }
+           
+   
 }
