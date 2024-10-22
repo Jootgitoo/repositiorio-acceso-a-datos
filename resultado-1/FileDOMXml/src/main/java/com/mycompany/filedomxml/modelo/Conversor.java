@@ -34,8 +34,14 @@ public class Conversor {
     
     public Conversor(String origenDatos, String hojaEstilos, String htmlDestino){
         try {
+            
+            //Datos que convertiremos a HTML
             this.origenDatos = new StreamSource(origenDatos);
+            
+            //Hoja de eestilos que aplicaremos durante la conversion
             this.hojaEstilos = new StreamSource (hojaEstilos);
+            
+            //Se utilizará para escribir resultado HTML en un archivo
             this.pagHTML = new FileOutputStream(new File(htmlDestino));
             
             } catch (FileNotFoundException ex) {
@@ -45,11 +51,15 @@ public class Conversor {
     
     public void ConvertirAHTML(){
         try {
+            
+            //Especificamos el archivo de salida
             Result result = new StreamResult(pagHTML);
             
             //Creamos el transformer con el TransformerFactory
+            //Se crea un objeto Transformer basado en la hoja de estilos proporcionada.
             Transformer transformer = TransformerFactory.newInstance().newTransformer(this.hojaEstilos);
             
+            //Pasamos los datos de origenDatos a result
             transformer.transform(this.origenDatos, result);
             
         } catch (TransformerConfigurationException ex) {
