@@ -21,31 +21,54 @@ import java.util.logging.Logger;
  */
 public class Copia extends Fichero{
     
-//ATRIBBUTOS
+//ATRIBUTOS
     private File rutaDestino;
-//------------------------------------------------------------------------------
     
-//CONSTRUCTOR
+//------------------------------------------------------------------------------
+    //CONSTRUCTOR
+    
     public Copia(String ruta, String rutaDestino){
         super(ruta);
         this.rutaDestino = new File(rutaDestino);
     }
-//------------------------------------------------------------------------------
     
-//MÉTODOS
+//------------------------------------------------------------------------------
+    //MÉTODOS
+    
+    /**
+     * Método que te copia un archivo a otro
+     */
     public void copiarArchivo(){
+        
+        //Variable que utilizaremos para leer (en este caso un archivo)
         FileInputStream inputStream = null;
+        
+        //Variable que utilizaremos para escribir (en este caso escribiremos en un archivo)
         FileOutputStream outputStream = null;
         
         try{ 
+            
+            //Variable para almacenar el numero de bytes almacenados
             int length = 0;
+            
+            //Inicializo inputStream pasandole la ruta del fichero que vamos a leer
             inputStream = new FileInputStream(getRuta());
+            
+            //Inicializo outputStream pasandole la ruta del fichero destino que vamos a escribir
             outputStream = new FileOutputStream(this.rutaDestino);
             
+            //Creamos un array para almacenar los datos leidos
             byte[] datosTemporales = new byte[1024];
+            
+            //Leemos hasta 1024 bytes (es lo q cabe en el array) del archivo que le hemos pasado anteriormente
+            //El numero de bytes leidos se guardan en length
             length = inputStream.read(datosTemporales);
             
+            //Se ejecuta hasta que length sea 0, es decir, mientras hayas datos para leer
             while(length > 0){
+                
+                //Escribimos en el outputStream lo q haya en datosTemporales, desde el indice 0 hasta length
+                //Es decir escribirmos en outputStream todo lo que haya en el array
                 outputStream.write(datosTemporales, 0, length);
                 length = inputStream.read(datosTemporales);
             }
@@ -65,9 +88,6 @@ public class Copia extends Fichero{
                 Logger.getLogger(Escritura.class.getName()).log(Level.SEVERE, null, ex);
                
            }
-        }
-        
+        } 
     }
-    
-//------------------------------------------------------------------------------
 }

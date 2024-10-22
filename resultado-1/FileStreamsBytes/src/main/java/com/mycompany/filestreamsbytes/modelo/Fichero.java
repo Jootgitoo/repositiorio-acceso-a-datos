@@ -44,7 +44,10 @@ public class Fichero {
         this.ruta = new File(ruta);
     }
     
-    
+    /**
+     * Comprueba si existe el fichero o no
+     * @return devuelve true si existe el fichero o false si no existe
+     */
     public boolean existeFichero(){
         if (ruta.exists()){
             return true;
