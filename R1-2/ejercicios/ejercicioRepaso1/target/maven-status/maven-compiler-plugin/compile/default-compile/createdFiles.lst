@@ -1,0 +1,7 @@
+com\mycompany\ejerciciorepaso1\vista\InterfazVista.class
+com\mycompany\ejerciciorepaso1\EjercicioRepaso1.class
+com\mycompany\ejerciciorepaso1\controlador\ControladorProducto.class
+com\mycompany\ejerciciorepaso1\modelo\LecturaProductos.class
+com\mycompany\ejerciciorepaso1\modelo\Producto.class
+com\mycompany\ejerciciorepaso1\vista\VentanaTexto.class
+com\mycompany\ejerciciorepaso1\modelo\FicheroProductos.class

@@ -1,0 +1,4 @@
+com\mycompany\filedomxml\modelo\GestionContenidoDOM.class
+com\mycompany\filedomxml\modelo\Conversor.class
+com\mycompany\filedomxml\FileDOMXml.class
+com\mycompany\filedomxml\modelo\Empleado.class

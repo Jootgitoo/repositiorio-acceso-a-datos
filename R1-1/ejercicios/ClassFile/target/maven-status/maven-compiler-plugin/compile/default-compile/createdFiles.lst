@@ -1,0 +1,7 @@
+com\mycompany\classfile\Modelo\Archivo.class
+com\mycompany\classfile\Controlador\ControlArchivo.class
+com\mycompany\classfile\Modelo\Carpeta.class
+com\mycompany\classfile\Vista\InterfazVista.class
+com\mycompany\classfile\Controlador\ControlCarpeta.class
+com\mycompany\classfile\ClassFile.class
+com\mycompany\classfile\Vista\CarpetaVistaTexto.class
