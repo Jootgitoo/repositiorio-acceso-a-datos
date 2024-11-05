@@ -28,7 +28,7 @@ public class Departamentos {
         this.loc = loc;
     }
 
-    public static void insertarDepartamento() throws SQLException{
+    public void insertarDepartamento() throws SQLException{
         bbdd.insert("insert into Departamentos values (?,?,?)", this.dept_no, this.dnombre, this.loc);
     }
 

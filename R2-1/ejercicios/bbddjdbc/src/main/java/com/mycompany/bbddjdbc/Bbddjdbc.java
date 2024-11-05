@@ -5,7 +5,7 @@
 package com.mycompany.bbddjdbc;
 
 import com.mycompany.bbddjdbc.bbdd.Departamentos;
-import static com.mycompany.bbddjdbc.bbdd.Departamentos.insertarDepartamento;
+import com.mycompany.bbddjdbc.bbdd.Empleados;
 import com.mycompany.bbddjdbc.bbdd.OperacionesBBDD;
 import java.sql.SQLException;
 
@@ -21,9 +21,16 @@ public class Bbddjdbc {
     public static void main(String[] args) throws SQLException {
         
         Departamentos dep = new Departamentos(1, "Tecnologia", "Ciudad Real");
+        Empleados emple = new Empleados(1, "Herrera", "Ingeniero", 10, "05/11/2024", 13000, 1000, 5);
         
+        //Abrimos la conexion con la BBDD
         bbdd.abrirConexion();
-        insertarDepartamento();
+        
+        //Añadimos a la BBDD
+        dep.insertarDepartamento();
+        emple.insertarEmpleado();
+        
+        //Cerramos la conexion con la BBDD
         bbdd.cerrarConexion();
     }
     
