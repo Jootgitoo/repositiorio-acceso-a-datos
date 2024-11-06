@@ -4,8 +4,8 @@
 
 package com.mycompany.bbddjdbc;
 
-import com.mycompany.bbddjdbc.bbdd.Departamentos;
-import com.mycompany.bbddjdbc.bbdd.Empleados;
+import com.mycompany.bbddjdbc.bbdd.Departamento;
+import com.mycompany.bbddjdbc.bbdd.Empleado;
 import com.mycompany.bbddjdbc.bbdd.OperacionesBBDD;
 import java.sql.SQLException;
 
@@ -20,23 +20,35 @@ public class Bbddjdbc {
 
     public static void main(String[] args) throws SQLException {
         
-        Departamentos dep = new Departamentos(1, "Tecnologia", "Ciudad Real");
-        Empleados emple = new Empleados(1, "Herrera", "Ingeniero", 10, "05/11/2024", 13000, 1000, 5);
-        
         //Abrimos la conexion con la BBDD
         bbdd.abrirConexion();
         
         //Añadimos a la BBDD
-        dep.insertarDepartamento();
-        emple.insertarEmpleado();
-        
+//        Departamento departamento = new Departamento(2, "Ventas", "Logroño");
+//        departamento.insertarDepartamento(bbdd);
+//        
+//        departamento = new Departamento(3, "Logistica", "Cueca");
+//        departamento.insertarDepartamento(bbdd);
+//            Departamento departamento = new Departamento();
+//           departamento.selectById(bbdd, 2);
+//            System.out.println(departamento);
+//
+//            departamento.setLoc("Albacete");
+//           departamento.update(bbdd);
+//           
+//           departamento.selectById(bbdd, 2);
+//           System.out.println(departamento);
+
+            Departamento.delete(bbdd, 1);
+
+//        departamento.insertarDepartamento(bbdd);        
         //Cerramos la conexion con la BBDD
         bbdd.cerrarConexion();
     }
     
     
 //    public static void insertarDatos() throws SQLException{
-//        bbdd.insert("insert into Departamentos values (?,?,?)", 1, "Informatica", "Ciudad Real");
+//        bbdd.insert("insert into Departamento values (?,?,?)", 1, "Informatica", "Ciudad Real");
 //    }
     
 }
