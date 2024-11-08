@@ -5,8 +5,10 @@
 
 package com.mycompany.bbddjdbc.bbdd;
 
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger; 
@@ -70,8 +72,13 @@ public class Departamento {
                     this.loc = (rs.get().getString("loc"));
                 }  
             }    
-        } catch (SQLException ex) {
-            Logger.getLogger(Departamento.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+
+            System.out.println ("Ha ocurrido un error:");
+            System.out.println ("Mensaje: " +e.getMessage());
+            System.out.println ("SQL Estado: " +e.getSQLState());
+            System.out.println ("Código de error: " +e.getErrorCode());
+            System.out.println("");
         }      
     }
     
@@ -122,6 +129,31 @@ public class Departamento {
         } catch (SQLException ex) {
             Logger.getLogger(Departamento.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    
+    public String ejecutarProcedimientoDeoartamento(OperacionesBBDD bbdd ){
+        
+        String salida_return = "";
+        
+        try {
+            String sql = "{call p_nombre_depart (?,?)}";
+            CallableStatement llamada = bbdd.getConexion().prepareCall(sql);
+            int dep = 10;
+            llamada.setInt(1, dep);
+            llamada.registerOutParameter(2, Types.VARCHAR);
+            
+            llamada.executeUpdate();
+            salida_return = llamada.getString(2);
+            
+        } catch (SQLException e) {
+            System.out.println ("Ha ocurrido un error:");
+            System.out.println ("Mensaje: " +e.getMessage());
+            System.out.println ("SQL Estado: " +e.getSQLState());
+            System.out.println ("Código de error: " +e.getErrorCode());
+            System.out.println("");        }
+        
+        return salida_return;
     }
     
 //------------------------------------------------------------------------------

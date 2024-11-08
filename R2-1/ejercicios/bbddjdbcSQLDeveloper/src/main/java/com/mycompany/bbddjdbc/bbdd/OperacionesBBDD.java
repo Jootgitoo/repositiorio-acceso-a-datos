@@ -54,6 +54,10 @@ public class OperacionesBBDD {
         return operacionesBBDD;
     }
     
+    public Connection getConexion(){
+        return conexion;
+    }
+    
     /**
      * Abres la conexión a la BBDD
      */
