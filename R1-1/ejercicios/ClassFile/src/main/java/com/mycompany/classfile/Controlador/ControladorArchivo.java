@@ -41,6 +41,7 @@ public class ControladorArchivo implements ActionListener {
         this.nombre = this.vista.getNombre();
         
         this.modelo.crearFichero(ruta, nombre);
+        
         this.vista.operacionExitosa();
         this.vista.limpiarCampos();
       }

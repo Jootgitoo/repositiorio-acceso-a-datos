@@ -40,8 +40,8 @@ public class Empleado {
     }
     
 //------------------------------------------------------------------------------
-
     //MÉTODOS
+    
     //Geters y Setters
     public long getIdentificador() {
         return identificador;

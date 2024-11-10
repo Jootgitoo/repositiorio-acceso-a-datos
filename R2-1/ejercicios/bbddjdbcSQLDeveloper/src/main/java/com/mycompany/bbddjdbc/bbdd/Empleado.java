@@ -20,6 +20,8 @@ import java.util.logging.Logger;
  */
 public class Empleado {
 
+//ESTOS MÉTODOS ESTÁN EXPLICADOS EN LA CLASE DEPARTAMENTO    
+    
     //ATRIBUTOS
     private int emp_no;
     private String apellido;

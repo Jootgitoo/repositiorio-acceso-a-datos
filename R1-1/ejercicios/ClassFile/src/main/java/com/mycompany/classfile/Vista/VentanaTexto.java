@@ -29,87 +29,86 @@ public class VentanaTexto implements InterfazVista {
   
   //------------------------------------------------>
    // metodo leerString | leer candena de texto terminal =>
-  private String leerString () {
-    try {
-      return in.readLine();
-    } catch (IOException e) {
-      System.out.println("ERROR! Introduce correctamente la cadena.");
-      return null;
+    private String leerString () {
+        try {
+            return in.readLine();
+        } catch (IOException e) {
+            System.out.println("ERROR! Introduce correctamente la cadena.");
+            return null;
+        }
     }
-  }
   
    // metodo leerOpcion | lee numero por terminal =>
-  private int leerOpcion () {
-    try {
-      String opcion = in.readLine();
-      return Integer.parseInt(opcion);
-    } catch (IOException | NumberFormatException e) {
-      opcionInvalida();
-      return 0;
+    private int leerOpcion () {
+        try {
+            String opcion = in.readLine();
+            return Integer.parseInt(opcion);
+        } catch (IOException | NumberFormatException e) {
+            opcionInvalida();
+            return 0;
+        }
     }
-  }
   
-  private void mostrarMenu () {
-    System.out.println("\n\n");
-    System.out.println("Indica la operacion que quieres realizar: ");
-    System.out.println(" 1: crear carpeta con la ruta.");
-    System.out.println(" 2: crear carpeta pasando ruta padre y nombre.");
-    System.out.println(" 3: crear carpeta pasando un File y nombre.");
-    System.out.println(" 4: crear archivo con la ruta y nombre.");
-    System.out.println(" 5: obtener el contenido de una carpeta.");
-    System.out.println(" 6: borrar fichero o ficheros dentro de una carpeta.");
-    System.out.println(" 7: renombrar archivo existente.");
-    System.out.println(" 8: copiar archivo a nueva ruta.");
-    System.out.println(" 9: mover archivo a nueva ruta.");
-    System.out.println(" 10: borrar contenido de una carpeta.");
+    private void mostrarMenu () {
+        System.out.println("\n\n");
+        System.out.println("Indica la operacion que quieres realizar: ");
+        System.out.println(" 1: crear carpeta con la ruta.");
+        System.out.println(" 2: crear carpeta pasando ruta padre y nombre.");
+        System.out.println(" 3: crear carpeta pasando un File y nombre.");
+        System.out.println(" 4: crear archivo con la ruta y nombre.");
+        System.out.println(" 5: obtener el contenido de una carpeta.");
+        System.out.println(" 6: borrar fichero o ficheros dentro de una carpeta.");
+        System.out.println(" 7: renombrar archivo existente.");
+        System.out.println(" 8: copiar archivo a nueva ruta.");
+        System.out.println(" 9: mover archivo a nueva ruta.");
+        System.out.println(" 10: borrar contenido de una carpeta.");
+        System.out.println("\n 0: salir.");
 
-    
-    System.out.println("\n 0: salir.");
-  }
-  
-  private void procesarNuevaOpcion () {
-    mostrarMenu ();
-    int opcion;
-    opcion = leerOpcion ();
-    
-    switch (opcion) {
-      case 0 -> {
-        System.out.println("\n");
-        System.exit(0);
-      }
-      case 1 -> {
-        this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, CREAR_CARPETA_CON_RUTA_COMPLETA));
-      }
-      case 2 -> {
-        this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, CREAR_CARPETA_CON_RUTA_PADRE_Y_NOMBRE));
-      }
-      case 3 -> {
-        this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, CREAR_CARPETA_CON_FILE_Y_NOMBRE));
-      }
-      case 4 -> {
-        this.controladorArchivo.actionPerformed(new ActionEvent(this, opcion, CREAR_ARCHIVO_CON_RUTA_Y_NOMBRE));
-      }
-      case 5 -> {
-        this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, OBETENER_CONTENIDO_CARPETA));
-      }
-      case 6 -> {
-        this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, BORRAR_FICHEROS_CARPETA));
-      }
-      case 7 -> {
-        this.controladorArchivo.actionPerformed(new ActionEvent(this, opcion, RENOMBRAR_ARCHIVO_EXISTENTE));
-      }
-      case 8 -> {
-        this.controladorArchivo.actionPerformed(new ActionEvent(this, opcion, COPIAR_ARCHIVO_NUEVA_RUTA));
-      }
-      case 9 -> {
-        this.controladorArchivo.actionPerformed(new ActionEvent(this, opcion, MOVER_ARCHIVO_NUEVA_RUTA));
-      }
-      case 10 -> {
-        this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, BORRAR_FICHEROS_CARPETA_RECURSIVO));
-      }
     }
-    
-    procesarNuevaOpcion ();
+  
+    private void procesarNuevaOpcion () {
+        mostrarMenu ();
+        int opcion;
+        opcion = leerOpcion ();
+
+        switch (opcion) {
+            case 0 -> {
+              System.out.println("\n");
+              System.exit(0);
+            }
+            case 1 -> {
+                this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, CREAR_CARPETA_CON_RUTA_COMPLETA));
+            }
+            case 2 -> {
+                this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, CREAR_CARPETA_CON_RUTA_PADRE_Y_NOMBRE));
+            }
+            case 3 -> {
+                this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, CREAR_CARPETA_CON_FILE_Y_NOMBRE));
+            }
+            case 4 -> {
+                this.controladorArchivo.actionPerformed(new ActionEvent(this, opcion, CREAR_ARCHIVO_CON_RUTA_Y_NOMBRE));
+            }
+            case 5 -> {
+                this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, OBETENER_CONTENIDO_CARPETA));
+            }
+            case 6 -> {
+                this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, BORRAR_FICHEROS_CARPETA));
+            }
+            case 7 -> {
+                this.controladorArchivo.actionPerformed(new ActionEvent(this, opcion, RENOMBRAR_ARCHIVO_EXISTENTE));
+            }
+            case 8 -> {
+                this.controladorArchivo.actionPerformed(new ActionEvent(this, opcion, COPIAR_ARCHIVO_NUEVA_RUTA));
+            }
+            case 9 -> {
+                this.controladorArchivo.actionPerformed(new ActionEvent(this, opcion, MOVER_ARCHIVO_NUEVA_RUTA));
+            }
+            case 10 -> {
+                this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, BORRAR_FICHEROS_CARPETA_RECURSIVO));
+            }
+        }
+
+        procesarNuevaOpcion ();
     
   }
   

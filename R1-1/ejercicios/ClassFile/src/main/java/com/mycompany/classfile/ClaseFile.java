@@ -10,6 +10,7 @@ import com.mycompany.classfile.Modelo.Archivo;
 import com.mycompany.classfile.Modelo.Carpeta;
 import com.mycompany.classfile.Vista.InterfazVista;
 import com.mycompany.classfile.Vista.VentanaGrafica;
+import com.mycompany.classfile.Vista.VentanaTexto;
 
 
 //Lo que el usuario elige se le pasa al controlador, el controlador te lleva al modelo que estecoge los datos, y la vista realiza los métodos
@@ -21,7 +22,7 @@ import com.mycompany.classfile.Vista.VentanaGrafica;
  */
 public class ClaseFile {
   public static void main(String[] args) {
-    InterfazVista vista = new VentanaGrafica ();
+    InterfazVista vista = new VentanaTexto ();
     Archivo modeloArchivo = new Archivo ();
     Carpeta modeloCarpeta = new Carpeta ();
     ControladorArchivo controladorArchivo = new ControladorArchivo(vista, modeloArchivo);

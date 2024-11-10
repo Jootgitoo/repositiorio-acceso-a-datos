@@ -1,4 +1,8 @@
-com\mycompany\filestreamscaracteres\modelo\Lectura.class
 com\mycompany\filestreamscaracteres\FileStreamsCaracteres.class
 com\mycompany\filestreamscaracteres\modelo\Escritura.class
+com\mycompany\filestreamscaracteres\vista\VistaTexto.class
+com\mycompany\filestreamscaracteres\vista\InterfazVista.class
+com\mycompany\filestreamscaracteres\controlador\ControladorLectura.class
+com\mycompany\filestreamscaracteres\modelo\Lectura.class
+com\mycompany\filestreamscaracteres\controlador\ControladorEscritura.class
 com\mycompany\filestreamscaracteres\modelo\Fichero.class

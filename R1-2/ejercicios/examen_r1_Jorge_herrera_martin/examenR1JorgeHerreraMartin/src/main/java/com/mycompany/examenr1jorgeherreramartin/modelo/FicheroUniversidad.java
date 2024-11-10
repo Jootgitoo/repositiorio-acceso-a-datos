@@ -85,9 +85,6 @@ public class FicheroUniversidad {
     public void setRuta(File ruta) {
         this.ruta = ruta;
     }
-    
-    
-    
-    
+
 }
 

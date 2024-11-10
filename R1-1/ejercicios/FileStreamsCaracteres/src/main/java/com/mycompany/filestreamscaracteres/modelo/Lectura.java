@@ -59,6 +59,7 @@ public class Lectura extends Fichero{
                 Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.out.println(texto.toString());
         return texto.toString();
         
     }

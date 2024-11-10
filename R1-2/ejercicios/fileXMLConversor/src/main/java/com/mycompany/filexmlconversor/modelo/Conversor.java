@@ -26,6 +26,8 @@ import javax.xml.transform.stream.StreamSource;
  * version 1.0
  * Created on 18 oct 2024
  */
+
+//SEGUNDO PROYECTO FICHEROS XML
 public class Conversor {
 
     
@@ -45,6 +47,7 @@ public class Conversor {
     }
     
     public void ConvertirAHTML(){
+        
         try {
             Result result = new StreamResult(pagHTML);
             
@@ -64,8 +67,8 @@ public class Conversor {
                 this.pagHTML.close();
             } catch (IOException ex) {
                 Logger.getLogger(Conversor.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            }   
         }
+        
     }
 }

@@ -33,12 +33,13 @@ public class Conversor {
     private FileOutputStream pagHTML = null;
     
     public Conversor(String origenDatos, String hojaEstilos, String htmlDestino){
+        
         try {
             
             //Datos que convertiremos a HTML
             this.origenDatos = new StreamSource(origenDatos);
             
-            //Hoja de eestilos que aplicaremos durante la conversion
+            //Hoja de estilos que aplicaremos durante la conversion
             this.hojaEstilos = new StreamSource (hojaEstilos);
             
             //Se utilizará para escribir resultado HTML en un archivo
@@ -47,6 +48,7 @@ public class Conversor {
             } catch (FileNotFoundException ex) {
             Logger.getLogger(Conversor.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
     
     public void ConvertirAHTML(){

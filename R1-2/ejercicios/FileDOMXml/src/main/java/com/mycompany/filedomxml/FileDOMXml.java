@@ -35,34 +35,24 @@ public class FileDOMXml {
         //</Empleados>
         
         //A empleados se le añade un hijo llamado empleado con un hijo llamado identificador con el valor de 1
-        Element elem = modelo.addNodo("Empleado");
+//        Element elem = modelo.addNodo("Empleado");
         //addNodoYTexto --> Primero crea el nodo identificador con el valor 1 y luego lo añade como hijo a elem (que queda como nodo padre)
-        modelo.addNodoYTexto("identificador", "1", elem);
+//        modelo.addNodoYTexto("identificador", "1", elem);
+//        
+//        elem = modelo.addNodo("Empleado");
+//        modelo.addNodoYTexto("identificador", "2", elem);
+//      
+//        elem = modelo.addNodo("Empleado");
+//        modelo.addNodoYTexto("identificador", "3", elem);
+//        
+//        modelo.generarArchivodelDOM("./resources/Empleados.xml");
+//
+//        elem = modelo.addNodo("Cargo");
+//        modelo.addCargo();
+//        modelo.mostrarPantalla();
+
         
-        elem = modelo.addNodo("Empleado");
-        modelo.addNodoYTexto("identificador", "2", elem);
       
-        elem = modelo.addNodo("Empleado");
-        modelo.addNodoYTexto("identificador", "3", elem);
-        
-//       modelo.mostrarPantalla();
-        modelo.generarArchivodelDOM("./resources/Empleados.xml");
 
-        elem = modelo.addNodo("Cargo");
-       modelo.addCargo();
-       modelo.mostrarPantalla();
-
-       //modelo.cargarArchivoEnMemoria("./resources/Empleados.xml");
-
-        //System.out.println(modelo.getElementPrincipal());
-        
-//        List<Empleado> empleList = modelo.getEmpleados();      
-//        for (Empleado e : empleList){
-//            System.out.println(e);
-//        }
-
-
-//        Conversor modeloConversor = new Conversor("./resources/Empleados.xml", "./resources/empleadosPlantilla.xsl", "./resources/hojaDestino.html");
-//        modeloConversor.ConvertirAHTML();
     }
 }

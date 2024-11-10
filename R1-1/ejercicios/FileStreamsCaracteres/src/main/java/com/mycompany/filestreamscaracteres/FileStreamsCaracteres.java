@@ -4,8 +4,12 @@
 
 package com.mycompany.filestreamscaracteres;
 
+import com.mycompany.filestreamscaracteres.controlador.ControladorLectura;
 import com.mycompany.filestreamscaracteres.modelo.Escritura;
 import com.mycompany.filestreamscaracteres.modelo.Fichero;
+import com.mycompany.filestreamscaracteres.modelo.Lectura;
+import com.mycompany.filestreamscaracteres.vista.InterfazVista;
+import com.mycompany.filestreamscaracteres.vista.VistaTexto;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,37 +22,10 @@ public class FileStreamsCaracteres {
 
     public static void main(String[] args) {
         
-    //LLAMADA A LOS MÉTODOS ANTES DE SEPARAR LA LECTURA DE LA ESCRITURA    
-    /*    try {
-            FileStreams modelo = new FileStreams("src/texto");
-            har[] lista = {'h','o','l','a'};
-            modelo.escribirStreamArrayCaracteres(lista,false);
-            modelo.leerStreamBuffered();
-            //System.out.println(contenido);
-        } catch (IOException ex) {
-            Logger.getLogger(FileStreamsCaracteres.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    */
+        InterfazVista vista = new VistaTexto();
+        Lectura modeloL = new Lectura ("./files/archivo.txt");
+        ControladorLectura controladorLectura = new ControladorLectura(vista, modeloL);
     
-    /*    FileStreams modelo = new FileStreams("src/texto");
-        modelo.escribirStreamBufferedCaracteres("Hoy empezamos de nuevo", true);
-    */    
-        
-    /*    FileStreams modelo = new FileStreams("src/texto");
-        modelo.escribirBufferedPrintCaracteres("Segundo ejercicio de hoy", true);
-    */    
-    
-    /*    //Tenemos q declarar un fichero del tipo escritura por que estamos creando un hijo que tiene los atributos propios y los del padre
-        Escritura fichero = new Escritura("src/texto");
-        fichero.escribirCaracter('A', false);
-    */
-    
-        Escritura fichero = new Escritura("src/texto");
-        fichero.escribirBufferedPrintCaracteres("Hola", false);
-        fichero.encriptarFichero();
-        fichero.desencriptarFichero();
-    
-        
-    
+        vista.arranca();
     }
 }

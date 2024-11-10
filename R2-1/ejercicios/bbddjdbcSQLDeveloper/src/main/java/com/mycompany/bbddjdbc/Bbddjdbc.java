@@ -45,10 +45,8 @@ public class Bbddjdbc {
 //        e.selectById(bbdd, 1);
 //        System.out.println(e);
 
-        Departamento d = new Departamento();
-        
-        String salida = d.ejecutarProcedimientoDeoartamento(bbdd);
-        System.out.println(salida);
+//      Departamento d = new Departamento();
+//      d.ejecutarProcedimientoDepartamento(bbdd, 9949);
         
         bbdd.cerrarConexion();
     }

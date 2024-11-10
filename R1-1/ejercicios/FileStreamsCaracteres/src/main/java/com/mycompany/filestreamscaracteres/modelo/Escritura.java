@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 public class Escritura extends Fichero{
 
     public Escritura(String ruta) {
-         super(ruta);
+        super(ruta);
     }
     
     /**

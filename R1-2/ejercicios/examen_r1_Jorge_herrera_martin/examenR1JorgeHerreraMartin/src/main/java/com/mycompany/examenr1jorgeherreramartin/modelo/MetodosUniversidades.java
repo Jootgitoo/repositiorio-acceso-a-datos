@@ -33,8 +33,7 @@ import org.w3c.dom.Document;
  */
 public class MetodosUniversidades extends FicheroUniversidad{
 
-   
-    
+
     public void MetodosUniversidades(){
         
     }
@@ -114,8 +113,7 @@ public class MetodosUniversidades extends FicheroUniversidad{
             System.out.println("Archivos borrados con exito.");
         }
         
-        
-        
+
         //Creo las dos carpetas
         fichero1.mkdir();
         fichero2.mkdir();

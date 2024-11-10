@@ -37,9 +37,11 @@ import org.xml.sax.SAXException;
  * version 1.0
  * Created on 16 oct 2024
  */
+
+//PRIMER PROYECTO DE FICHEROS XML
 public class GestionContenidoDOM {
     //ATRIBUTOS 
-    Document documento;
+    Document documento; //Contenido de un documento XML
     DocumentBuilderFactory factory;
     DocumentBuilder builder;
     
@@ -167,16 +169,20 @@ public class GestionContenidoDOM {
         
     }
     
-    /**
-     * Generamos un archivo XML con un nombre especificado
-     *  param nombreArchivo nombre del archivo donde se va a guardar la informacion
+    
+    /**  
+     * Se encarga de convertir un objeto Document en un archivo XML 
+     * en el sistema de archivos. 
+     * Utiliza la clase Transformer para realizar la transformación
+     * y manejar posibles excepciones que puedan surgir durante el proceso 
+     * 
+     * @param nombreArchivo nombre del archivo donde se va a guardar la informacion
      */
     public void generarArchivodelDOM(String nombreArchivo){
         try {
             
             //Source --> Un objeto que implemente esta interfaz contiene la información necesaria para actuar como fuente de entrada (fuente XML o instrucciones de transformación).
-            
-            
+
             //Creamos un objeto Source utilizando DOM por lo tanto podemos utilizar el documento DOM como fuente de transformacion
             Source source = new DOMSource(this.documento);
             
@@ -218,13 +224,13 @@ public class GestionContenidoDOM {
     
     
     /**
-     * 
+     * Se encarga de cargar un archivo XML en memoria
      * @param nombreArchivo 
      */
     public void cargarArchivoEnMemoria(String nombreArchivo) {
         try {
             this.documento = this.builder //Para analiazar el archivo XML
-                    .parse //Convierte el contenido del XML en un obteo Document que se almacena en la variable "documento" de la clase
+                    .parse //Convierte el contenido del XML en un objeto Document que se almacena en la variable "documento" de la clase
                     (new File(nombreArchivo)); //Crea un objeto File que es el archivo llamado nombreArchivo
             
             
@@ -236,6 +242,7 @@ public class GestionContenidoDOM {
         }  
     }
             
+    
     /**
      * Consigo el elemento principal (nodo padre) del documento
      * @return 
@@ -243,6 +250,7 @@ public class GestionContenidoDOM {
     public String getElementPrincipal(){
         return this.documento.getDocumentElement().getNodeName();
     }
+    
     
     /**
      * Busca el primer nodo hijo de un elemento que coincide con el nombre de etiqueta proporcionado.
@@ -263,11 +271,12 @@ public class GestionContenidoDOM {
         Node node = nodeList.item(0); //Creo un nodo con la informacion del nodo hijo
         
         if (node != null){
-            return node.getNodeValue(); //Si nodo esta vacio lo devuelvo
+            return node.getNodeValue(); //Si nodo no esta vacio lo devuelvo
         } else {
             return null; //Si no existe ningun nodo que tenga la tag que buscamos devuelve null
         }       
     }
+    
     
     /**
      * Dentro de un nodo, hay muchos Empleado, pues extraigo la información de uno de ellos
@@ -318,8 +327,9 @@ public class GestionContenidoDOM {
         return empleList;
     }
       
+    
     /**
-     * Añadimos la etiqueta carga al nodo Empleado
+     * Añadimos la etiqueta cargo al nodo Empleado
      */
     public void addCargo(){
       
