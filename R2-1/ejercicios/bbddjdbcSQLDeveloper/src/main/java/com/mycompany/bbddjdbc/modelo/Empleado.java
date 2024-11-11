@@ -3,11 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.mycompany.bbddjdbc.bbdd;
+package com.mycompany.bbddjdbc.modelo;
 
+import com.mycompany.bbddjdbc.bbdd.OperacionesBBDD;
+import com.mycompany.bbddjdbc.modelo.Departamento;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,17 +57,39 @@ public class Empleado {
 
 //------------------------------------------------------------------------------
     //MÉTODOS
+
+    /**************************************************************************
+        * EJECUCIÓN DE SENTENCIAS DE MANIPULACIÓN DE DATOS
+    **************************************************************************/
     
-    public void insertarEmpleado(OperacionesBBDD bbdd) throws SQLException{
-        bbdd.insert("insert into EMPLEADOS values (?,?,?,?,?,?,?,?)", this.emp_no,  this.apellido, this.oficio, this.dir,  this.fecha_alt,  this.salario, this.comision, this.dept_no );
+    /**
+     * Inserción de un empleado
+     * 
+     * @param bbdd Clase para las operaciones con la bbdd
+     */
+    public void insertar(OperacionesBBDD bbdd){
+        try {          
+            bbdd.insert("insert into empleados values (?,?,?,?,?,?,?,?)" ,this.emp_no, this.apellido, this.oficio, this.dir, this.fecha_alt, this.salario, this.comision, this.dept_no);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        
     }
     
-    public void selectById(OperacionesBBDD bbdd, int n){
+    
+    /**
+     * Selecciona un registro filtrando por la clave primaria
+     * 
+     * @param bbdd Clase para las operaciones con la bbdd
+     * @param emp_no Número del empleado del cual queremos seleccionar la información 
+     */
+    public void selectById(OperacionesBBDD bbdd, int emp_no){
 
         //Guardamos el resultado de la consulta
         Optional<ResultSet> rs;
         try {
-            rs = bbdd.select( "SELECT * FROM empleados WHERE emp_no = ?", n );
+            rs = bbdd.select("SELECT * FROM empleados WHERE emp_no = ?", emp_no );
             
             //.isPresent --> Compruebo si tiene algo o no. True si tiene un valor presente, False si no tiene nada
         if (rs.isPresent()){
@@ -86,6 +112,13 @@ public class Empleado {
         }      
     }
     
+    
+    /**
+     * Selecciona todos los registros de la tabla
+     * 
+     * @param bbdd Clase para las operaciones con la bbdd
+     * @return Registros devueltos
+     */
     public static Optional<ResultSet> selectAll(OperacionesBBDD bbdd){
         
         //Guardamos el resultado de la consulta
@@ -99,6 +132,12 @@ public class Empleado {
         return rs;
     }
     
+    
+    /**
+     * Muestra los datos del ResultSet
+     * 
+     * @param rs ResultSet del cual queremos mostrar los datos
+     */
     public static void mostrarResultSet(Optional<ResultSet> rs){
         try{
             
@@ -121,6 +160,11 @@ public class Empleado {
         }
     }
     
+    /**
+     * Modifica un empleado
+     * 
+     * @param bbdd Clase para las operaciones con la bbdd
+     */
     public void update(OperacionesBBDD bbdd){
         try {
             bbdd.update("UPDATE empleados SET apellido = ?, oficio = ?, dir = ?, fecha_alt = ?, salario = ?, comision = ?, dept_no =  WHERE emp_no = ? ", this.apellido, this.oficio, this.dir, this.fecha_alt, this.salario, this.comision, this.emp_no);
@@ -129,6 +173,13 @@ public class Empleado {
         }
     }
     
+    
+    /**
+     * Elimina un empleado
+     * 
+     * @param bbdd Clase para las operaciones con la bbdd
+     * @param emp_no Número del empleado que queremos eliminar
+     */
     public static void delete(OperacionesBBDD bbdd, int emp_no){
         try {
             bbdd.delete("DELETE FROM empleados WHERE emp_no = ? ", emp_no);
@@ -140,6 +191,18 @@ public class Empleado {
 //------------------------------------------------------------------------------    
     //MÉTODOS EXTRA --> GETTERS, SETTERS, ToString...
 
+    private Date convertirFecha(String fecha){
+        java.util.Date fechaUtil = null;
+        try {
+            SimpleDateFormat s = new SimpleDateFormat("DD/MM/YYYY");    
+            fechaUtil = s.parse(fecha);
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new java.sql.Date(fechaUtil.getTime());
+    }
+    
     @Override
     public String toString(){
         return "Empleado{Numero emple: " +this.emp_no + ", apellido: " + this.apellido + ", oficio: " +this.oficio + ", dir: " +this.dir + ", fecha de alta " +this.fecha_alt+ ", salario: " +this.salario+ ", comision:" +this.comision + ", numero de departamento: " +this.dept_no;

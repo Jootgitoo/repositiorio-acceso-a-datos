@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.mycompany.bbddjdbc.bbdd;
+package com.mycompany.bbddjdbc.modelo;
 
+import com.mycompany.bbddjdbc.bbdd.OperacionesBBDD;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,6 +42,10 @@ public class Departamento {
 
 //------------------------------------------------------------------------------
     //MÉTODOS
+
+ /**************************************************************************
+    * EJECUCIÓN DE SENTENCIAS DE MANIPULACIÓN DE DATOS
+ **************************************************************************/ 
     
     /**
      * Método para inseertar un departamento en su tabla correspondiente
@@ -151,6 +156,20 @@ public class Departamento {
             Logger.getLogger(Departamento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void update(ResultSet rs){
+        try {
+            rs.beforeFirst();
+            //Updating the salary of each employee by 5000
+            while(rs.next()) {
+                //Retrieve by column name
+                rs.updateString("dnombre", this.dnombre);
+                rs.updateString("loc", this.loc);
+                rs.updateRow();
+            } } catch (SQLException ex) {
+            Logger.getLogger(Departamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     
     /**
@@ -167,57 +186,69 @@ public class Departamento {
         }
     }
     
+/**************************************************************************
+    * EJECUCIÓN DE PROCEDIMIENTOS Y FUNCIONES
+**************************************************************************/
     
     /**
-     * Este procedimiento pide por parametro el numero de un departamento
-     * de este departamento me va ha sacar el nombre
+     * Llamada al procedimiento p_nombre_depart, almacenado en la bbdd 
      * 
-     * 
-     * @param bbdd bbdd que contiene el procedimiento que vamos a utilizar
-     * @return  devuelve la salida del procedimiento
+     * @param bbdd Para realizar la conexión a la bbdd
+     * @param dept_no Número del departamento que le pasaremos al procedimiento
+     * @return  Nombre del departamento
      */
-    public String ejecutarProcedimientoDepartamento(OperacionesBBDD bbdd, int dep){
-        
-        String salida_return = "";
-        
-        try {
-            //Sentencia para llamar al procedimiento
-            String sql = "{call p_nombre_depart (?,?)}";
-            //                               input,output
+    public static String pNombreDepart(OperacionesBBDD bbdd, int dept_no) {
+        CallableStatement llamada;
+        String dnombre = null;
+        try {     
+            //Vamos a llamar a un procedimiento con la siguiente cabecera
+            //PROCEDURE P_NOMBRE_DEPART(NDEPART NUMBER, NOMBRE_DEPART OUT VARCHAR2)
+            //Preparamos el string para la llamada:
+            String sql = "{call p_nombre_depart (?,?)}"; 
             
-            //Preparamos la llamada al procedimiento
-            CallableStatement llamada = bbdd.getConexion().prepareCall(sql);
+            //Creamos un objeto llamando al método prepareCall:
+            llamada=bbdd.getConexion().prepareCall(sql);
             
-            //PARAMETROS DE ENTRADA
-            //en la primera (1) ? le añadimos la informacion del departamento que queremos que busque en la bbdd  
-            llamada.setInt(1, dep);
-            
-            //PARAMETROS DE SALIDA
-            //en la 2ª ? nos va ha devolver un VARCHAR que va a contener el nombre del departamento cuyo dep = al pasado por parametro
+            //Indicamos cuáles son los parámetros de entrada y cuales los de salida
+            //Le damos valor al parámetro de entrada:
+            llamada.setInt(1, dept_no);
+            //Registramos el parámetro de salida de la función:
             llamada.registerOutParameter(2, Types.VARCHAR);
             
-            //Ejecutamos el procedimiento
+            //Realizamos la llamada al procedimiento:
             llamada.executeUpdate();
             
-            //Guardar la salida
-            salida_return = llamada.getString(2);
-            
-        } catch (SQLException e) {
-//            System.out.println ("Ha ocurrido un error:");
-//            System.out.println ("Mensaje: " +e.getMessage());
-//            System.out.println ("SQL Estado: " +e.getSQLState());
-//            System.out.println ("Código de error: " +e.getErrorCode());
-//            System.out.println("");   
-
-            switch (e.getErrorCode()){
-                case (1403):
-                    System.out.println("No existe el departamento con este id");
-                    
-            }
+            //Obtenemos el valor del primer parámetro de salida
+            dnombre = llamada.getString(2);
+                     
+        } catch (SQLException ex) {
+            Logger.getLogger(Departamento.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        //Return de la salida del procedimiento
-        return salida_return;
+        return  dnombre;
+    }
+    
+    /**
+     * Llamada a la función f_nombre_depart, almacenada en la bbdd 
+     * 
+     * @param bbdd Para realizar la conexión a la bbdd
+     * @param dept_no Número del departamento que le pasaremos a la función
+     * @return  Nombre del departamento
+     */
+    public static String fNombreDepart(OperacionesBBDD bbdd, int dept_no) {
+        CallableStatement llamada;
+        String dnombre = null;
+        try {     
+            String sql = "{?=call f_nombre_depart (?)}";
+            llamada=bbdd.getConexion().prepareCall(sql);
+            llamada.setInt(2, dept_no);
+            llamada.registerOutParameter(1, Types.VARCHAR);
+            llamada.executeUpdate();
+            dnombre = llamada.getString(1);
+                     
+        } catch (SQLException ex) {
+            Logger.getLogger(Departamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return  dnombre;
     }
     
 //------------------------------------------------------------------------------
