@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -24,6 +25,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 /**
  *
@@ -32,153 +35,162 @@ import org.w3c.dom.Document;
  * Created on 23 oct 2024
  */
 public class MetodosUniversidades extends FicheroUniversidad{
+    
+    //ATRIBUTOS
+    Document documento;
+    DocumentBuilderFactory factory;
+    DocumentBuilder builder;
+//------------------------------------------------------------------------------    
+    //CONSTRUCTOR
+    
+    public MetodosUniversidades(){
+        try {
+            factory = DocumentBuilderFactory.newInstance();
+            builder = factory.newDocumentBuilder();
+            DOMImplementation implementation = builder.getDOMImplementation();
+            
+            this.documento = (Document) implementation.createDocument(null, "Universidades.xml", null);
+            this.documento.setXmlVersion("1.0");
+            
+        } catch (ParserConfigurationException ex) {
+            
+            Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
 
-
-    public void MetodosUniversidades(){
-        
+        }
     }
     
+//------------------------------------------------------------------------------   
     //MÉTODOS
-    public void CrearEstructuraDeCarpetas (String rutaFichero1, String rutaFichero2) {
-     
-        File fichero1 = new File(rutaFichero1);
-        File fichero2 = new File(rutaFichero2);
+    
+//******************************************************************************
+        //EJERCICIO 1
+//******************************************************************************
+    
+    /**
+     * Borra un fichero o todo el contenido de la carpeta (depende el parametro)
+     * @param folderPath fichero o carpeta que va a borrar
+     */
+    private boolean borrarCarpeta (File folderPath) {
         
-        //Eliminamos una carpeta carpeta
-        if (fichero1.isFile()) { //Si el objeto File pasado por parametro es un fichero
+        boolean exito = false;
+        
+        if (folderPath.isFile()) { //Si el objeto File pasado por parametro es un fichero
             
             //.delete() --> Borra el fichero
-            fichero1.delete();
+            folderPath.delete();
             
-            System.out.println("Fichero: " + fichero1.getName() + " borrado con exito.");
+            System.out.println("Fichero: " + folderPath.getName() + " borrado con exito.");
+            exito = true;
             
-        } else if (fichero1.isDirectory()) { //Si el objeto File pasado es un firectorio
+        } else if (folderPath.isDirectory()) { //Si el objeto File pasado es un firectorio
             
             //
-            String[] internalInfo = fichero1.list();
+            String[] internalInfo = folderPath.list();
 
             for (int i=0; i<internalInfo.length; i++) {
-                File tempData = new File(rutaFichero1, internalInfo[i]);
+                File tempData = new File(folderPath, internalInfo[i]);
 
                 if (!tempData.isDirectory()) {
                     if (tempData.delete()) {
                         System.out.println("Fichero: " + tempData.getName() + " borrado con exito.");
+                        exito = true;
                     } else {
                         System.out.println("No se pudo borrar el archivo " + tempData.getName());
+                        exito = false;
                     }
                 }
             }
       
-        
-            if (fichero1.delete()) {
-                System.out.println("Directorio: " + fichero1.getName() + " borrado con exito.");
+            if (folderPath.delete()) {
+                System.out.println("Directorio: " + folderPath.getName() + " borrado con exito.");
+                exito = true;
             } else {
-                System.out.println("No se pudo borrar el directorio " + fichero1.getName());
+                System.out.println("No se pudo borrar el directorio " + folderPath.getName());
+                exito = false;
             }
 
                 System.out.println("Archivos borrados con exito.");
+                exito = true;
         }
+        return exito;
+    }
+  
+    
+    public boolean crearEstructuraDeCarpetas () {
+     
+        boolean exito = false;
         
-        //Eliminamos la segunda carpeta
-        if (fichero2.isFile()) { //Si el objeto File pasado por parametro es un fichero
-            
-            //.delete() --> Borra el fichero
-            fichero2.delete();
-            
-            System.out.println("Fichero: " + fichero2.getName() + " borrado con exito.");
-            
-        } else if (fichero2.isDirectory()) { //Si el objeto File pasado es un firectorio
-            
-            //
-            String[] internalInfo = fichero2.list();
-
-            for (int i=0; i<internalInfo.length; i++) {
-                File tempData = new File(rutaFichero2, internalInfo[i]);
-
-                if (!tempData.isDirectory()) {
-                    if (tempData.delete()) {
-                        System.out.println("Fichero: " + tempData.getName() + " borrado con exito.");
-                    } else {
-                        System.out.println("No se pudo borrar el archivo " + tempData.getName());
-                    }
-                }
-            }
-      
-            if (fichero2.delete()) {
-              System.out.println("Directorio: " + fichero2.getName() + " borrado con exito.");
-            } else {
-              System.out.println("No se pudo borrar el directorio " + fichero2.getName());
-            }
-
-            System.out.println("Archivos borrados con exito.");
+        File fichero1 = new File("./origen");
+        File fichero2 = new File("./destino");
+        
+        boolean exitoFichero1 = borrarCarpeta(fichero1);
+        boolean exitoFichero2 = borrarCarpeta(fichero2);
+        
+        if (exitoFichero1 == true && exitoFichero2 == true){
+            //Creo las dos carpetas
+            fichero1.mkdir();
+            fichero2.mkdir();
+            exito = true;
         }
-        
-
-        //Creo las dos carpetas
-        fichero1.mkdir();
-        fichero2.mkdir();
-   
+        return exito;
     }
     
+//******************************************************************************
+        //EJERCICIO 2
+//****************************************************************************** 
     
-    public boolean AltaDatosCarrerasUniversitarias(Universidad objUniversidad) throws IOException{
+    public boolean altaDatosCarrerasUniversitarias() {
         
+        
+        Universidad uni1 = new Universidad(1, "Tecnología", "Ciudad Real", 5.5);
+        Universidad uni2 = new Universidad(2, "Lenguas", "Madrir", 8);
+
+        ArrayList<Universidad> arrayUni = new ArrayList<Universidad>();
+        arrayUni.add(uni1);
+        arrayUni.add(uni2);
+
         RandomAccessFile randomFile = null;
         StringBuffer bufferStrCarrera = null;
         StringBuffer bufferStrUniversidad = null;
-        
-        try {
-
+            
+        try {    
+            
             randomFile = new RandomAccessFile("./ORIGEN/datosUniversidaes.dat", "rw");
             
             boolean encontrado = false;
             int pos = 0;
             
-            while (!encontrado){
+            for (Universidad u : arrayUni){
                 
-                if(pos > randomFile.length()){
-                    return false;
-                }
+                //Coloca el puntero en la posicion que toque según el id
+                pos = ((u.getId() - 1) * FicheroUniversidad.LONGITUD_REGISTRO );
                 
-                randomFile.seek(pos);
-                int idLeido = randomFile.readInt();
+                randomFile.seek(pos); //Me posiciono en el valor de pos
                 
-                if (idLeido == objUniversidad.getId()){
-                    encontrado = true;
-                } else {
-                    pos += super.getLONGITUD_FICHERO() - super.getLONGITUD_IDENTIFICADOR();
-                }
+                randomFile.writeInt(u.getId());
+                
+                bufferStrCarrera = new StringBuffer(u.getCarrera());
+                randomFile.writeChars(bufferStrCarrera.toString());
+                
+                bufferStrUniversidad =  new StringBuffer(u.getCiudad());
+                randomFile.writeChars(bufferStrUniversidad.toString());
+                
+                randomFile.writeDouble(u.getNotaCorte());
             }
+            return true;
             
-            //Si llega aqui es q lo ha encontrado
-            pos = super.getLONGITUD_FICHERO() * (super.getLONGITUD_IDENTIFICADOR() - 1);
-        
-            randomFile.seek(pos);
-            
-            randomFile.writeInt(objUniversidad.getId());
-            
-            bufferStrCarrera = new StringBuffer(objUniversidad.getCarrera());
-            randomFile.writeChars(bufferStrCarrera.toString());
-            
-            bufferStrUniversidad =  new StringBuffer(objUniversidad.getCiudad());
-            randomFile.writeChars(bufferStrUniversidad.toString());
-
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            
-            try{
-                randomFile.close();
-            } catch (IOException ex) {
-                Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            return false;
+        } catch (IOException ex) {
+            Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-            
-        return true;
     }
        
-    
+//******************************************************************************
+        //EJERCICIO 3
+//******************************************************************************     
     private Transformer preProcessYes(){
         
         //Almacena la instancia del transformador
@@ -230,33 +242,45 @@ public class MetodosUniversidades extends FicheroUniversidad{
         
     }
     
-    public void GenerarXMLCarrerasUniversitarias(){
+    
+    //POR AQUI
+    public void generarXMLCarrerasUniversitarias(){
         
-            RandomAccessFile randomFile = null;
-            DocumentBuilderFactory docFactory = null;
-            DocumentBuilder docBuilder = null;
-            DOMImplementation domImplementation = null;
-            Document documento;
-            
-               
+        RandomAccessFile randomFile = null;
+
         try {
             
-            randomFile = new RandomAccessFile("./ORIGEN/datosUniversidades.dat", "rw");
+            int pos = 0;
             
-            docFactory = DocumentBuilderFactory.newInstance();
-            docBuilder = docFactory.newDocumentBuilder();
-            domImplementation = docBuilder.getDOMImplementation();
-            documento = (Document) domImplementation.createDocument(null, "documnetoTemporal", null);
-            documento.setXmlVersion("1.0");
+            randomFile = new RandomAccessFile("./ORIGEN/datosUniversidaes.dat", "rw");
             
-            String nombreArchivo = "./Origen/carreras.xml";
+            Element nodoPrincipal = this.documento.createElement("Universidades");
+            documento.getDocumentElement().appendChild(nodoPrincipal);
             
-            
+            for (int i=0; i< randomFile.length(); i++){
+                
+                Element nodoUniversidad = this.documento.createElement("Universiad");
+                documento.getDocumentElement().appendChild(nodoPrincipal);
+                
+                Universidad u = new Universidad();
+                
+                
+                Element dato = this.documento.createElement("Id");
+                Text textoDato = this.documento.createTextNode(Integer.toString(u.getId()));
+                dato.appendChild(textoDato);
+                
+                documento.getDocumentElement().appendChild(nodoUniversidad);
+                
+                
+                
+                pos += FicheroUniversidad.LONGITUD_REGISTRO - 1;
+            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
     
     

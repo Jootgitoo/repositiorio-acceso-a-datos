@@ -16,23 +16,23 @@ import java.io.File;
 public class FicheroUniversidad {
 
     
-    private final int LONGITUD_LONG = 8;
-    private final int LONGITUD_DOUBLE = 8;
-    private final int LONGITUD_ENTERO = 4;
-    private final int LONGITUD_CHAR = 2;
+    public final static int LONGITUD_LONG = 8;
+    public final static int LONGITUD_DOUBLE = 8;
+    public final static int LONGITUD_ENTERO = 4;
+    public final static int LONGITUD_CHAR = 2;
     
-    final int caracteresCarrera = 20;
-    final int caracteresCiudad = 10;
+    final static int caracteresCarrera = 20;
+    final static int caracteresCiudad = 10;
     
     
-    private final int LONGITUD_IDENTIFICADOR = LONGITUD_ENTERO;
-    private final int LONGITUD_CARRERA = caracteresCarrera * LONGITUD_CHAR;
-    private final int LONGITUD_CIUDAD = caracteresCiudad * LONGITUD_CHAR;
-    private final int LONGITUD_NOTACORTE = LONGITUD_DOUBLE;
+    public final static  int LONGITUD_IDENTIFICADOR = LONGITUD_ENTERO;
+    public final static int LONGITUD_CARRERA = caracteresCarrera * LONGITUD_CHAR;
+    public final static int LONGITUD_CIUDAD = caracteresCiudad * LONGITUD_CHAR;
+    public final static int LONGITUD_NOTACORTE = LONGITUD_DOUBLE;
     
-    private final int LONGITUD_FICHERO = LONGITUD_IDENTIFICADOR + LONGITUD_CARRERA + LONGITUD_CIUDAD + LONGITUD_NOTACORTE;
+    public final static int LONGITUD_REGISTRO = LONGITUD_IDENTIFICADOR + LONGITUD_CARRERA + LONGITUD_CIUDAD + LONGITUD_NOTACORTE;
     
-    private File ruta;
+    public File ruta;
 
     public int getLONGITUD_LONG() {
         return LONGITUD_LONG;
@@ -75,7 +75,7 @@ public class FicheroUniversidad {
     }
 
     public int getLONGITUD_FICHERO() {
-        return LONGITUD_FICHERO;
+        return LONGITUD_REGISTRO;
     }
 
     public File getRuta() {

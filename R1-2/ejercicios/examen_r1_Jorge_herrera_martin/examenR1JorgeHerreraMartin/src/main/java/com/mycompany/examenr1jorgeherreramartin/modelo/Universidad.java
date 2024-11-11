@@ -12,23 +12,29 @@ package com.mycompany.examenr1jorgeherreramartin.modelo;
  * Created on 23 oct 2024
  */
 public class Universidad {
-    
+    //ATRIBUTOS
     private int id;
     private String carrera;
     private String ciudad;
     private double notaCorte;
-
+//------------------------------------------------------------------------------
+    //CONSTRUCTOR
+    
     public Universidad(int id, String carrera, String ciudad, double notaCorte) {
         this.id = id;
         this.carrera = carrera;
         this.ciudad = ciudad;
         this.notaCorte = notaCorte;
     }
-
+    public Universidad(){
+        
+    }
     
+//------------------------------------------------------------------------------    
+    //MÉTODOS
     
-    
-    
+//------------------------------------------------------------------------------    
+    //MÉTODOS EXTRA
     
     public int getId() {
         return id;

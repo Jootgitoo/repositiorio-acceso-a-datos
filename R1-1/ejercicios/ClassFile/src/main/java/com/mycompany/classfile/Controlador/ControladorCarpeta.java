@@ -76,7 +76,7 @@ public class ControladorCarpeta implements ActionListener {
       
       case InterfazVista.BORRAR_FICHEROS_CARPETA -> {
         File archivo = new File(this.vista.getRuta());
-        this.modelo.customDelete(archivo);
+        this.modelo.borrarCarpeta(archivo);
         this.vista.operacionExitosa();
         this.vista.limpiarCampos();
       }

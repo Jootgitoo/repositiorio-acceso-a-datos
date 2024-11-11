@@ -5,6 +5,8 @@
 package com.mycompany.examenr1jorgeherreramartin;
 
 import com.mycompany.examenr1jorgeherreramartin.modelo.MetodosUniversidades;
+import com.mycompany.examenr1jorgeherreramartin.modelo.Universidad;
+import java.io.IOException;
 
 /**
  *
@@ -12,12 +14,14 @@ import com.mycompany.examenr1jorgeherreramartin.modelo.MetodosUniversidades;
  */
 public class ExamenR1JorgeHerreraMartin {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         
-        MetodosUniversidades modeloU = new MetodosUniversidades();
+        MetodosUniversidades u = new MetodosUniversidades();
         
-        
+        boolean exito1 = u.altaDatosCarrerasUniversitarias();
+        System.out.println(exito1);
+
         
     }
 }

@@ -130,7 +130,7 @@ public class Carpeta extends ModeloDirectorios {
      * Borra un fichero o todo el contenido de la carpeta (depende el parametro)
      * @param folderPath fichero o carpeta que va a borrar
      */
-    public void customDelete (File folderPath) {
+    public void borrarCarpeta (File folderPath) {
         
         if (folderPath.isFile()) { //Si el objeto File pasado por parametro es un fichero
             
