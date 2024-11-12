@@ -5,8 +5,12 @@
 
 package com.mycompany.examenr1jorgeherreramartin.modelo;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
@@ -191,64 +195,21 @@ public class MetodosUniversidades extends FicheroUniversidad{
 //******************************************************************************
         //EJERCICIO 3
 //******************************************************************************     
-    private Transformer preProcessYes(){
-        
-        //Almacena la instancia del transformador
-        Transformer transformer = null;
-
-        
-        try {
-            
-            //Crear un nuevo objeto Transformer
-            //Esto sirve para transformar documentos XML a otros formatos
-            transformer = TransformerFactory.newInstance().newTransformer();
-            
-        } catch (TransformerConfigurationException ex) {
-            Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        transformer.setOutputProperty //Se establece una propiedad de salida (esto sirve para que te "devuelva" el documento
-        (OutputKeys.INDENT, //Indicamos que el XML tiene q estar indentado
-                "yes"); //Como ponemos yes saldrá identado, para que no lo haga tienes que poner "no"
-        
-        //Returneamos el transformer
-        return transformer;
-        
-    }
-    private Transformer preProcessNo(){
-        
-        //Almacena la instancia del transformador
-        Transformer transformer = null;
-
-        
-        try {
-            
-            //Crear un nuevo objeto Transformer
-            //Esto sirve para transformar documentos XML a otros formatos
-            transformer = TransformerFactory.newInstance().newTransformer();
-            
-        } catch (TransformerConfigurationException ex) {
-            Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        transformer.setOutputProperty //Se establece una propiedad de salida (esto sirve para que te "devuelva" el documento
-        (OutputKeys.INDENT, //Indicamos que el XML tiene q estar indentado
-                "no"); //Como ponemos yes saldrá identado, para que no lo haga tienes que poner "no"
-        
-        //Returneamos el transformer
-        return transformer;
-        
-    }
     
-    
-    //POR AQUI
     public void generarXMLCarrerasUniversitarias(){
         
-        RandomAccessFile randomFile = null;
+        DataInputStream inFile = null; 
 
         try {
+            
+            inFile = new DataInputStream (new FileInputStream("./origen/datosUniversidades.dat"));
+            
+            
+            
+.readIn
+            
+            
+            File tempFile = fileReader.read();
             
             int pos = 0;
             
@@ -269,7 +230,7 @@ public class MetodosUniversidades extends FicheroUniversidad{
                 Text textoDato = this.documento.createTextNode(Integer.toString(u.getId()));
                 dato.appendChild(textoDato);
                 
-                documento.getDocumentElement().appendChild(nodoUniversidad);
+                documento.appendChild(nodoUniversidad);
                 
                 
                 
