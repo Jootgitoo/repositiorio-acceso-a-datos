@@ -50,6 +50,41 @@ public class ControladorEscritura implements ActionListener{
                 this.vista.limpiarCampos();
                 
             }
+            case InterfazVista.ESCRIBIR_STREAM_BUFFERED_CARACTERES ->{
+                String cadena = this.vista.leerString();
+                boolean sobreescribe = this.vista.leerBoolean();
+                
+                this.modelo.escribirStreamBufferedCaracteres(cadena, sobreescribe);
+                
+                this.vista.operacionExitosa();
+                this.vista.limpiarCampos();
+                
+            }
+            
+            case InterfazVista.ESCRIBIR_BUFFERED_PRINT_CARACTERES -> {
+                String cadena = this.vista.leerString();
+                boolean sobreescribe = this.vista.leerBoolean();
+                
+                this.modelo.escribirBufferedPrintCaracteres(cadena, sobreescribe);
+                
+                this.vista.operacionExitosa();
+                this.vista.limpiarCampos();
+            }
+            
+            case InterfazVista.ENCRIPTAR_FICHERO -> {
+                
+                this.modelo.encriptarFichero();
+                
+                this.vista.operacionExitosa();
+                this.vista.limpiarCampos();
+            }
+            case InterfazVista.DESENCRIPTAR_FICHERO -> {
+                
+                this.modelo.desencriptarFichero();
+                
+                this.vista.operacionExitosa();
+                this.vista.limpiarCampos();
+            }
         }
         
     }

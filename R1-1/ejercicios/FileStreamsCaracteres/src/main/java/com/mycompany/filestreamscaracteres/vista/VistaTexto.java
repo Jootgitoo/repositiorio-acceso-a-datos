@@ -32,6 +32,7 @@ public class VistaTexto implements InterfazVista{
     }
     
     private int leerOpcion() {
+        System.out.println("Opcion a realizar: ");
         try {
             String opcion = in.readLine();
             return Integer.parseInt(opcion);
@@ -49,13 +50,18 @@ public class VistaTexto implements InterfazVista{
     }
     
     private void mostrarMenu () {
-        System.out.println("\n\n");
-        System.out.println("Indica la operacion que quieres realizar: ");
-        System.out.println(" 1: leer caracter a caracter un fichero");
-        System.out.println(" 2: lee un array de caracteres");
-        System.out.println(" 3: leer caracteres con bufferes reader");
-
-        System.out.println("\n 0: salir.");
+        
+        System.out.println("Indica la operacion que quieres realizar ");
+        System.out.println(" 1. leer caracter a caracter un fichero");
+        System.out.println(" 2. lee un array de caracteres");
+        System.out.println(" 3. leer caracteres con bufferes reader");
+        System.out.println(" 4. Escribir un caracter en el fichero;");
+        System.out.println(" 5. Escribe un array de caracteres en un archivo");
+        System.out.println(" 6. Escrone un buffer de caracteres");
+        System.out.println(" 7. Escribe una cadena de caracteres en un archivo utilizando PrintWriter");
+        System.out.println(" 8. Genera una copia encriptada del fichero");
+        System.out.println(" 9. Genera una copia encriptada del fichero ");
+        System.out.println(" 0: salir.");
     }
     
     private void procesarNuevaOpcion(){
@@ -73,6 +79,25 @@ public class VistaTexto implements InterfazVista{
             case 3 -> {
                 this.controladorLectura.actionPerformed(new ActionEvent(this, opcion, LEER_CARACTERES_BUFFERED_READER));
             }
+            case 4 -> {
+                this.controladorEscritura.actionPerformed(new ActionEvent(this, opcion, ESCRIBIR_CARACTER));
+            }
+            case 5 -> {
+                this.controladorEscritura.actionPerformed(new ActionEvent(this, opcion, ESCRIBIR_ARRAY_CARACTERES));
+            }
+            case 6 -> {
+                this.controladorEscritura.actionPerformed(new ActionEvent(this, opcion, ESCRIBIR_STREAM_BUFFERED_CARACTERES));
+            }
+            case 7 -> {
+                this.controladorEscritura.actionPerformed(new ActionEvent(this, opcion, ESCRIBIR_BUFFERED_PRINT_CARACTERES));
+            }
+            case 8 -> {
+                this.controladorEscritura.actionPerformed(new ActionEvent(this, opcion, ENCRIPTAR_FICHERO));
+            }
+            case 9 -> {
+                this.controladorEscritura.actionPerformed(new ActionEvent(this, opcion, DESENCRIPTAR_FICHERO));
+            }
+            
         }
         procesarNuevaOpcion();
     }
@@ -123,6 +148,20 @@ public class VistaTexto implements InterfazVista{
         return opcionBool;
     }
     
+    
+    @Override
+    public String leerString(){
+        String opcion = null;
+        try {
+            System.out.println("¿Que desea escribir en el archivo?");
+            opcion = in.readLine();
+           
+        } catch (IOException ex) {
+            Logger.getLogger(VistaTexto.class.getName()).log(Level.SEVERE, null, ex);
+            opcion = "";
+        }
+        return opcion;
+    }
 
     @Override
     public void setControladorLectura(ControladorLectura cL) {

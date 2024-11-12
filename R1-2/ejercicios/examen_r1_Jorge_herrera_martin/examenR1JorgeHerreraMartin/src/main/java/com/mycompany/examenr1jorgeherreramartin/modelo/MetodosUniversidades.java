@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -24,6 +25,7 @@ import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -48,19 +50,7 @@ public class MetodosUniversidades extends FicheroUniversidad{
     //CONSTRUCTOR
     
     public MetodosUniversidades(){
-        try {
-            factory = DocumentBuilderFactory.newInstance();
-            builder = factory.newDocumentBuilder();
-            DOMImplementation implementation = builder.getDOMImplementation();
-            
-            this.documento = (Document) implementation.createDocument(null, "Universidades.xml", null);
-            this.documento.setXmlVersion("1.0");
-            
-        } catch (ParserConfigurationException ex) {
-            
-            Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
+        
     }
     
 //------------------------------------------------------------------------------   
@@ -147,11 +137,15 @@ public class MetodosUniversidades extends FicheroUniversidad{
         
         
         Universidad uni1 = new Universidad(1, "Tecnología", "Ciudad Real", 5.5);
-        Universidad uni2 = new Universidad(2, "Lenguas", "Madrir", 8);
-
+        Universidad uni2 = new Universidad(2, "Lenguas", "Madrid", 8);
+        Universidad uni3 = new Universidad(3, "Historia", "Caceres", 9.0);
+        Universidad uni4 = new Universidad(2, "Biologia", "Alicante", 10);
+        
         ArrayList<Universidad> arrayUni = new ArrayList<Universidad>();
         arrayUni.add(uni1);
         arrayUni.add(uni2);
+        arrayUni.add(uni3);
+        arrayUni.add(uni4);
 
         RandomAccessFile randomFile = null;
         StringBuffer bufferStrCarrera = null;
@@ -159,7 +153,7 @@ public class MetodosUniversidades extends FicheroUniversidad{
             
         try {    
             
-            randomFile = new RandomAccessFile("./ORIGEN/datosUniversidaes.dat", "rw");
+            randomFile = new RandomAccessFile("./ORIGEN/datosUniversidades.dat", "rw");
             
             boolean encontrado = false;
             int pos = 0;
@@ -198,91 +192,181 @@ public class MetodosUniversidades extends FicheroUniversidad{
     
     public void generarXMLCarrerasUniversitarias(){
         
-        DataInputStream inFile = null; 
+        List<Universidad> listaUniversidades = new ArrayList<>();
 
         try {
+            //Guardo las universidades que haya en el fichero datosUniversidades.dat en una lista
+            RandomAccessFile randomFile = new RandomAccessFile("./origen/datosUniversidades.dat", "r");
             
-            inFile = new DataInputStream (new FileInputStream("./origen/datosUniversidades.dat"));
-            
-            
-            
-.readIn
-            
-            
-            File tempFile = fileReader.read();
-            
-            int pos = 0;
-            
-            randomFile = new RandomAccessFile("./ORIGEN/datosUniversidaes.dat", "rw");
-            
-            Element nodoPrincipal = this.documento.createElement("Universidades");
-            documento.getDocumentElement().appendChild(nodoPrincipal);
-            
-            for (int i=0; i< randomFile.length(); i++){
+            while(randomFile.getFilePointer() < randomFile.length()){
+                Universidad uni = new Universidad();
                 
-                Element nodoUniversidad = this.documento.createElement("Universiad");
-                documento.getDocumentElement().appendChild(nodoPrincipal);
+                uni.setId( randomFile.readInt());
                 
-                Universidad u = new Universidad();
+                byte[] arrayCarrera = new byte [FicheroUniversidad.LONGITUD_CARRERA];
+                randomFile.readFully(arrayCarrera);
+                String carreraString = new String(arrayCarrera);
+                carreraString = carreraString.replace("\0", "");
+                uni.setCarrera(carreraString);
                 
                 
-                Element dato = this.documento.createElement("Id");
-                Text textoDato = this.documento.createTextNode(Integer.toString(u.getId()));
-                dato.appendChild(textoDato);
+                byte[] arrayCiudad = new byte [FicheroUniversidad.LONGITUD_CIUDAD];
+                randomFile.readFully(arrayCiudad);
+                String ciudadString = new String(arrayCiudad);
+                ciudadString = ciudadString.replace("\0", "");
+                uni.setCiudad(ciudadString);
                 
-                documento.appendChild(nodoUniversidad);
+                uni.setNotaCorte( randomFile.readDouble() );
                 
+                listaUniversidades.add(uni);
                 
-                
-                pos += FicheroUniversidad.LONGITUD_REGISTRO - 1;
             }
+               
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
-    
-    
-/*  public boolean ModificaCarreraUniversitaria(int id, String nuevaCiudad) throws IOException{
-        
-        RandomAccessFile ficheroAleatorio = null;
-        
-       
         try {
-            ficheroAleatorio = new RandomAccessFile ("./ORIGEN/datosUniversidades.dat", "rw");
             
-            int pos = 0;
+            //Creo el documento en memoria
+            factory = DocumentBuilderFactory.newInstance();
+            builder = factory.newDocumentBuilder();
+            DOMImplementation implementation = builder.getDOMImplementation();
             
-            boolean encontrado = false;
-            
-            while (!encontrado && pos < ficheroAleatorio.length()){
-                
-                if(id == ficheroAleatorio.readInt()){
-                    encontrado = true;
-                    
-                    pos = (id - 1) * super.getLONGITUD_FICHERO();
-                    
-                    ficheroAleatorio.seek(pos);
+            //Creo el nodo principal
+            this.documento = (Document) implementation.createDocument(null, "Universidades", null);
+            this.documento.setXmlVersion("1.0");
 
-                    ficheroAleatorio.
-                    
-                }
-                
-            }
-            
-        } catch (FileNotFoundException ex) {
+        } catch (ParserConfigurationException ex) {
             Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
         }
-   
-    }
-*/
-}
-    
-    
-    
-    
-    
-    
+        
+        for(Universidad u: listaUniversidades){
+            
+            Element element = addNodo("Universidad");
+            
+            addNodoYTexto("Identificador", Integer.toString( u.getId() ), element );
+            addNodoYTexto("Carrera", u.getCarrera(), element);
+            addNodoYTexto("Ciudad", u.getCiudad(), element);
+            addNodoYTexto("NotaCorte", Double.toString( u.getNotaCorte() ), element);
+            
+        }
+        //El siguiente metodo genera el archivo XML con la informacion que esta cargada en memoria
+        generarArchivodelDOM("./origen/carreras.xml");
+        
+        //El siguiente metodo muestra el XML que acabamos de generar en consola, pero con indentacion
+        mostrarPantalla();
 
+    }   
+        
+    /**
+     * Este método crea un nuevo nodo con el nombre especificado y lo agrega al documento, devolviendo el nodo creado.
+     * @param nombreNodo nombre que va a tener el nodo que se va a crear
+     * @return devuelve el nodo creado
+     */
+    private Element addNodo(String nombreNodo){
+        
+        //Creamos un nodo utilizando el método createElement del objeto documento cuyo nombre es nombreNodo
+        Element nodoPrincipal = this.documento.createElement(nombreNodo);
+        
+        //Añade el nodo creado al documento utilizando el método appendChild
+        documento.getDocumentElement().appendChild(nodoPrincipal);
+        
+        //Devolvemos el nodo creado
+        return nodoPrincipal;
+    }
+    
+    /**
+     * Sirve para crear un nodo, con un texto, y añadirselo a un elemento padre
+     * @param datoEmple Nombre del nodo que vas a crear
+     * @param texto Contenido del nodo
+     * @param raiz Elemento padre que va a tener
+     */
+    private void addNodoYTexto (String datoEmple, String texto, Element raiz){
+        
+        //.crateElement --> creamos un nodo llamado el valor de datoEmple
+        Element dato = this.documento.createElement(datoEmple);
+        
+        //.createTextNode --> Creas el texto que va a tener el nodo
+        Text textoDato = this.documento.createTextNode(texto);
+        
+        //.appendChild --> textoDato se añade como hijo al nodo dato
+        dato.appendChild(textoDato);
+        
+        //.appendChild --> el nodo dato se añade como hijo a raiz
+        raiz.appendChild(dato);
+    }
+    
+    /**  
+     * Se encarga de convertir un objeto Document en un archivo XML 
+     * en el sistema de archivos. 
+     * Utiliza la clase Transformer para realizar la transformación
+     * y manejar posibles excepciones que puedan surgir durante el proceso 
+     * 
+     * @param nombreArchivo nombre del archivo donde se va a guardar la informacion
+     */
+    private void generarArchivodelDOM(String nombreArchivo){
+        try {
+            
+            //Source --> Un objeto que implemente esta interfaz contiene la información necesaria para actuar como fuente de entrada (fuente XML o instrucciones de transformación).
+
+            //Creamos un objeto Source utilizando DOM por lo tanto podemos utilizar el documento DOM como fuente de transformacion
+            Source source = new DOMSource(this.documento);
+            
+            //Crea un nuevo archivo (en este caso va a tener la ruta donde se va a guardar, incluyendo el nombre)
+            //En nuestro caso ./resources/Empleados.xml
+            Result salida = new StreamResult(new File(nombreArchivo));
+            
+            
+            //Generamos el archivo XML en el sistema de archivos con el nombre especificado en nombreArchivo
+            preProcess("no") //Llamamos a preProcess para obtener un Tranformer utilizando el metodo .transform
+                    .transform(source, salida); //Nos convierte el Source en un documento Result 
+            
+        } catch (TransformerException ex) {
+            Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+     * Mostramos el documento por pantalla
+     */
+    public void mostrarPantalla(){
+        
+        try {
+            
+            //Creamos el documento que vamos a devolver
+            Source source = new DOMSource(this.documento);
+            
+            //Cremos una instancia Result que va a ser el documento modificado (en este caso imprimiremos por pantalla)
+            Result salida = new StreamResult(System.out);
+            
+            //Generamos el archivo XML en el sistema de archivos con el nombre especificado en nombreArchivo
+            preProcess("yes") //Llamamos a preProcess para obtener un Tranformer utilizando el metodo .transform
+                    .transform(source, salida); //Nos convierte el Source en un documento Result 
+            
+        } catch (TransformerException ex) {
+            Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+     * preprocesa el XML
+     * @param indent
+     * @return 
+     */
+    private Transformer preProcess(String indent){
+        Transformer transformer =null;
+        try {
+            //Creo el transformer para luego poder llamarlo en mostrar pantalla
+            transformer = TransformerFactory.newInstance().newTransformer();
+        } catch (TransformerConfigurationException ex) {
+            Logger.getLogger(MetodosUniversidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //La linea de abajo da formato al XML
+        transformer.setOutputProperty(OutputKeys.INDENT, indent);
+        return transformer;
+    }
+    
+}

@@ -16,12 +16,9 @@ public class ExamenR1JorgeHerreraMartin {
 
     public static void main(String[] args) throws IOException {
         
-        
-        MetodosUniversidades u = new MetodosUniversidades();
-        
-        boolean exito1 = u.altaDatosCarrerasUniversitarias();
-        System.out.println(exito1);
-
+        MetodosUniversidades mu = new MetodosUniversidades();
+        mu.altaDatosCarrerasUniversitarias();
+        mu.generarXMLCarrerasUniversitarias();
         
     }
 }

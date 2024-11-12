@@ -21,6 +21,10 @@ public interface InterfazVista {
     static final String LEER_CARACTERES_BUFFERED_READER = "Leer caracteres con buffered reader";
     static final String ESCRIBIR_CARACTER = "Escribir un caracter en el fichero";
     static final String ESCRIBIR_ARRAY_CARACTERES = "Escribe un array de caracteres en un archivo";
+    static final String ESCRIBIR_STREAM_BUFFERED_CARACTERES = "Escrone un buffer de caracteres";
+    static final String ESCRIBIR_BUFFERED_PRINT_CARACTERES = "scribe una cadena de caracteres en un archivo utilizando PrintWriter";
+    static final String ENCRIPTAR_FICHERO = "Genera una copia encriptada del fichero";
+    static final String DESENCRIPTAR_FICHERO =  "Genera una copia DESencriptada del fichero";
     
 //----------------------------------------------------------------------    
     void setControladorLectura (ControladorLectura cL);
@@ -32,6 +36,7 @@ public interface InterfazVista {
     char leerCaracter();
     boolean leerBoolean();
     char[] leerArrayCaracteres();
+    String leerString();
     
 
 }
