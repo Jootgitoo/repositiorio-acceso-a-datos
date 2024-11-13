@@ -155,7 +155,6 @@ public class MetodosUniversidades extends FicheroUniversidad{
             
             randomFile = new RandomAccessFile("./ORIGEN/datosUniversidades.dat", "rw");
             
-            boolean encontrado = false;
             int pos = 0;
             
             for (Universidad u : arrayUni){
