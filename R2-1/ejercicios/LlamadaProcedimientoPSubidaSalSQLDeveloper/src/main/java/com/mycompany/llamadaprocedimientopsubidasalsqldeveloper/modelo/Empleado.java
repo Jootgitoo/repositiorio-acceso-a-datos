@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.mycompany.bbddjdbc.modelo;
+package com.mycompany.llamadaprocedimientopsubidasalsqldeveloper.modelo;
 
-import com.mycompany.bbddjdbc.bbdd.OperacionesBBDD;
-import com.mycompany.bbddjdbc.modelo.Departamento;
+
+import com.mycompany.llamadaprocedimientopsubidasalsqldeveloper.modelo.bbdd.OperacionesBBDD;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author JHM by Jorge Herrera Martín
  * @version 1.0
- * created on 5 nov 2024
+ * created on 17 nov 2024
  */
 public class Empleado {
 
@@ -273,3 +273,4 @@ public class Empleado {
     }
 
 }
+
