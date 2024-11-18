@@ -373,8 +373,10 @@ public class OperacionesBBDD {
      * 
      * @param rs ResultSet del cual queremos obtener el número de filas 
      */
-    public void obtenerNumeroFilasDevueltas(Optional<ResultSet> rs) {
+    public int obtenerNumeroFilasDevueltas(Optional<ResultSet> rs) {
  
+        int rows = 0; //0 porque si rs.last no funciona no entraría en el if y entonces es que no ha devuelto datos
+        
         try {
             //Solo para tener en cuenta que este método necesitará un conjunto de resultados sensible al desplazamiento.
             //El valor predeterminado es FORWARD (ADELANTE) y el uso de este método generará una excepción.
@@ -383,7 +385,7 @@ public class OperacionesBBDD {
             //por
             //preparedStatement = conexion.prepareStatement(querySQL,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
                        
-            int rows = 0; //0 porque si rs.last no funciona no entraría en el if y entonces es que no ha devuelto datos
+            
             
             if (rs.get().last()) {
                 rows = rs.get().getRow();
@@ -395,6 +397,7 @@ public class OperacionesBBDD {
         } catch (SQLException ex) {
             Logger.getLogger(OperacionesBBDD.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rows;
     }
     
     /**
