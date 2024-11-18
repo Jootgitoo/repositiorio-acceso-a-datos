@@ -164,6 +164,9 @@ public class Bbddjdbc {
         //        Logger.getLogger(Departamento.class.getName()).log(Level.SEVERE, null, ex);
         //    }
         //}
+        
+       
+        
         bbdd.cerrarConexion();       
     }   
 }
