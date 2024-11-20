@@ -134,6 +134,63 @@ public class Empleado {
     
     
     /**
+     * Método que hace una select a la tabla Empleados que obtiene el apellido oficio y salario
+     * @param bbdd bbdd donde vamos a hacer la select
+     * @param ndep numeor del departamento que queremos que tenga los empleados que extraigamos 
+     * @return 
+     */
+    public static void obtenerApellidoOficioSalario(OperacionesBBDD bbdd, int ndep){
+        
+        Optional<ResultSet> rs = null;
+        
+        try {
+            
+            String sentenciaSql = "SELECT apellido, oficio, salario from Empleados WHERE dept_no = "+ndep;
+            
+            rs = bbdd.select(sentenciaSql);
+            
+            if (rs.isPresent()){
+                while(rs.get().next()){
+                    System.out.print("Apellido: " +rs.get().getString("apellido"));
+                    System.out.print(", Oficio: " + rs.get().getString("oficio"));
+                    System.out.print(", Salario: " + rs.get().getDouble("salario"));
+                    System.out.println("");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void empleadoMaxSalario(OperacionesBBDD bbdd){
+        
+        Optional<ResultSet> rs = null;
+
+        try {
+            
+            String sentenciaSql = "SELECT e.apellido, e.salario, d.dnombre FROM empleados e, departamentos d WHERE e.dept_no = d.dept_no AND e.salario = (SELECT MAX(salario) FROM empleados)";
+            
+            rs = bbdd.select(sentenciaSql);
+            
+            if (rs.isPresent()){
+                while(rs.get().next()){
+                    System.out.print("Apellido: " +rs.get().getString("apellido"));
+                    System.out.print(", Salario: " + rs.get().getDouble("salario"));
+                    System.out.print(", Nombre departamento" +rs.get().getString("dnombre"));
+                    System.out.println("");
+                }
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
+    
+    /**
      * Muestra los datos del ResultSet
      * 
      * @param rs ResultSet del cual queremos mostrar los datos

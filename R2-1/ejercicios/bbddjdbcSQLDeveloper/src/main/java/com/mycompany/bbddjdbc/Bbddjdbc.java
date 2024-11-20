@@ -100,6 +100,14 @@ public class Bbddjdbc {
          */
         //Empleado.delete(bbdd, 7888);
         
+        /**
+         * Llamada al metodo obtenerApellidoOficioSalario
+         */
+        //Empleado empleado = new Empleado();
+        //empleado.obtenerApellidoOficioSalario(bbdd, 10);
+        
+        Empleado empleado = new Empleado();
+        empleado.empleadoMaxSalario(bbdd);
         
         /************************************************
          * PRUEBAS LLAMADAS A PROCEDIMIENTOS Y FUNCIONES
