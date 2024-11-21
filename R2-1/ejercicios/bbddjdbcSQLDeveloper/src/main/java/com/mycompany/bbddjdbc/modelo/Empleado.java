@@ -162,6 +162,14 @@ public class Empleado {
         }
     }
     
+    
+    
+    /**
+     * Método que hace una select extrayendo el apellido y el salario de la tabla
+     * empleados y el nombre de departamento de la tabla departamento de la
+     * persona que tenga el salario maximo
+     * @param bbdd BBDD donde vamos a ejecutar la sentencia
+     */
     public static void empleadoMaxSalario(OperacionesBBDD bbdd){
         
         Optional<ResultSet> rs = null;
@@ -176,7 +184,7 @@ public class Empleado {
                 while(rs.get().next()){
                     System.out.print("Apellido: " +rs.get().getString("apellido"));
                     System.out.print(", Salario: " + rs.get().getDouble("salario"));
-                    System.out.print(", Nombre departamento" +rs.get().getString("dnombre"));
+                    System.out.print(", Nombre departamento: " +rs.get().getString("dnombre"));
                     System.out.println("");
                 }
             }
@@ -185,8 +193,63 @@ public class Empleado {
         } catch (SQLException ex) {
             Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    
+    /**
+     * Método que actualiza en +100 el salario de los empleados cuyo departamento
+     * es 15
+     * 
+     * @param bbdd base de datos donde se va ha ejecutar la sentencia
+     */
+    public void actualizarSalarioEmpleadosNumero15(OperacionesBBDD bbdd){
+        int registrosActualizados;
         
+        String sentenciaSQL = "UPDATE Empleados SET salario = salario + 100 WHERE dept_no = 15";
         
+        try {
+            registrosActualizados = bbdd.update(sentenciaSQL);
+            
+            System.out.println("Empleados actualizados con exito. Filas actualizadas: " +registrosActualizados);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+     * Método que sube o baja el sueldo en un porcentaje
+     * @param bbdd base de datos donde se va a ejecutar el update
+     * @param nDep departamento de los empleados que se van ha actualizar el salario
+     * @param porcentaje Porcentaje que va a bajar o subir el sueldo
+     * @param subir  true --> El porcentaje sube el sueldo, false --> el porcentaje baja el sueldo
+     * 
+     * 
+     * LAS SENTENCIAS DE SUBIDA Y BAJADA ESTÁN MAL
+     */
+    public void porcentajeSueldoSubirBajar(OperacionesBBDD bbdd, int nDep, int porcentaje, boolean subir){
+        
+        int registrosActualizados;
+        String sentenciaSQL;
+        
+        if (subir){
+            
+            try {
+                sentenciaSQL = "UPDATE Empleados SET salario = salario * (1 + "+porcentaje+"/ 100) WHERE dept_no = "+nDep;
+                registrosActualizados = bbdd.update(sentenciaSQL);
+                System.out.println("Salario subido con exito. Filas actualizadas: " +registrosActualizados);
+            } catch (SQLException ex) {
+                Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else {
+            try {
+                sentenciaSQL = "UPDATE Empleados SET salario = salario * (1 - "+porcentaje+"/ 100) WHERE dept_no = "+nDep;
+                registrosActualizados = bbdd.update(sentenciaSQL);
+                System.out.println("Salario bajado con exito. Filas actualizadas: " +registrosActualizados);
+            } catch (SQLException ex) {
+                Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     

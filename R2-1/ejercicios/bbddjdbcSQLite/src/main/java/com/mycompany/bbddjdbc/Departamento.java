@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.mycompany.bbddjdbc.bbdd;
+package com.mycompany.bbddjdbc;
 
+import com.mycompany.bbddjdbc.bbdd.OperacionesBBDD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -40,19 +41,25 @@ public class Departamento {
 //------------------------------------------------------------------------------
     //MÉTODOS
     
+    /**************************************************************************
+     * EJECUCIÓN DE SENTENCIAS DE MANIPULACIÓN DE DATOS
+     **************************************************************************/
+    
     /**
-     * Método para inseertar un departamento
-     * @param bbdd
+     * Método para insertar un departamento
+     * @param bbdd que en la que vamos a insertar el dep
      * @throws SQLException 
      */
-    public void insertarDepartamento(OperacionesBBDD bbdd) throws SQLException{
+    public void insertar(OperacionesBBDD bbdd) throws SQLException{
         bbdd.insert("insert into Departamentos values (?,?,?)", this.dept_no, this.dnombre, this.loc);
     }
     
+    
     /**
-     * Seleccionamos un departamento que se encuentre en una BBDD según su id
-     * @param bbdd
-     * @param n 
+     * Selecciona un registro filtrando por la clave primaria
+     * 
+     * @param bbdd Clase para las operaciones con la bbdd
+     * @param dept_no Número del departamento del cual queremos seleccionar la información 
      */
     public void selectById(OperacionesBBDD bbdd, int n){
 
@@ -76,6 +83,12 @@ public class Departamento {
     }
     
     
+    /**
+     * Selecciona todos los registros de la tabla
+     * 
+     * @param bbdd Clase para las operaciones con la bbdd
+     * @return Registros devueltos
+     */
     public static Optional<ResultSet> selectAll(OperacionesBBDD bbdd){
         
         //Guardamos el resultado de la consulta
@@ -89,7 +102,10 @@ public class Departamento {
         return rs;
     }
     
-    
+    /**
+     * Muestra el contenido del ResultSet
+     * @param rs ResultSet del que vamos a extraer el contenido
+     */
     public static void mostrarResultSet(Optional<ResultSet> rs){
         try{
             
@@ -108,6 +124,11 @@ public class Departamento {
     }
     
     
+    /**
+     * Modifica un departamento
+     * 
+     * @param bbdd Clase para las operaciones con la bbdd
+     */
     public void update(OperacionesBBDD bbdd){
         try {
             bbdd.update("UPDATE departamentos SET dnombre = ?, loc = ? WHERE dept_no = ? ", this.dnombre, this.loc, this.dept_no);
@@ -116,6 +137,13 @@ public class Departamento {
         }
     }
 
+    
+    /**
+     * Elimina un departamento
+     * 
+     * @param bbdd Clase para las operaciones con la bbdd
+     * @param dept_no Número del departamento que queremos eliminar
+     */
     public static void delete(OperacionesBBDD bbdd, int n_dep){
         try {
             bbdd.delete("DELETE FROM departamentos WHERE dept_no = ? ", n_dep);

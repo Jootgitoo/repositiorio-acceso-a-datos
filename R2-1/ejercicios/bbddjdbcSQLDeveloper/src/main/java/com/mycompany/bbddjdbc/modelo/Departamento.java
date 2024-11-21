@@ -52,7 +52,7 @@ public class Departamento {
      * @param bbdd BBDD que se va ha utilizar
      * @throws SQLException 
      */
-    public void insertarDepartamento(OperacionesBBDD bbdd) throws SQLException{
+    public void insertar(OperacionesBBDD bbdd) throws SQLException{
         //1. Sentencia sql
         //2. Tantas ? como valores
         //3. Valores que van a corresponder con las ?
