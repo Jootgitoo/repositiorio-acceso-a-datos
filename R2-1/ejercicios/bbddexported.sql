@@ -1,5 +1,5 @@
 --------------------------------------------------------
--- Archivo creado  - jueves-noviembre-21-2024   
+-- Archivo creado  - viernes-noviembre-22-2024   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table DEPARTAMENTOS
@@ -14,7 +14,8 @@
  NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT);
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Table EMPLEADOS
 --------------------------------------------------------
@@ -33,7 +34,8 @@
  NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT);
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
 REM INSERTING into DAM2.DEPARTAMENTOS
 SET DEFINE OFF;
 Insert into DAM2.DEPARTAMENTOS (DEPT_NO,DNOMBRE,LOC) values ('10','CONTABILIDAD','SEVILLA');
@@ -58,8 +60,8 @@ Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISIO
 Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7902','FERNANDEZ','ANALISTA','7566',to_date('03/12/91','DD/MM/RR'),'3960',null,'20');
 Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7934','MUÑOZ','EMPLEADO','7782',to_date('23/01/92','DD/MM/RR'),'4797',null,'10');
 Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('1','Herrera','Informatic','555',to_date('02/02/00','DD/MM/RR'),'2795,43','1500,8','10');
-Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('2','Dominguez','Carterista','33',to_date('01/01/24','DD/MM/RR'),'53,65','14,89','15');
-Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('3','Rayo','Profesor','54',to_date('01/01/24','DD/MM/RR'),'55,05','11','15');
+Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('2','Dominguez','Carterista','33',to_date('01/01/24','DD/MM/RR'),'13,41','14,89','15');
+Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('3','Rayo','Profesor','54',to_date('01/01/24','DD/MM/RR'),'13,76','11','15');
 --------------------------------------------------------
 --  DDL for Procedure P_NOMBRE_DEPART
 --------------------------------------------------------
@@ -76,6 +78,7 @@ FROM departamentos
 WHERE dept_no = ndepart;
 
 END;
+
 
 /
 --------------------------------------------------------
@@ -97,6 +100,7 @@ BEGIN
 
 END p_subida_sal;
 
+
 /
 --------------------------------------------------------
 --  DDL for Function F_N_EMPLEADO
@@ -113,10 +117,11 @@ BEGIN
     INTO v_num_empleados
     FROM EMPLEADOS
     WHERE dept_no = no_dept;
-    
+
 RETURN v_num_empleados;
 
 END F_N_EMPLEADO;
+
 
 /
 --------------------------------------------------------
@@ -137,14 +142,15 @@ AS
 BEGIN
     -- Calcular el salario bruto 
     v_salario_bruto := p_salario + p_comision;
-    
+
     -- Calcular el salario neto
     v_salario_neto := v_salario_bruto - (v_salario_bruto * (p_irpf / 100));
-    
+
     -- Devolver el salario neto
   RETURN v_salario_neto;
-  
+
 END F_NOMINA;
+
 
 /
 --------------------------------------------------------
@@ -156,7 +162,8 @@ END F_NOMINA;
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT) ENABLE;
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
 --------------------------------------------------------
 --  Constraints for Table EMPLEADOS
 --------------------------------------------------------
@@ -166,7 +173,8 @@ END F_NOMINA;
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT) ENABLE;
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table EMPLEADOS
 --------------------------------------------------------

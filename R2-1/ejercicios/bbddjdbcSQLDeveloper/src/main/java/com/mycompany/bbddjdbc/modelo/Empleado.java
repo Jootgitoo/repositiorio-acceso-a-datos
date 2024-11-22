@@ -205,7 +205,7 @@ public class Empleado {
     public void actualizarSalarioEmpleadosNumero15(OperacionesBBDD bbdd){
         int registrosActualizados;
         
-        String sentenciaSQL = "UPDATE Empleados SET salario = salario + 100 WHERE dept_no = 15";
+        String sentenciaSQL = "UPDATE Empleados SET salario = salario  + 100 WHERE dept_no = 15";
         
         try {
             registrosActualizados = bbdd.update(sentenciaSQL);
@@ -221,35 +221,24 @@ public class Empleado {
      * Método que sube o baja el sueldo en un porcentaje
      * @param bbdd base de datos donde se va a ejecutar el update
      * @param nDep departamento de los empleados que se van ha actualizar el salario
-     * @param porcentaje Porcentaje que va a bajar o subir el sueldo
-     * @param subir  true --> El porcentaje sube el sueldo, false --> el porcentaje baja el sueldo
-     * 
-     * 
-     * LAS SENTENCIAS DE SUBIDA Y BAJADA ESTÁN MAL
+     * @param porcentaje Porcentaje que va a bajar o subir el sueldo según le pases un numero positivo o negativo
+     *
      */
-    public void porcentajeSueldoSubirBajar(OperacionesBBDD bbdd, int nDep, int porcentaje, boolean subir){
+    public void porcentajeSueldoSubirBajar(OperacionesBBDD bbdd, int nDep, double porcentaje){
         
         int registrosActualizados;
         String sentenciaSQL;
-        
-        if (subir){
+                        
+        double porcentajeCalculado = (1 + porcentaje/ 100); 
             
-            try {
-                sentenciaSQL = "UPDATE Empleados SET salario = salario * (1 + "+porcentaje+"/ 100) WHERE dept_no = "+nDep;
-                registrosActualizados = bbdd.update(sentenciaSQL);
-                System.out.println("Salario subido con exito. Filas actualizadas: " +registrosActualizados);
-            } catch (SQLException ex) {
-                Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else {
-            try {
-                sentenciaSQL = "UPDATE Empleados SET salario = salario * (1 - "+porcentaje+"/ 100) WHERE dept_no = "+nDep;
-                registrosActualizados = bbdd.update(sentenciaSQL);
-                System.out.println("Salario bajado con exito. Filas actualizadas: " +registrosActualizados);
-            } catch (SQLException ex) {
-                Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            sentenciaSQL = "UPDATE Empleados SET salario = salario * ? WHERE dept_no = ?";
+            registrosActualizados = bbdd.update(sentenciaSQL, porcentajeCalculado, nDep);
+            System.out.println("Salario subido con exito. Filas actualizadas: " +registrosActualizados);
+        } catch (SQLException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
         }
+    
     }
     
     

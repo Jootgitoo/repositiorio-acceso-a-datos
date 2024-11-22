@@ -162,8 +162,8 @@ public class Bbddjdbc {
          * Sube o baja en un porcentaje el salario del empleado
          */
         Empleado empleado = new Empleado();
-        empleado.porcentajeSueldoSubirBajar(bbdd, 10, 30, true);
-        empleado.porcentajeSueldoSubirBajar(bbdd, 15, 75, false);
+        //empleado.porcentajeSueldoSubirBajar(bbdd, 10, 10);
+        empleado.porcentajeSueldoSubirBajar(bbdd, 15, -75);
         /************************************************
          * PRUEBAS LLAMADAS A PROCEDIMIENTOS Y FUNCIONES
          ************************************************/
