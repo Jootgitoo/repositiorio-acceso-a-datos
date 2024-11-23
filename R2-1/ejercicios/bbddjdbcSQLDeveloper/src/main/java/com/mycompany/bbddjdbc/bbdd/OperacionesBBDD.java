@@ -33,6 +33,7 @@ public class OperacionesBBDD {
     private Connection conexion;
     private PreparedStatement preparedStatement;
     
+    //DatabaseMetaData es una interfaz de java que proporciona metodos para obtemer datos sobre la conexión a la BBDD
     private static DatabaseMetaData dbmd;
     
     private static OperacionesBBDD operacionesBBDD = null; //Variable para crear el patron Singleton
@@ -394,7 +395,7 @@ public class OperacionesBBDD {
             }
 
         System.out.println("El número de filas devueltas es:" + rows);
-        } catch (SQLException ex) {
+        }catch (SQLException ex) {
             Logger.getLogger(OperacionesBBDD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rows;
@@ -419,6 +420,54 @@ public class OperacionesBBDD {
         return true;
     }
     
+    /**
+     * Mostramos la informacion de las claves de la tabla
+     * @param nombreTabla tabla de la que vamos a extrar la informacion
+     */
     
+    public void mostrarInformacionClaves(String nombreTabla){
+        
+        String clavePrimaria;
+        String claveAjena;
+        String tablaAjena;
+        try {
+            ResultSet rs;
+        
+            //Obtiene las claves primarias de la tabla nombraTabla
+            rs = dbmd.getPrimaryKeys("FREE", "DAM2", nombreTabla);
+            while(rs.next()){
+                //COLUMN_NAME --> Nombre de la columna  que tiene la clave primaria
+                clavePrimaria = rs.getString("COLUMN_NAME"); 
+                System.out.println("Las claves primarias de la tabla " +nombreTabla+ " son: " +clavePrimaria);
+            }
+            
+            
+            //Obtiene las claves ajenas que apuntan a la tabla nombreTabla
+            rs = dbmd.getExportedKeys("FREE", "DAM2", nombreTabla);
+            while(rs.next()){
+                //Obtengo el nombre de la columna de la clave ajena
+                claveAjena = rs.getString("FKCOLUMN_NAME");
+                //Obtengo el nombre de la tabla de la clave ajena
+                tablaAjena = rs.getString("FKTABLE_NAME");
+                System.out.println("Claves ajenas que apuntan a la tabla " +nombreTabla+ " son: "+claveAjena+ " de la tabla: " +tablaAjena);
+
+            }
+            
+            //Obtiene las claves ajenas que salen de la tabla nombreTabla
+            rs = dbmd.getImportedKeys("FREE", "DAM2", nombreTabla);
+            while(rs.next()){
+                //Obtengo el nombre de la columna de la clave ajena
+                claveAjena = rs.getString("FKCOLUMN_NAME");
+                //Obtengo el nombre de la tabla de la clave ajena
+                tablaAjena = rs.getString("FKTABLE_NAME");
+                System.out.println("Claves ajenas que salen de la tabla " +nombreTabla+ " son: "+claveAjena+ " de la tabla: " +tablaAjena);
+            }
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(OperacionesBBDD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
 }

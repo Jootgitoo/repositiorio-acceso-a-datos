@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,6 +75,49 @@ public class Empleado {
         } catch (SQLException ex) {
             Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
         }    
+        
+    }
+    
+    
+    /**
+     * Inserto un empleado comprobando una serie de requisitos antes
+     * @param bbdd base de datos donde se va ha insertar el empleado
+     * 
+     * Da error en el IS NOT NULL
+     */
+    public void insertar2(OperacionesBBDD bbdd){
+        
+        LocalDate fechaActual = LocalDate.now();
+        Optional<ResultSet> rsSelect = null;
+        String selectSQL = null;
+        String insertSQL = null;
+        
+        selectSQL = "Select * FROM empleados "
+                + "WHERE ? = (SELECT dept_no FROM Departamentos Where dept_no = ?) "
+                + "AND emp_no != ?"
+                + "AND ? > = 0"
+                + "AND ? = (Select dir from Empleados)"
+                + "AND ? IS NOT NULL"
+                + "AND ? IS NOT NULL"
+                + "AND ? = ?";
+        
+        insertSQL = "INSERT INTO empleados values (?,?,?,?,?,?,?,?)";       
+        
+        try {
+            
+            rsSelect = bbdd.select(selectSQL, this.dept_no, this.dept_no, this.emp_no, this.salario, this.dir, this.apellido, this.oficio, this.fecha_alt, fechaActual);
+            
+            if(rsSelect.isEmpty()){
+                bbdd.insert(insertSQL, this.emp_no, this.apellido, this.oficio, this.dir, this.fecha_alt, this.salario, this.comision, this.dept_no);
+                System.out.println("Empleado insertado");
+            } else {
+                System.out.println("El empleado no puede ser insertado por que no cumple alguna condicion");
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     
@@ -154,6 +198,33 @@ public class Empleado {
                     System.out.print("Apellido: " +rs.get().getString("apellido"));
                     System.out.print(", Oficio: " + rs.get().getString("oficio"));
                     System.out.print(", Salario: " + rs.get().getDouble("salario"));
+                    System.out.println("");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+     * Obetenemos el salario medio y el numero de emppleados de un departamento pasado por parametro 
+     * @param bbdd base de datos donde vamos ha hacer la select
+     * @param ndep numero del departamento del que se va a extraer la informacion
+     */
+    public static void obtenerSalarioMedioNumeroEmpleados(OperacionesBBDD bbdd, int ndep){
+        
+        Optional<ResultSet> rs = null;
+        
+        try {
+            
+            String sentenciaSql = "SELECT AVG(salario), COUNT(emp_no) FROM Empleados WHERE dept_no = ?";
+            
+            rs = bbdd.select(sentenciaSql, ndep);
+            
+            if (rs.isPresent()){
+                while(rs.get().next()){
+                    System.out.print("Salario medio: " + rs.get().getDouble("AVG(salario)"));
+                    System.out.println(", Numero empleados: " + rs.get().getInt("COUNT(emp_no)"));
                     System.out.println("");
                 }
             }

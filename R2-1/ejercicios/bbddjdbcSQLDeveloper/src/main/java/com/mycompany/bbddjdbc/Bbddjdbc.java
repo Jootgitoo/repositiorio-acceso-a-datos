@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -161,9 +162,58 @@ public class Bbddjdbc {
         /**
          * Sube o baja en un porcentaje el salario del empleado
          */
-        Empleado empleado = new Empleado();
+        //Empleado empleado = new Empleado();
         //empleado.porcentajeSueldoSubirBajar(bbdd, 10, 10);
-        empleado.porcentajeSueldoSubirBajar(bbdd, 15, -75);
+        //empleado.porcentajeSueldoSubirBajar(bbdd, 15, -75);
+        
+        
+        /**
+         * Insertamos un empleado si cumple con x condiciones
+         */
+//        SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
+//        java.util.Date fechaJava = null;
+//        String fecha2 = "23/11/2024";
+//        try {
+//            fechaJava = sdf.parse(fecha2);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(Bbddjdbc.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        java.sql.Date fechaSQL2 = new java.sql.Date(fechaJava.getTime());
+//        
+//        LocalDate fechaActual = LocalDate.now();
+//        Empleado empleado = new Empleado(10, "Ramirez", "Payaso", 33, fechaSQL2, 5555, 57, 10);
+//        empleado.insertar2(bbdd);
+
+
+        /**
+         * Obtenemos el salario medio y el oficio
+         */
+        //Empleado empleado = new Empleado();
+        //empleado.obtenerSalarioMedioNumeroEmpleados(bbdd, 15);
+        
+        /**
+         * Obtenemos informacion de la conexion
+         */
+        //bbdd.obtenerInformacionDeConexion();
+        
+        /**
+         * Obtenemos la informacion de las tablas de la bbdd de un usuario
+         */
+        //bbdd.obtenerInformacionDeLasTablas();
+        
+        
+        /**
+         * Obtenemos informacion sobre las columnas de una tabla
+         */
+        //bbdd.obtenerInformacionDeLasColumnas("EMPLEADOS");
+        
+        
+        /**
+         * Obtenemos informacion sobre las claves de una tabla
+         */
+        //bbdd.mostrarInformacionClaves("EMPLEADOS");
+        
+        
         /************************************************
          * PRUEBAS LLAMADAS A PROCEDIMIENTOS Y FUNCIONES
          ************************************************/
