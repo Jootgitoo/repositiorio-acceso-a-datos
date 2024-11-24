@@ -165,6 +165,9 @@ public class OperacionesBBDD {
     }
     
     
+    
+    
+    
     /**
      * Realiza una consulta a la base de datos de manera "preparada" obteniendo los parametros opcionales si son necesarios
      *

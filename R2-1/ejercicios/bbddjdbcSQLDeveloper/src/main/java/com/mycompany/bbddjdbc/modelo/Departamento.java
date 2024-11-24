@@ -85,6 +85,7 @@ public class Departamento {
                     this.dept_no = (rs.get().getInt("dept_no")); 
                     this.dnombre = (rs.get().getString("dnombre"));
                     this.loc = (rs.get().getString("loc"));
+                    
                 }  
             }    
         } catch (SQLException e) {

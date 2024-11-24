@@ -78,6 +78,24 @@ public class Empleado {
         
     }
     
+    /* Hacer metodo recorriendo un RS
+    public void insertar(OperacionesBBDD bbdd, Optional<ResultSet> rs){
+        ResultSet rs = null;
+        
+        Optional<ResultSet>optionalRs = bbdd.select("SELECT * FROM EMPLEADOS");
+        
+        if (!optionalRs.isPresent()){
+            return;
+        }
+        rs = optionalRs.get();
+        
+        rs.moveToInsertRow();
+        rs.updateInt("EMP_NO", 33);
+        rs.updateString("APELLIDO", "Campos");
+        rs.insertRow();
+        
+    }
+    */
     
     /**
      * Inserto un empleado comprobando una serie de requisitos antes
