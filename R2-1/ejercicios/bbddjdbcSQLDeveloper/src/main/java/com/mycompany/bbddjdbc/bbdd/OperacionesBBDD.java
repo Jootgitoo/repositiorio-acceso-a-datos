@@ -72,16 +72,17 @@ public class OperacionesBBDD {
     /**
      * Abres la conexión a la BBDD
      */
+    //CAMBIAR PARA EL EXAMEN
     public void abrirConexion(){
         try {
             // Este objeto se utilizará para almacenar las propiedades de conexión a la base de datos, como el nombre de usuario y la contraseña.
             this.propiedades = new Properties();
             
             //a propiedad "user" se establece con el valor "dam2" (que representa el nombre de usuario para la conexión a la base de datos).
-            this.propiedades.setProperty("user", "dam2");
+            this.propiedades.setProperty("user", "examen");
             
             //La propiedad "password" se establece con el valor "dam2" (que representa la contraseña para la conexión a la base de datos).
-            this.propiedades.setProperty("password", "dam2");
+            this.propiedades.setProperty("password", "examen");
             
             //La propiedad "bbdd" se establece con el valor free (que representa el SID de la BBDD)
             this.propiedades.setProperty("bbdd", "free");

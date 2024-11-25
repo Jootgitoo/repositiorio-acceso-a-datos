@@ -66,7 +66,10 @@ public class Bbddjdbc {
          * BORRADO
          */
         //Departamento.delete(bbdd, 60);
-         
+        Optional<ResultSet> ors; 
+        ors = Empleado.selectAll(bbdd);
+        ResultSet rs = ors.get();
+        Empleado.insertar(rs);
         
         /******************************
          * PRUEBAS CON EMPLEADO

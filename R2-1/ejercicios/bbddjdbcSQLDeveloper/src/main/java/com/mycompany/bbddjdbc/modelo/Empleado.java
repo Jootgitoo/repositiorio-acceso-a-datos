@@ -78,24 +78,22 @@ public class Empleado {
         
     }
     
-    /* Hacer metodo recorriendo un RS
-    public void insertar(OperacionesBBDD bbdd, Optional<ResultSet> rs){
-        ResultSet rs = null;
+    public static void insertar(ResultSet rs){
         
-        Optional<ResultSet>optionalRs = bbdd.select("SELECT * FROM EMPLEADOS");
         
-        if (!optionalRs.isPresent()){
-            return;
+        try {
+            
+            rs.moveToInsertRow(); //Crea una fila para poder insertar
+            rs.updateInt("EMP_NO", 33); 
+            rs.updateString("APELLIDO", "Campos");
+            rs.updateDouble("SALARIO", 1123.46);
+            rs.insertRow(); //Inserto la fila
+        } catch (SQLException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
         }
-        rs = optionalRs.get();
-        
-        rs.moveToInsertRow();
-        rs.updateInt("EMP_NO", 33);
-        rs.updateString("APELLIDO", "Campos");
-        rs.insertRow();
         
     }
-    */
+    
     
     /**
      * Inserto un empleado comprobando una serie de requisitos antes
