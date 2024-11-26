@@ -63,12 +63,13 @@ public class Empleado {
      * @param bbdd Clase para las operaciones con la bbdd
      */
     public void insertar(OperacionesBBDD bbdd) throws SQLException{
-        bbdd.insert("insert into Departamentos values (?,?,?,?,?,?,?,?)", this.emp_no,  this.apellido, this.oficio, this.dir,  this.fecha_alt,  this.salario, this.comision, this.dept_no );
+        bbdd.insert("insert into Empleados values (?,?,?,?,?,?,?,?)", this.emp_no,  this.apellido, this.oficio, this.dir,  this.fecha_alt,  this.salario, this.comision, this.dept_no );
     }
     
     
     /**
      * Selecciona un registro filtrando por la clave primaria
+     * Deveria de mostrar solo 1 registro
      * 
      * @param bbdd Clase para las operaciones con la bbdd
      * @param dept_no Número del departamento del cual queremos seleccionar la información 
@@ -135,15 +136,14 @@ public class Empleado {
                     System.out.print("Numero empleado: " + rs.get().getInt("emp_no"));
                     System.out.print(", Apellido: " + rs.get().getString("apellido"));
                     System.out.print(", Oficio: " + rs.get().getString("oficio"));
-                    System.out.println(", dir: " + rs.get().getInt("dir"));
-                    System.out.println(", fecha alta: " + rs.get().getString("fecha_alt"));
-                    System.out.println(", salario: " + rs.get().getDouble("salario"));
-                    System.out.println(", comision " + rs.get().getDouble("comision"));
-                    System.out.println(", numero departamento " + rs.get().getInt("dept_no"));
+                    System.out.print(", dir: " + rs.get().getInt("dir"));
+                    System.out.print(", fecha alta: " + rs.get().getString("fecha_alt"));
+                    System.out.print(", salario: " + rs.get().getDouble("salario"));
+                    System.out.print(", comision " + rs.get().getDouble("comision"));
+                    System.out.print(", numero departamento " + rs.get().getInt("dept_no"));
                     System.out.println("");
                 }
             }
-            
         } catch (SQLException ex) {
                 Logger.getLogger(Departamento.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -151,13 +151,14 @@ public class Empleado {
     
     
     /**
-     * Modifica un departamento
+     * Modifica un empleado
      * 
      * @param bbdd Clase para las operaciones con la bbdd
      */
     public void update(OperacionesBBDD bbdd){
         try {
-            bbdd.update("UPDATE empleados SET apellido = ?, oficio = ?, dir = ?, fecha_alt = ?, salario = ?, comision = ?, dept_no =  WHERE emp_no = ? ", this.apellido, this.oficio, this.dir, this.fecha_alt, this.salario, this.comision, this.emp_no);
+            
+            bbdd.update("UPDATE Empleados SET apellido = ?, oficio = ?, dir = ?, fecha_alt = ?, salario = ?, comision = ?, dept_no = ? WHERE emp_no = ? ", this.apellido, this.oficio, this.dir, this.fecha_alt, this.salario, this.comision, this.dept_no, this.emp_no);
         } catch (SQLException ex) {
             Logger.getLogger(Departamento.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -175,6 +176,60 @@ public class Empleado {
             bbdd.delete("DELETE FROM empleados WHERE emp_no = ? ", emp_no);
         } catch (SQLException ex) {
             Logger.getLogger(Departamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public static void obtenerApellidoOficioSalario(OperacionesBBDD bbdd, int ndep){
+        
+        Optional<ResultSet> rs = null;
+
+        try {
+            
+            String sentenciaSQL = "SELECT e.apellido, e.oficio, e.salario FROM empleados e WHERE e.dept_no = ?";
+            rs = bbdd.select(sentenciaSQL, ndep);
+            
+            boolean tieneRegistros = false;
+            int contEmpleados = 0;
+            double salarioMedio = 0;
+            
+            while(rs.get().next()){
+                tieneRegistros = true;
+                contEmpleados++;
+                salarioMedio += rs.get().getDouble("salario");
+                System.out.print("Apellido: " +rs.get().getString("apellido"));
+                System.out.print(", Oficio: " + rs.get().getString("oficio"));
+                System.out.print(", Salario: " + rs.get().getDouble("salario"));
+                System.out.println(""); 
+                
+            }
+            
+            if (tieneRegistros){
+                salarioMedio = salarioMedio / contEmpleados;
+                System.out.println("Numero Empleados: " +contEmpleados);
+                System.out.println("Salario medio: " +salarioMedio);
+            } else {
+                System.out.println("No hay registros con el numero de departamento " +ndep);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public static void actualizarSalarioEmpleadosNumero10(OperacionesBBDD bbdd){
+        int registrosActualizados;
+        
+        String sentenciaSQL = "UPDATE Empleados SET salario = (salario  + 100) WHERE dept_no = 10";
+        
+        try {
+            registrosActualizados = bbdd.update(sentenciaSQL);
+            
+            System.out.println("Empleados actualizados con exito. Filas actualizadas: " +registrosActualizados);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

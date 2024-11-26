@@ -23,6 +23,17 @@ import java.util.logging.Logger;
  * version 1.0
  * Created on 4 nov 2024
  */
+
+
+
+//executeUpdate --> Para ejecutar sentencias que modifican los datos de las tablas
+//  Insert, update, delete
+
+//executeQuery --> Para ejecutar sentencias que recuperan datos de las tablas
+// Select
+
+
+
 public class OperacionesBBDD {
     
     //Atributos
@@ -79,10 +90,10 @@ public class OperacionesBBDD {
             this.propiedades = new Properties();
             
             //a propiedad "user" se establece con el valor "dam2" (que representa el nombre de usuario para la conexión a la base de datos).
-            this.propiedades.setProperty("user", "examen");
+            this.propiedades.setProperty("user", "dam2");
             
             //La propiedad "password" se establece con el valor "dam2" (que representa la contraseña para la conexión a la base de datos).
-            this.propiedades.setProperty("password", "examen");
+            this.propiedades.setProperty("password", "dam2");
             
             //La propiedad "bbdd" se establece con el valor free (que representa el SID de la BBDD)
             this.propiedades.setProperty("bbdd", "free");
@@ -183,7 +194,7 @@ public class OperacionesBBDD {
         //preparedStatement = conexion.prepareStatement(querySQL);
         
         //Creamos preparedStatement para que el ResultSet sea sensible al desplazamiento y actualizable.
-        preparedStatement = conexion.prepareStatement(querySQL,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        preparedStatement = conexion.prepareStatement(querySQL, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
       
         for (int i = 0; i < params.length; i++) {
             preparedStatement.setObject(i + 1, params[i]);
@@ -428,7 +439,6 @@ public class OperacionesBBDD {
      * Mostramos la informacion de las claves de la tabla
      * @param nombreTabla tabla de la que vamos a extrar la informacion
      */
-    
     public void mostrarInformacionClaves(String nombreTabla){
         
         String clavePrimaria;

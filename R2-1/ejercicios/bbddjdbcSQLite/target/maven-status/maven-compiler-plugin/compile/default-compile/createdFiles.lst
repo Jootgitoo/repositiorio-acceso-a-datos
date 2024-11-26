@@ -1,0 +1,4 @@
+com\mycompany\bbddjdbc\modelo\Departamento.class
+com\mycompany\bbddjdbc\bbdd\OperacionesBBDD.class
+com\mycompany\bbddjdbc\Bbddjdbc.class
+com\mycompany\bbddjdbc\modelo\Empleado.class

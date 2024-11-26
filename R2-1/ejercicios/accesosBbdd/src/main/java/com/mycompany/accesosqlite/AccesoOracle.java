@@ -11,7 +11,7 @@ import com.mycompany.accesosqlite.modelo.ConexionOracle;
  *
  * @author JHM by Jorge Herrera Martín
  */
-public class AccesoSqLite {
+public class AccesoOracle {
 
     public static void main(String[] args) {
         

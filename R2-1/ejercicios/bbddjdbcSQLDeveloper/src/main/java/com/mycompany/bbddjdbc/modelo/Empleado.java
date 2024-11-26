@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,6 +53,20 @@ public class Empleado {
         this.dept_no = dept_no;
     }
     
+    public Empleado(int emp_no, String apellido, String oficio, int dir, double salario, double comision, int dept_no){
+        
+        this.emp_no = emp_no;
+        this.apellido = apellido;
+        this.oficio = oficio;
+        this.dir = dir;
+        java.util.Date fechaJava = new java.util.Date(); //Fecha actual en java
+        java.sql.Date fechaSQL = new java.sql.Date(fechaJava.getTime()); //Fecha en sql
+        this.fecha_alt = fechaSQL;
+        this.salario = salario;
+        this.comision = comision;
+        this.dept_no = dept_no;
+    }
+    
     public Empleado(){
         
     }
@@ -74,12 +89,10 @@ public class Empleado {
             
         } catch (SQLException ex) {
             Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-        
+        }       
     }
     
     public static void insertar(ResultSet rs){
-        
         
         try {
             
@@ -104,35 +117,52 @@ public class Empleado {
     public void insertar2(OperacionesBBDD bbdd){
         
         LocalDate fechaActual = LocalDate.now();
-        Optional<ResultSet> rsSelect = null;
         String selectSQL = null;
         String insertSQL = null;
         
-        selectSQL = "Select * FROM empleados "
-                + "WHERE ? = (SELECT dept_no FROM Departamentos Where dept_no = ?) "
-                + "AND emp_no != ?"
-                + "AND ? > = 0"
-                + "AND ? = (Select dir from Empleados)"
-                + "AND ? IS NOT NULL"
-                + "AND ? IS NOT NULL"
-                + "AND ? = ?";
+        LocalDateTime hoy = LocalDateTime.now();
         
-        insertSQL = "INSERT INTO empleados values (?,?,?,?,?,?,?,?)";       
+        insertSQL = "INSERT INTO empleados values (?,?,?,?,?,?,?,?)";   
         
-        try {
+        selectSQL = "SELECT emp_no, oficio FROM empleados WHERE emp_no = ? AND oficio = 'DIRECTOR' ";
+        
+        try {     
             
-            rsSelect = bbdd.select(selectSQL, this.dept_no, this.dept_no, this.emp_no, this.salario, this.dir, this.apellido, this.oficio, this.fecha_alt, fechaActual);
+            //Así saco un rs del optional
+            ResultSet rs = bbdd.select(selectSQL, this.dir).get();
             
-            if(rsSelect.isEmpty()){
+            if(! rs.next()){ //Si el rs viene vacio
+                System.out.println("El director no existe");
+               
+                
+            }else if (this.salario < 0){
+                System.out.println("Salario debe de ser mayor o igual que 0");
+              
+                
+            } else if (this.apellido == null || this.oficio == null){
+                System.out.println("El apellido y/o el salario tienen que tener valores");
+                
+            } else {
                 bbdd.insert(insertSQL, this.emp_no, this.apellido, this.oficio, this.dir, this.fecha_alt, this.salario, this.comision, this.dept_no);
                 System.out.println("Empleado insertado");
-            } else {
-                System.out.println("El empleado no puede ser insertado por que no cumple alguna condicion");
             }
             
             
+
         } catch (SQLException ex) {
             Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Codigo de error: " +ex.getErrorCode());
+            
+            switch(ex.getErrorCode()){
+                case 2291: //Controlamos que el departamento exista
+                    System.out.println("El departamento pasado no existe");
+                    break;
+                case 1: //Controlamos que el emp_no no exista
+                    System.out.println("El emp_no existe");
+                    break;
+                default : 
+                    System.out.println("Codigo de error desconocido: " +ex.getErrorCode());
+            }
         }
         
     }
@@ -185,7 +215,7 @@ public class Empleado {
         Optional<ResultSet> rs = null;
         
         try {
-            rs = bbdd.select("SELECT * FROM empleados");
+            rs = bbdd.select("SELECT e.* FROM empleados e");
         } catch (SQLException ex) {
             Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -209,14 +239,29 @@ public class Empleado {
             
             rs = bbdd.select(sentenciaSql);
             
-            if (rs.isPresent()){
+            //1. Solucion
+            if (rs.get().last() ){ //Si el rs está vacio last devuelve false sino true
+                rs.get().beforeFirst();
+                
                 while(rs.get().next()){
                     System.out.print("Apellido: " +rs.get().getString("apellido"));
                     System.out.print(", Oficio: " + rs.get().getString("oficio"));
                     System.out.print(", Salario: " + rs.get().getDouble("salario"));
-                    System.out.println("");
+                    System.out.println(""); 
                 }
+            } else{
+                System.out.println("No hay registros con el numero de departamento " +ndep);
             }
+            
+            //2ª Solucion
+//            if (rs.isPresent()){
+//                while(rs.get().next()){
+//                    System.out.print("Apellido: " +rs.get().getString("apellido"));
+//                    System.out.print(", Oficio: " + rs.get().getString("oficio"));
+//                    System.out.print(", Salario: " + rs.get().getDouble("salario"));
+//                    System.out.println("");
+//                }
+//            }
         } catch (SQLException ex) {
             Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -292,7 +337,7 @@ public class Empleado {
     public void actualizarSalarioEmpleadosNumero15(OperacionesBBDD bbdd){
         int registrosActualizados;
         
-        String sentenciaSQL = "UPDATE Empleados SET salario = salario  + 100 WHERE dept_no = 15";
+        String sentenciaSQL = "UPDATE Empleados SET salario = (salario + 100) WHERE dept_no = 15";
         
         try {
             registrosActualizados = bbdd.update(sentenciaSQL);

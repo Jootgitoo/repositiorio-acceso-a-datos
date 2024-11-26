@@ -66,10 +66,14 @@ public class Bbddjdbc {
          * BORRADO
          */
         //Departamento.delete(bbdd, 60);
-        Optional<ResultSet> ors; 
-        ors = Empleado.selectAll(bbdd);
-        ResultSet rs = ors.get();
-        Empleado.insertar(rs);
+        
+        /**
+         * Inserto una fila nueva en la bbdd recorriendo un RS
+         */
+        //Optional<ResultSet> ors; 
+        //ors = Empleado.selectAll(bbdd);
+        //ResultSet rs = ors.get();
+        //Empleado.insertar(rs);
         
         /******************************
          * PRUEBAS CON EMPLEADO
@@ -214,7 +218,28 @@ public class Bbddjdbc {
         /**
          * Obtenemos informacion sobre las claves de una tabla
          */
+        //CUIDADO!!! LA TABLA HAY QUE PASARSELA EN MAYUSCULASS
         //bbdd.mostrarInformacionClaves("EMPLEADOS");
+        
+        
+        /**
+         * Actualizar salario empleado numero 15
+         */
+        //Empleado empleado = new Empleado();
+        //empleado.actualizarSalarioEmpleadosNumero15(bbdd);
+        
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
+        java.util.Date fechaJava = null;
+        String fecha = "22/09/1970";
+        try {
+            fechaJava = sdf.parse(fecha);
+        } catch (ParseException ex) {
+            Logger.getLogger(Bbddjdbc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        java.sql.Date fechaSQL2 = new java.sql.Date(fechaJava.getTime());
+        Empleado empleado2 = new Empleado(7566, null, null, 7566, fechaSQL2, 77, 11, 99);
+        empleado2.insertar2(bbdd);
         
         
         /************************************************

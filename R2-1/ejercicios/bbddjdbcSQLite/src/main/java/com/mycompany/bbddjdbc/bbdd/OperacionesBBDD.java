@@ -22,6 +22,16 @@ import java.util.logging.Logger;
  * version 1.0
  * Created on 4 nov 2024
  */
+
+
+//executeUpdate --> Para ejecutar sentencias que modifican los datos de las tablas
+//  Insert, update, delete
+
+//executeQuery --> Para ejecutar sentencias que recuperan datos de las tablas
+// Select
+
+
+
 public class OperacionesBBDD {
     
     //Atributos
@@ -41,7 +51,7 @@ public class OperacionesBBDD {
     
     private OperacionesBBDD(){
         driver = "org.sqlite.JDBC";
-        urlconection="jdbc:sqlite:./bbdd/ejemplo.db";
+        urlconection="jdbc:sqlite:./bbdd/bbdd-ejercicios.db";
     }
     
 //------------------------------------------------------------------------------    
@@ -317,6 +327,8 @@ public class OperacionesBBDD {
             Logger.getLogger(OperacionesBBDD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
     
     
 

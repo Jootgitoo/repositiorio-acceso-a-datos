@@ -5,6 +5,7 @@
 package com.mycompany.bbddjdbc;
 
 import com.mycompany.bbddjdbc.bbdd.OperacionesBBDD;
+import com.mycompany.bbddjdbc.modelo.Empleado;
 import java.sql.SQLException;
 
 /**
@@ -78,9 +79,15 @@ public class Bbddjdbc {
         //System.out.println(empleado);
         
         /**
-         * MODIFICACIÓN
+         * INSERTAR
          */
         //Empleado empleado = new Empleado(7888, "GARCIA", "VENDEDOR", 7566, "08/11/2024", 2000, 200.50, 10);
+        //empleado.insertar(bbdd);
+        
+        /**
+         *  MODIFICAR
+         */
+        //Empleado empleado = new Empleado(7888, "AGUILAR", "PROFESOR", 7777, "21/12/2020", 6666, 1.2, 10);
         //empleado.update(bbdd);
         
         /**
@@ -88,7 +95,14 @@ public class Bbddjdbc {
          */
         //Empleado.delete(bbdd, 7888);
                  
-                        
+        /**
+         * Obtener apellido oficio y salario
+         */
+        //Empleado.obtenerApellidoOficioSalario(bbdd, 10);
+        
+        
+        Empleado.actualizarSalarioEmpleadosNumero10(bbdd);
+        
         /************************************************
          * PRUEBAS SENTENCIAS DE DESCRIPCIÓN
          ************************************************/
