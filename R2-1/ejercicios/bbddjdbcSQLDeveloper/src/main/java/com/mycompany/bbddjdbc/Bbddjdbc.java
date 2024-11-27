@@ -225,21 +225,8 @@ public class Bbddjdbc {
         /**
          * Actualizar salario empleado numero 15
          */
-        //Empleado empleado = new Empleado();
-        //empleado.actualizarSalarioEmpleadosNumero15(bbdd);
-        
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
-        java.util.Date fechaJava = null;
-        String fecha = "22/09/1970";
-        try {
-            fechaJava = sdf.parse(fecha);
-        } catch (ParseException ex) {
-            Logger.getLogger(Bbddjdbc.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        java.sql.Date fechaSQL2 = new java.sql.Date(fechaJava.getTime());
-        Empleado empleado2 = new Empleado(7566, null, null, 7566, fechaSQL2, 77, 11, 99);
-        empleado2.insertar2(bbdd);
+        //Empleado empleado2 = new Empleado(7566, "CASA", "Programador", 7566, 77, 11, 99);
+        //empleado2.insertar2(bbdd);
         
         
         /************************************************

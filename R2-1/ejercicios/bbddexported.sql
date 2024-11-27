@@ -1,5 +1,5 @@
 --------------------------------------------------------
--- Archivo creado  - viernes-noviembre-22-2024   
+-- Archivo creado  - martes-noviembre-26-2024   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table DEPARTAMENTOS
@@ -60,8 +60,9 @@ Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISIO
 Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7902','FERNANDEZ','ANALISTA','7566',to_date('03/12/91','DD/MM/RR'),'3960',null,'20');
 Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7934','MUÑOZ','EMPLEADO','7782',to_date('23/01/92','DD/MM/RR'),'4797',null,'10');
 Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('1','Herrera','Informatic','555',to_date('02/02/00','DD/MM/RR'),'2795,43','1500,8','10');
-Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('2','Dominguez','Carterista','33',to_date('01/01/24','DD/MM/RR'),'13,41','14,89','15');
-Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('3','Rayo','Profesor','54',to_date('01/01/24','DD/MM/RR'),'13,76','11','15');
+Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('2','Dominguez','Carterista','33',to_date('01/01/24','DD/MM/RR'),'113,41','14,89','15');
+Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('3','Rayo','Profesor','54',to_date('01/01/24','DD/MM/RR'),'113,76','11','15');
+Insert into DAM2.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('33','Campos',null,null,null,'1123,46',null,null);
 --------------------------------------------------------
 --  DDL for Procedure P_NOMBRE_DEPART
 --------------------------------------------------------
@@ -78,6 +79,7 @@ FROM departamentos
 WHERE dept_no = ndepart;
 
 END;
+
 
 
 /
@@ -101,6 +103,7 @@ BEGIN
 END p_subida_sal;
 
 
+
 /
 --------------------------------------------------------
 --  DDL for Function F_N_EMPLEADO
@@ -121,6 +124,7 @@ BEGIN
 RETURN v_num_empleados;
 
 END F_N_EMPLEADO;
+
 
 
 /
@@ -150,6 +154,7 @@ BEGIN
   RETURN v_salario_neto;
 
 END F_NOMINA;
+
 
 
 /
