@@ -24,10 +24,12 @@ import java.util.List;
  */
 public class EmpleadosJpaController implements Serializable {
 
+    private EntityManagerFactory emf = null;
+
+    
     public EmpleadosJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();

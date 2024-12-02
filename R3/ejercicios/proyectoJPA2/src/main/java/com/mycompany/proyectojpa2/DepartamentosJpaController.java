@@ -26,10 +26,11 @@ import java.util.List;
  */
 public class DepartamentosJpaController implements Serializable {
 
+    private EntityManagerFactory emf = null;
+
     public DepartamentosJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
