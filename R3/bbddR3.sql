@@ -1,0 +1,158 @@
+--------------------------------------------------------
+-- Archivo creado  - miércoles-diciembre-04-2024   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table CLIENTES
+--------------------------------------------------------
+
+  CREATE TABLE "DAM2JPA"."CLIENTES" 
+   (	"ID" NUMBER(4,0), 
+	"NOMBRE" VARCHAR2(50), 
+	"DIRECCION" VARCHAR2(50) DEFAULT NULL, 
+	"POBLACION" VARCHAR2(50) DEFAULT NULL, 
+	"TELEF" VARCHAR2(20) DEFAULT NULL, 
+	"NIF" VARCHAR2(10) DEFAULT NULL
+   ) ;
+--------------------------------------------------------
+--  DDL for Table DEPARTAMENTOS
+--------------------------------------------------------
+
+  CREATE TABLE "DAM2JPA"."DEPARTAMENTOS" 
+   (	"DEPT_NO" NUMBER(2,0), 
+	"DNOMBRE" VARCHAR2(15), 
+	"LOC" VARCHAR2(15)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table EMPLEADOS
+--------------------------------------------------------
+
+  CREATE TABLE "DAM2JPA"."EMPLEADOS" 
+   (	"EMP_NO" NUMBER(4,0), 
+	"APELLIDO" VARCHAR2(10), 
+	"OFICIO" VARCHAR2(10), 
+	"DIR" NUMBER(4,0), 
+	"FECHA_ALT" DATE, 
+	"SALARIO" NUMBER(6,2), 
+	"COMISION" NUMBER(6,2), 
+	"DEPT_NO" NUMBER(2,0)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table PRODUCTOS
+--------------------------------------------------------
+
+  CREATE TABLE "DAM2JPA"."PRODUCTOS" 
+   (	"ID" NUMBER(4,0), 
+	"DESCRIPCION" VARCHAR2(50), 
+	"STOCKACTUAL" NUMBER(4,0) DEFAULT 0, 
+	"STOCKMINIMO" NUMBER(4,0) DEFAULT 0, 
+	"PVP" NUMBER(8,2) DEFAULT 0
+   ) ;
+--------------------------------------------------------
+--  DDL for Table VENTAS
+--------------------------------------------------------
+
+  CREATE TABLE "DAM2JPA"."VENTAS" 
+   (	"IDVENTA" NUMBER(5,0), 
+	"FECHAVENTA" DATE, 
+	"IDCLIENTE" NUMBER(4,0), 
+	"IDPRODUCTO" NUMBER(4,0), 
+	"CANTIDAD" NUMBER(3,0)
+   ) ;
+REM INSERTING into DAM2JPA.CLIENTES
+SET DEFINE OFF;
+Insert into DAM2JPA.CLIENTES (ID,NOMBRE,DIRECCION,POBLACION,TELEF,NIF) values ('1','MARIA SERRANO','C/Las Flores 23','Guadalajara','949876655','34343434L');
+Insert into DAM2JPA.CLIENTES (ID,NOMBRE,DIRECCION,POBLACION,TELEF,NIF) values ('2','PEDRO BRAVO','C/Galiano 6','Guadalajara','949256376','2256880E');
+Insert into DAM2JPA.CLIENTES (ID,NOMBRE,DIRECCION,POBLACION,TELEF,NIF) values ('3','MANUEL SERRA','Av Atance 24','Guadalajara','949800090','1234567E');
+Insert into DAM2JPA.CLIENTES (ID,NOMBRE,DIRECCION,POBLACION,TELEF,NIF) values ('4','ALICIA PÉREZ','C/La Azucena 123','Talavera','925678090','56564564J');
+REM INSERTING into DAM2JPA.DEPARTAMENTOS
+SET DEFINE OFF;
+Insert into DAM2JPA.DEPARTAMENTOS (DEPT_NO,DNOMBRE,LOC) values ('99','Pruebas','Madrid');
+Insert into DAM2JPA.DEPARTAMENTOS (DEPT_NO,DNOMBRE,LOC) values ('10','CONTABILIDAD','SEVILLA');
+Insert into DAM2JPA.DEPARTAMENTOS (DEPT_NO,DNOMBRE,LOC) values ('20','INVESTIGACIÓN','MADRID');
+Insert into DAM2JPA.DEPARTAMENTOS (DEPT_NO,DNOMBRE,LOC) values ('30','VENTAS','BARCELONA');
+Insert into DAM2JPA.DEPARTAMENTOS (DEPT_NO,DNOMBRE,LOC) values ('40','PRODUCCIÓN','BILBAO');
+REM INSERTING into DAM2JPA.EMPLEADOS
+SET DEFINE OFF;
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7369','SANCHEZ','EMPLEADO','7902',to_date('17/12/90','DD/MM/RR'),'1040',null,'20');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7499','ARROYO','VENDEDOR','7698',to_date('20/02/90','DD/MM/RR'),'1500','390','30');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7521','SALA','VENDEDOR','7698',to_date('22/02/91','DD/MM/RR'),'1625','650','30');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7566','JIMENEZ','DIRECTOR','7839',to_date('02/04/91','DD/MM/RR'),'2900',null,'20');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7654','MARTIN','VENDEDOR','7698',to_date('29/09/91','DD/MM/RR'),'1600','1020','30');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7698','NEGRO','DIRECTOR','7839',to_date('01/05/91','DD/MM/RR'),'3005',null,'30');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7782','CEREZO','DIRECTOR','7839',to_date('09/06/91','DD/MM/RR'),'2885',null,'10');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7788','GIL','ANALISTA','7566',to_date('09/11/91','DD/MM/RR'),'3000',null,'20');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7839','REY','PRESIDENTE',null,to_date('17/11/91','DD/MM/RR'),'4100',null,'10');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7844','TOVAR','VENDEDOR','7698',to_date('08/09/91','DD/MM/RR'),'1350','0','30');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7876','ALONSO','EMPLEADO','7788',to_date('23/09/91','DD/MM/RR'),'1430',null,'20');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7900','JIMENO','EMPLEADO','7698',to_date('03/12/91','DD/MM/RR'),'1335',null,'30');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7902','FERNANDEZ','ANALISTA','7566',to_date('03/12/91','DD/MM/RR'),'3000',null,'20');
+Insert into DAM2JPA.EMPLEADOS (EMP_NO,APELLIDO,OFICIO,DIR,FECHA_ALT,SALARIO,COMISION,DEPT_NO) values ('7934','MUÑOZ','EMPLEADO','7782',to_date('23/01/92','DD/MM/RR'),'1690',null,'10');
+REM INSERTING into DAM2JPA.PRODUCTOS
+SET DEFINE OFF;
+Insert into DAM2JPA.PRODUCTOS (ID,DESCRIPCION,STOCKACTUAL,STOCKMINIMO,PVP) values ('4','Diccionario Maria Moliner 2 tomos','55','5','43');
+Insert into DAM2JPA.PRODUCTOS (ID,DESCRIPCION,STOCKACTUAL,STOCKMINIMO,PVP) values ('5','Impresora HP Deskjet F370','10','1','30,65');
+Insert into DAM2JPA.PRODUCTOS (ID,DESCRIPCION,STOCKACTUAL,STOCKMINIMO,PVP) values ('6','Pen Drive 8 Gigas','52','5','7');
+Insert into DAM2JPA.PRODUCTOS (ID,DESCRIPCION,STOCKACTUAL,STOCKMINIMO,PVP) values ('7','Ratón óptico inalámbrico Logitecht','14','2','15');
+Insert into DAM2JPA.PRODUCTOS (ID,DESCRIPCION,STOCKACTUAL,STOCKMINIMO,PVP) values ('8','El señor de los anillos, 3 DVDs','8','2','25');
+REM INSERTING into DAM2JPA.VENTAS
+SET DEFINE OFF;
+Insert into DAM2JPA.VENTAS (IDVENTA,FECHAVENTA,IDCLIENTE,IDPRODUCTO,CANTIDAD) values ('1',to_date('16/07/12','DD/MM/RR'),'1','4','3');
+Insert into DAM2JPA.VENTAS (IDVENTA,FECHAVENTA,IDCLIENTE,IDPRODUCTO,CANTIDAD) values ('2',to_date('17/07/12','DD/MM/RR'),'4','5','2');
+Insert into DAM2JPA.VENTAS (IDVENTA,FECHAVENTA,IDCLIENTE,IDPRODUCTO,CANTIDAD) values ('3',to_date('19/09/12','DD/MM/RR'),'2','5','1');
+Insert into DAM2JPA.VENTAS (IDVENTA,FECHAVENTA,IDCLIENTE,IDPRODUCTO,CANTIDAD) values ('4',to_date('20/08/12','DD/MM/RR'),'1','6','5');
+Insert into DAM2JPA.VENTAS (IDVENTA,FECHAVENTA,IDCLIENTE,IDPRODUCTO,CANTIDAD) values ('5',to_date('22/08/12','DD/MM/RR'),'3','4','1');
+--------------------------------------------------------
+--  Constraints for Table EMPLEADOS
+--------------------------------------------------------
+
+  ALTER TABLE "DAM2JPA"."EMPLEADOS" MODIFY ("EMP_NO" NOT NULL ENABLE);
+  ALTER TABLE "DAM2JPA"."EMPLEADOS" ADD PRIMARY KEY ("EMP_NO")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table PRODUCTOS
+--------------------------------------------------------
+
+  ALTER TABLE "DAM2JPA"."PRODUCTOS" MODIFY ("ID" NOT NULL ENABLE);
+  ALTER TABLE "DAM2JPA"."PRODUCTOS" MODIFY ("DESCRIPCION" NOT NULL ENABLE);
+  ALTER TABLE "DAM2JPA"."PRODUCTOS" ADD PRIMARY KEY ("ID")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table DEPARTAMENTOS
+--------------------------------------------------------
+
+  ALTER TABLE "DAM2JPA"."DEPARTAMENTOS" MODIFY ("DEPT_NO" NOT NULL ENABLE);
+  ALTER TABLE "DAM2JPA"."DEPARTAMENTOS" ADD PRIMARY KEY ("DEPT_NO")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table CLIENTES
+--------------------------------------------------------
+
+  ALTER TABLE "DAM2JPA"."CLIENTES" MODIFY ("ID" NOT NULL ENABLE);
+  ALTER TABLE "DAM2JPA"."CLIENTES" MODIFY ("NOMBRE" NOT NULL ENABLE);
+  ALTER TABLE "DAM2JPA"."CLIENTES" ADD PRIMARY KEY ("ID")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table VENTAS
+--------------------------------------------------------
+
+  ALTER TABLE "DAM2JPA"."VENTAS" MODIFY ("IDVENTA" NOT NULL ENABLE);
+  ALTER TABLE "DAM2JPA"."VENTAS" MODIFY ("FECHAVENTA" NOT NULL ENABLE);
+  ALTER TABLE "DAM2JPA"."VENTAS" MODIFY ("IDCLIENTE" NOT NULL ENABLE);
+  ALTER TABLE "DAM2JPA"."VENTAS" MODIFY ("IDPRODUCTO" NOT NULL ENABLE);
+  ALTER TABLE "DAM2JPA"."VENTAS" MODIFY ("CANTIDAD" NOT NULL ENABLE);
+  ALTER TABLE "DAM2JPA"."VENTAS" ADD PRIMARY KEY ("IDVENTA")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table EMPLEADOS
+--------------------------------------------------------
+
+  ALTER TABLE "DAM2JPA"."EMPLEADOS" ADD CONSTRAINT "FK_DEP" FOREIGN KEY ("DEPT_NO")
+	  REFERENCES "DAM2JPA"."DEPARTAMENTOS" ("DEPT_NO") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table VENTAS
+--------------------------------------------------------
+
+  ALTER TABLE "DAM2JPA"."VENTAS" ADD CONSTRAINT "VENTAS_PROD" FOREIGN KEY ("IDPRODUCTO")
+	  REFERENCES "DAM2JPA"."PRODUCTOS" ("ID") ENABLE;
+  ALTER TABLE "DAM2JPA"."VENTAS" ADD CONSTRAINT "VENTAS_CLI" FOREIGN KEY ("IDCLIENTE")
+	  REFERENCES "DAM2JPA"."CLIENTES" ("ID") ENABLE;

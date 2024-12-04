@@ -5,6 +5,8 @@
 
 package com.mycompany.proyectojpa2;
 
+import static com.mycompany.proyectojpa2.ProyectoJPA2.departamento;
+import static com.mycompany.proyectojpa2.ProyectoJPA2.entitymanager;
 import com.mycompany.proyectojpa2.exceptions.NonexistentEntityException;
 import com.mycompany.proyectojpa2.exceptions.PreexistingEntityException;
 import jakarta.persistence.EntityManager;
@@ -12,6 +14,7 @@ import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import jakarta.persistence.Query;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.LockModeType;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import java.util.ArrayList;
@@ -182,6 +185,8 @@ public class DepartamentosJpaController implements Serializable {
         }
     }
 
+    
+
     public int getDepartamentosCount() {
         EntityManager em = getEntityManager();
         try {
@@ -194,5 +199,8 @@ public class DepartamentosJpaController implements Serializable {
             em.close();
         }
     }
+    
+    
+    
 
 }

@@ -1,0 +1,5 @@
+Cuandro creamos un proyecto nuevo: 
+ --> Copiamos las dependencias del POM de otro proyecto en el nuevo. Clic derecho sobre el proyecto nuevo Build whith dependencies
+ --> Click derecho en el nuevo proyecto, Entity Clasesses from Database y selecciono las tablas de las que quiero crear las clases.
+	Se tienen que crear clases .java con el nombre de las tablas seleccionadas (1 clase por tabla)
+ --> Click derecho en el proyecto y creas las clases JPA Controller Classes... y seleccionas las clases de las que quieres crear los controladore. Next y Finish
