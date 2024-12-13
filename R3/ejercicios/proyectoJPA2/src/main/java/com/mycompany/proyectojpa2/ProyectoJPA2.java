@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -36,8 +37,36 @@ public class ProyectoJPA2 {
     public static void main(String[] args) {
 
         try {
-        
-            inicializarFactory();
+            inicializaFactoryController();
+            
+            DepartamentosJpaController departamentosJpaController = new DepartamentosJpaController(emfactory);
+            Departamentos departamento = new Departamentos();
+            departamento.setDeptNo( (short)77 );
+            departamento.setDnombre("BIG DATA");
+            departamento.setLoc("TALAVERA");
+            departamento.setEmpleadosCollection(null);
+            
+//            Empleados empleado = new Empleados();
+            
+//            Collection<Empleados> empleadosCollection = new ArrayList<Empleados>();
+//            empleado.setEmpNo( (short)7777 );
+//            empleado.setApellido("ROBLES");
+//            empleado.setSalario( BigDecimal.valueOf(2000));
+//            empleado.setOficio("ANALISTA");
+//            empleado.setDir( (short)7839 );
+            
+//            empleadosCollection.add(empleado);
+            
+//            departamento.setEmpleadosCollection(empleadosCollection);
+            
+//            departamentosJpaController.create(departamento);
+            
+            
+            cierraFactoryController();
+            
+            
+//--------------------------------------------------------------------------------------------------------------------------------        
+            //inicializarFactory();
             
 //            emfactory = Persistence.createEntityManagerFactory("com.mycompany_proyectoJPA2_jar_1.0-SNAPSHOTPU");
 //
@@ -50,6 +79,7 @@ public class ProyectoJPA2 {
 //            departamentos.setLoc("Madrid");
 //        
 //            departamentosJpaController.create(departamentos);
+
 
 //--------------------------------------------------------------------------------------------------------------------------------
     //CLASSROOM --> OPERACIONES DIRECTAS CON OBJETOS --> PRACTICA EN CASA
@@ -72,9 +102,9 @@ public class ProyectoJPA2 {
 //--------------------------------------------------------------------------------------------------------------------------------
     //CLASSROOM --> OPERACIONES DIRECTAS CON OBJETOS --> PRACTICA EN CLASE            
             
-            //subirSalario();
+            subirSalario();
             
-            cierraFactory();
+            //cierraFactory();
 
 
         } catch (Exception ex) {
@@ -116,7 +146,6 @@ public class ProyectoJPA2 {
             System.out.println("NO existe el registro");
         }
     }
-    
     
     
     /**
@@ -199,6 +228,19 @@ public class ProyectoJPA2 {
         esperar();
         entitymanager.getTransaction().commit();
        
+    }
+    
+    
+    public static void inicializaFactoryController(){
+        emfactory = Persistence.createEntityManagerFactory("com.mycompany_proyectoJPA2_jar_1.0-SNAPSHOTPU");
+        
+    }
+    
+    /**
+     * Cierro el factory
+     */
+    public static void cierraFactoryController(){
+        emfactory.close();
     }
     
 //--------------------------------------------------------------------------------------------------------------------------------------
@@ -428,7 +470,7 @@ public class ProyectoJPA2 {
     }
     
 //--------------------------------------------------------------------------------------------------------------------------------------
-    //CLASSROOM --> OPERACIONES DIRECTAS CON OBJETOS --> PRACTICA EN CASA
+    //CLASSROOM --> OPERACIONES DIRECTAS CON OBJETOS --> PRACTICA EN CLASE
     
     /**
      * Subimos el salario de los empleados que pertenezcan a un determinado departamento
@@ -449,10 +491,10 @@ public class ProyectoJPA2 {
             
             //Muestro los empleados y el salario de cada uno de un departamento antes de la subida
             leerUnRegistroRelacionado(nDep);
-            esperar();
+           
             
             //Hacemos el cambio
-            departamento = entitymanager.find(Departamentos.class, nDep);
+            //departamento = entitymanager.find(Departamentos.class, nDep);
             
             if (departamento != null){ //Si hay departamentos...
             
@@ -461,6 +503,8 @@ public class ProyectoJPA2 {
             
             //Creamos un iterator para recorrer la coleccion
             Iterator<Empleados> it = listaEmpleados.iterator();
+            
+            entitymanager.getTransaction().begin();
             
             while( it.hasNext() ){ //Si el iterator tiene next, es decir, si tiene un empleado
                 
@@ -475,9 +519,10 @@ public class ProyectoJPA2 {
                 System.out.println("No existe el registro");
             }
             
+            entitymanager.getTransaction().commit();
+            
             //Muestro los empleados y el salario de cada uno de un departamento despues de la subida
             leerUnRegistroRelacionado(nDep);
-            esperar();
 
             
         } catch (IOException ex) {

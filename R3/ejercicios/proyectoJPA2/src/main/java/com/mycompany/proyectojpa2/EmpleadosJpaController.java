@@ -48,6 +48,8 @@ public class EmpleadosJpaController implements Serializable {
             em.persist(empleados);
             if (deptNo != null) {
                 deptNo.getEmpleadosCollection().add(empleados);
+                
+                //Coge todos los empleados de ese departamento
                 deptNo = em.merge(deptNo);
             }
             em.getTransaction().commit();
