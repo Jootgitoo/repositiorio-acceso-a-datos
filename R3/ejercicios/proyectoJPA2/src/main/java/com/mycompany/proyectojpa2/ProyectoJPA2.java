@@ -4,10 +4,13 @@
 
 package com.mycompany.proyectojpa2;
 
+import com.mycompany.proyectojpa2.exceptions.NonexistentEntityException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,33 +41,47 @@ public class ProyectoJPA2 {
     public static void main(String[] args) {
 
         try {
-            inicializaFactoryController();
             
-            DepartamentosJpaController departamentosJpaController = new DepartamentosJpaController(emfactory);
-            Departamentos departamento = new Departamentos();
-            departamento.setDeptNo( (short)77 );
-            departamento.setDnombre("BIG DATA");
-            departamento.setLoc("TALAVERA");
-            departamento.setEmpleadosCollection(null);
+            /*******************************************************************
+             * Ejemplos con Jpa controller
+             *******************************************************************/
+            //inicializaFactoryController();
             
-//            Empleados empleado = new Empleados();
+            //insertaDepartamentoConEmpleado();
             
-//            Collection<Empleados> empleadosCollection = new ArrayList<Empleados>();
-//            empleado.setEmpNo( (short)7777 );
-//            empleado.setApellido("ROBLES");
-//            empleado.setSalario( BigDecimal.valueOf(2000));
-//            empleado.setOficio("ANALISTA");
-//            empleado.setDir( (short)7839 );
+            //borrarDepartamentoController();
             
-//            empleadosCollection.add(empleado);
+            //listarDepartamentos();
             
-//            departamento.setEmpleadosCollection(empleadosCollection);
+            //listarDepartamentosPorTramos();
             
-//            departamentosJpaController.create(departamento);
+            //contarNumeroDepartamentos();
+            
+            //listarUnDepartamento();
+            
+            //modificarDepartamento(10);
+            
+            //cierraFactoryController();
             
             
-            cierraFactoryController();
+            /*******************************************************************
+             * Ejemplos con JPQL
+             *******************************************************************/
+            inicializarFactory();
             
+            /**-----------------------------------------------------------------
+             * PRUEBAS DE LECTURA UTILIZANDO CONSULTAS JPQL
+             -------------------------------------------------------------------*/
+            //consultaSimple();
+            //consultaVariosCampos();
+            
+            
+            /**---------------------------------------------------------------------------------------
+             * PRUEBAS DE LECTURA UTILIZANDO CONSULTAS JPQL ALMACENADAS EN LAS CLASES DE PERSISTENCIA
+             -----------------------------------------------------------------------------------------*/
+             consultaAlmacenada();
+             consultaAlmacenadaConParametros(10);
+            cierraFactory();
             
 //--------------------------------------------------------------------------------------------------------------------------------        
             //inicializarFactory();
@@ -102,7 +120,7 @@ public class ProyectoJPA2 {
 //--------------------------------------------------------------------------------------------------------------------------------
     //CLASSROOM --> OPERACIONES DIRECTAS CON OBJETOS --> PRACTICA EN CLASE            
             
-            subirSalario();
+            //subirSalario();
             
             //cierraFactory();
 
@@ -112,6 +130,206 @@ public class ProyectoJPA2 {
         }
         
     }
+    
+//--------------------------------------------------------------------------------------------------------------------------------
+    //Ejemplos JPQL
+    public static void consultaSimple(){
+        
+        Query query = entitymanager.createQuery("Select UPPER(d.dnombre) from Departamentos d");
+        
+        List<String>list = query.getResultList();
+        
+        for(String e:list){
+            System.out.println("Nombre departamento: " +e);
+        }
+        
+    }
+        
+
+    public static void consultaVariosCampos(){
+        TypedQuery<Object[]> query = entitymanager.createQuery("Select d.dnombre, d.loc FROM Departamentos d", Object[].class);
+        
+        List<Object[]>list = query.getResultList();
+        
+        for(Object[] e:list){
+            System.out.println("Departamento");
+            System.out.println("Nombre departamento: " +e[0]);
+            System.out.println("Localidad: " +e[1]);
+            System.out.println("------------------------------------------------------------");
+        }
+    }
+    
+//--------------------------------------------------------------------------------------------------------------------------------    
+    //EJEMPLOS UTILIZANDO LOS JPACONTROLLER
+    public static void inicializaFactoryController(){
+        emfactory = Persistence.createEntityManagerFactory("com.mycompany_proyectoJPA2_jar_1.0-SNAPSHOTPU");
+        
+    }
+    
+    /**
+     * Cierro el factory
+     */
+    public static void cierraFactoryController(){
+        emfactory.close();
+    }
+    
+//    public static void insertaDepartamento(){
+//        Departamentos
+//    }
+    
+    public static void insertaDepartamentoConEmpleado(){
+        DepartamentosJpaController departamentosJpaController = new DepartamentosJpaController(emfactory);
+        
+        Departamentos departamento = new Departamentos();
+        departamento.setDeptNo( (short)99 );
+        departamento.setDnombre("BIG DATA");
+        departamento.setLoc("TOLEDO");
+        
+        
+        empleado = new Empleados( (short)7521 );
+        
+        Collection<Empleados>empleadosCollection = new ArrayList<Empleados>();
+        empleadosCollection.add(empleado);
+        
+        departamento.setEmpleadosCollection(empleadosCollection);
+        
+        
+        try {
+            departamentosJpaController.create(departamento);
+        } catch (Exception ex) {
+            Logger.getLogger(ProyectoJPA2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public static void borrarDepartamentoController(){
+        
+        DepartamentosJpaController departamentosJpaController = new DepartamentosJpaController(emfactory);
+
+        
+        try {            
+            departamentosJpaController.destroy( (short)99 );
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ProyectoJPA2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public static void listarDepartamentos(){
+        DepartamentosJpaController departamentosJpaController = new DepartamentosJpaController(emfactory);
+        
+        List<Departamentos> departamentosListado;
+        
+        departamentosListado = departamentosJpaController.findDepartamentosEntities();
+        
+        for (Departamentos d: departamentosListado){
+            System.out.println("Nombre dpto: "+ d.getDnombre());
+        }
+
+    }
+    
+    public static void listarDepartamentosPorTramos(){
+        DepartamentosJpaController departamentosJpaController = new DepartamentosJpaController(emfactory);
+        List<Departamentos> departamentosListado;
+
+        
+        System.out.println("TODOS LOS DEPARTAMENTOS");
+        listarDepartamentos();
+        System.out.println("--------------------------------------------------------------");
+        
+        //***********************************************************************************
+        System.out.println("Trae 3 registros empezando en la pos 0");
+        
+        // 3 = NUMERO DE REGISTROS MAXIMO
+        // 0 = POS PARRTIR DE LA CUAL LO QUEIRO
+        departamentosListado = departamentosJpaController.findDepartamentosEntities(3, 0);
+        
+        for (Departamentos d: departamentosListado){
+            System.out.println("Nombre dpto: "+ d.getDnombre());
+        }
+        System.out.println("--------------------------------------------------------------");
+        //****************************************************************************************
+        System.out.println("Trae 3 registros empezando en la pos 1");
+        
+        // 3 = NUMERO DE REGISTROS MAXIMO
+        // 1 = POS PARRTIR DE LA CUAL LO QUEIRO
+        departamentosListado = departamentosJpaController.findDepartamentosEntities(3, 1);
+        
+        for (Departamentos d: departamentosListado){
+            System.out.println("Nombre dpto: "+ d.getDnombre());
+        }
+        System.out.println("--------------------------------------------------------------");
+
+    }
+    
+    
+    public static void contarNumeroDepartamentos(){
+        DepartamentosJpaController departamentosJpaController = new DepartamentosJpaController(emfactory);
+        
+        int nElementos = departamentosJpaController.getDepartamentosCount();
+        
+        System.out.println("Nº de departamentos: " +nElementos);
+
+    }
+    
+    
+    public static void listarUnDepartamento(){
+        DepartamentosJpaController departamentosJpaController = new DepartamentosJpaController(emfactory);
+        
+        Departamentos departamento = departamentosJpaController.findDepartamentos( (short)10 );
+        
+        System.out.println(departamento.getDnombre());
+
+    }
+    
+    public static void modificarDepartamento(int id){
+        DepartamentosJpaController departamentosJpaController = new DepartamentosJpaController(emfactory);
+        
+        Departamentos departamento = departamentosJpaController.findDepartamentos( (short)id );
+        
+        departamento.setDeptNo( (short)id );
+        departamento.setDnombre("CONTABILIDAD");
+        departamento.setLoc("MADRID");
+        
+        try {
+            departamentosJpaController.edit(departamento);
+        } catch (Exception ex) {
+            Logger.getLogger(ProyectoJPA2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }    
+    
+//--------------------------------------------------------------------------------------------------------------------------------
+    //PRUEBAS DE LECTURA UTILIZANDO CONSULTAS JPQL ALMACENADAS EN LAS CLASES DE PERSISTENCIA
+    //Da error
+    public static void consultaAlmacenada(){
+        
+        Query query = entitymanager.createQuery("Departamentos.findAll");
+        
+        List<Departamentos>list = query.getResultList();
+        
+        for(Departamentos e:list){
+            System.out.println("Nombre departamento: " +e.getDnombre());
+        }
+        
+    }
+    
+    public static void consultaAlmacenadaConParametros(int deptNoP){
+        
+        Query query = entitymanager.createQuery("Departamentos.findByDeptNo");
+        
+        //"deptNo" --> Tiene que ser igual que el que aparezca en la quiery de Departamentos
+        query.setParameter("deptNo", deptNoP);
+        
+        List<Departamentos>list = query.getResultList();
+        
+        for(Departamentos e:list){
+            System.out.println("Nombre departamento: " +e.getDnombre());
+        }
+        
+    }
+    
+    
 //--------------------------------------------------------------------------------------------------------------------------------
     //MÉTODOS FUERA DEL MAIN
     
@@ -231,17 +449,7 @@ public class ProyectoJPA2 {
     }
     
     
-    public static void inicializaFactoryController(){
-        emfactory = Persistence.createEntityManagerFactory("com.mycompany_proyectoJPA2_jar_1.0-SNAPSHOTPU");
-        
-    }
-    
-    /**
-     * Cierro el factory
-     */
-    public static void cierraFactoryController(){
-        emfactory.close();
-    }
+
     
 //--------------------------------------------------------------------------------------------------------------------------------------
     //CLASSROOM --> OPERACIONES DIRECTAS CON OBJETOS --> PRACTICA EN CASA
