@@ -225,8 +225,22 @@ public class ProyectoJPA2 {
         for (Departamentos d: departamentosListado){
             System.out.println("Nombre dpto: "+ d.getDnombre());
         }
-
     }
+    
+    
+    public static void listarDepartamentoConEmpleados(int inputIdDept){
+        
+        DepartamentosJpaController departamentosJpaController = new DepartamentosJpaController(emfactory);
+        
+        departamento = departamentosJpaController.findDepartamentos( (short)inputIdDept );
+        
+        Collection<Empleados>listaEmpleados = departamento.getEmpleadosCollection();
+        
+        for (Empleados e: listaEmpleados){
+            System.out.println("Apellido emple: "+ e.getApellido());
+        }
+    }
+    
     
     public static void listarDepartamentosPorTramos(){
         DepartamentosJpaController departamentosJpaController = new DepartamentosJpaController(emfactory);
