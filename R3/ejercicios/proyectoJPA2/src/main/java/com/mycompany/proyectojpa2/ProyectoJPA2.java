@@ -11,6 +11,9 @@ import jakarta.persistence.LockModeType;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -71,16 +74,25 @@ public class ProyectoJPA2 {
             
             /**-----------------------------------------------------------------
              * PRUEBAS DE LECTURA UTILIZANDO CONSULTAS JPQL
-             -------------------------------------------------------------------*/
-            //consultaSimple();
+            --------------------------------------------------------------------*/
+            consultaSimple();
             //consultaVariosCampos();
             
             
             /**---------------------------------------------------------------------------------------
              * PRUEBAS DE LECTURA UTILIZANDO CONSULTAS JPQL ALMACENADAS EN LAS CLASES DE PERSISTENCIA
-             -----------------------------------------------------------------------------------------*/
-             consultaAlmacenada();
-             consultaAlmacenadaConParametros(10);
+            ------------------------------------------------------------------------------------------*/
+            //consultaAlmacenada();
+            //consultaAlmacenadaConParametros(10);
+            
+            //consultaConCriteriaQuery();
+            
+            //consultaConCriteriaQueryVariosCampos();
+            
+            //modificarDatosConJPQL();
+            
+            //borrarDatosConJPQL();
+            
             cierraFactory();
             
 //--------------------------------------------------------------------------------------------------------------------------------        
@@ -343,6 +355,86 @@ public class ProyectoJPA2 {
         
     }
     
+//--------------------------------------------------------------------------------------------------------------------------------
+    //PRUEBAS DE LECTURA UTILIZANDO CONSULTAS JPQL CON CRITERIAQUERY
+    
+    /**
+     * Select d from Departamentos d
+     */
+    public static void consultaConCriteriaQuery(){
+        CriteriaBuilder cb = entitymanager.getCriteriaBuilder();
+        
+        CriteriaQuery<Departamentos> query = cb.createQuery(Departamentos.class);
+        
+        //
+        Root<Departamentos> c = query.from(Departamentos.class); //Especificamos el from
+        
+        query.select(c); //Indicamos los campos a selleccionar. Como hemos puesto c queremos todos los campos del departamento
+        
+        List<Departamentos> list = entitymanager.createQuery(query).getResultList();
+        
+        for(Departamentos e:list){
+            System.out.println("Nombre del departamento: " +e.getDnombre());
+        }
+    }
+    
+    /**
+     * Select d.dnombre, d.loc from Departamentos d
+     */
+    public static void consultaConCriteriaQueryVariosCampos(){
+        CriteriaBuilder cb = entitymanager.getCriteriaBuilder();
+        
+        CriteriaQuery<Object[]> query = cb.createQuery(Object[].class);
+        
+        
+        Root<Departamentos> c = query.from(Departamentos.class); //Especificamos el from
+        
+        query.select( cb.array(c.get("dnombre"), c.get("loc") ) ); //Indicamos los campos a selleccionar
+        
+        List<Object[]> list = entitymanager.createQuery(query).getResultList();
+        
+        for(Object[] e:list){
+            System.out.println("-------------------------------------------------------");
+            System.out.println("Nombre del departamento: " +e[0]);
+            System.out.println("Nombre de la localidad: " +e[1]);
+            System.out.println("-------------------------------------------------------");
+        }
+    }
+    
+//--------------------------------------------------------------------------------------------------------------------------------
+    //PRUEBAS DE MODIFICACION Y BORRADO UTILIZANDO JPQL
+    
+    /**
+     * Modifico un departamento
+     */
+    public static void modificarDatosConJPQL(){
+        Query query = entitymanager.createQuery("UPDATE Departamentos d SET d.dnombre = :valorNuevo WHERE d.deptNo = :deptNoV");
+        
+        
+        query.setParameter("valorNuevo", "PRUEBAS");
+        query.setParameter("deptNoV", (short)10 );
+        
+        entitymanager.getTransaction().begin();
+        int updateCount = query.executeUpdate(); //Numero de filas modificadas
+        entitymanager.getTransaction().commit();
+    }
+    
+    /**
+     * Borro un departamento 
+     */
+    //No lo borra de la bbdd
+    public static void borrarDatosConJPQL(){
+        Query query = entitymanager.createQuery("DELETE from Departamentos d WHERE d.deptNo = :deptNoV");
+        
+        
+        query.setParameter("deptNoV", (short)99 );
+        
+        entitymanager.getTransaction().begin();
+        int deleteCount = query.executeUpdate(); //Numero de filas modificadas
+        System.out.println("Filas modificadas: " + deleteCount);
+        entitymanager.getTransaction().commit();
+    }
+        
     
 //--------------------------------------------------------------------------------------------------------------------------------
     //MÉTODOS FUERA DEL MAIN
