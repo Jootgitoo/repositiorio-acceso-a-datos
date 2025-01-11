@@ -1,0 +1,8 @@
+alter session set "_ORACLE_SCRIPT"=true;
+
+create user accdatVideojuego identified by accdatVideojuego
+
+default tablespace users 
+temporary tablespace temp quota unlimited on users;
+
+grant connect, resource to accdatVideojuego;
