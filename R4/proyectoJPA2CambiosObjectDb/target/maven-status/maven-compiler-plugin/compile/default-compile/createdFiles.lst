@@ -1,0 +1,8 @@
+com\mycompany\proyectojpa2\Empleados.class
+com\mycompany\proyectojpa2\exceptions\IllegalOrphanException.class
+com\mycompany\proyectojpa2\Departamentos.class
+com\mycompany\proyectojpa2\exceptions\PreexistingEntityException.class
+com\mycompany\proyectojpa2\EmpleadosJpaController.class
+com\mycompany\proyectojpa2\exceptions\NonexistentEntityException.class
+com\mycompany\proyectojpa2\ProyectoJPA2.class
+com\mycompany\proyectojpa2\DepartamentosJpaController.class
