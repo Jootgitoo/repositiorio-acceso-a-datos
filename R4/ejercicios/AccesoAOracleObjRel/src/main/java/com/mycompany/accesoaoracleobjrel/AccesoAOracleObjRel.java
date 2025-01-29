@@ -33,7 +33,11 @@ public class AccesoAOracleObjRel {
         
         //insertarPrepared();
         
-        realizaConsulta();
+        //realizaConsulta();
+        
+        //deletedPrepared();
+        
+        modifyPrepared();
         
         cerrarConexion();
     }
@@ -149,6 +153,47 @@ public class AccesoAOracleObjRel {
         }   
     }
     
-    //MÉTODO MODIFICAR (HACCER)
-    //MÉTODO ELIMINAR (HACER)
+    /**
+     * Modifica un alumno de la bbdd
+     */
+    private static void modifyPrepared(){
+       
+        try {
+            String sql = "update alumnos set nombre = ? where codigo = ?";
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            
+            sentencia.setString(1, "Jorgito Jorge");
+            sentencia.setInt(2, 1);
+            
+            sentencia.executeUpdate();
+            sentencia.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoAOracleObjRel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
+    
+    /**
+     * Borra un alumno de la bbdd con el codigo que le pases
+     */
+    private static void deletedPrepared(){
+        
+        try {
+            String sql = "Delete from alumnos where codigo = ?";
+            
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            
+            //CAMBIAR EL CODIGO ANTES DE EJECUTAR
+            sentencia.setInt(1, 5);
+            
+            sentencia.executeUpdate();
+            sentencia.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoAOracleObjRel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

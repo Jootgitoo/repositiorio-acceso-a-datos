@@ -1,8 +1,8 @@
-C:\dam-2\acceso-a-datos\ACCDAT2425-JHM\R4\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\exceptions\NonexistentEntityException.java
-C:\dam-2\acceso-a-datos\ACCDAT2425-JHM\R4\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\ProyectoJPA2.java
-C:\dam-2\acceso-a-datos\ACCDAT2425-JHM\R4\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\EmpleadosJpaController.java
-C:\dam-2\acceso-a-datos\ACCDAT2425-JHM\R4\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\exceptions\IllegalOrphanException.java
-C:\dam-2\acceso-a-datos\ACCDAT2425-JHM\R4\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\Departamentos.java
-C:\dam-2\acceso-a-datos\ACCDAT2425-JHM\R4\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\Empleados.java
-C:\dam-2\acceso-a-datos\ACCDAT2425-JHM\R4\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\DepartamentosJpaController.java
-C:\dam-2\acceso-a-datos\ACCDAT2425-JHM\R4\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\exceptions\PreexistingEntityException.java
+D:\dam-2\acceso-a-datos\repositiorio-acceso-a-datos\R4\ejercicios\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\Departamentos.java
+D:\dam-2\acceso-a-datos\repositiorio-acceso-a-datos\R4\ejercicios\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\DepartamentosJpaController.java
+D:\dam-2\acceso-a-datos\repositiorio-acceso-a-datos\R4\ejercicios\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\exceptions\PreexistingEntityException.java
+D:\dam-2\acceso-a-datos\repositiorio-acceso-a-datos\R4\ejercicios\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\exceptions\IllegalOrphanException.java
+D:\dam-2\acceso-a-datos\repositiorio-acceso-a-datos\R4\ejercicios\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\Empleados.java
+D:\dam-2\acceso-a-datos\repositiorio-acceso-a-datos\R4\ejercicios\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\EmpleadosJpaController.java
+D:\dam-2\acceso-a-datos\repositiorio-acceso-a-datos\R4\ejercicios\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\ProyectoJPA2.java
+D:\dam-2\acceso-a-datos\repositiorio-acceso-a-datos\R4\ejercicios\proyectoJPA2CambiosObjectDb\src\main\java\com\mycompany\proyectojpa2\exceptions\NonexistentEntityException.java
