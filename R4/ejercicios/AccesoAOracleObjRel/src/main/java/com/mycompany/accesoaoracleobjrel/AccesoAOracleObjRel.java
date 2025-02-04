@@ -37,7 +37,7 @@ public class AccesoAOracleObjRel {
         
         //deletedPrepared();
         
-        modifyPrepared();
+        //modifyPrepared();
         
         cerrarConexion();
     }
@@ -152,6 +152,7 @@ public class AccesoAOracleObjRel {
             Logger.getLogger(AccesoAOracleObjRel.class.getName()).log(Level.SEVERE, null, ex);
         }   
     }
+    
     
     /**
      * Modifica un alumno de la bbdd

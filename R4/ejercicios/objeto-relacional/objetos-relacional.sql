@@ -8,8 +8,10 @@ create or replace type t_alumno as object (
     member function calculcar_nota_media return number
     );
 
+
 --Después crea un bloque PL/SQL e inicializa un objeto de ese tipo.
 declare 
+    --Para crear un tipo t_alumno necesito un objeto de tipo persona y para crear una persona necesito un tipo direccion
     dir direccion;
     p persona;
     alumno t_alumno;
@@ -17,6 +19,18 @@ begin
     dir := new direccion ('C/Alcornoque 10', 'Cordoba', 50002);
     p := new persona (2, 'Jorge', dir, SYSDATE);
     alumno := new t_alumno(p, 7, 8, 9);
+end;
+--=================Otro ejemplo ===================================
+declare
+    direc direccion;
+    pers persona;
+    alumno t_alumno;
+begin
+    
+    direc := new direccion('C/Patata 3','Ciudad Real', 13006);
+    pers := new persona(1, 'Marcos', direc, to_date('15-08-2000', 'DD-MM-YYYY'));
+    alumno := new t_alumno(pers, 5.6, 7.6, 3.5);
+    
 end;
 
 
@@ -27,7 +41,7 @@ create or replace type body t_alumno as
         begin
            return (nota1 + nota2 + nota3 ) /3;
         end calculcar_nota_media;
-end;           
+end;
 
 
 --Crea la tabla ALUMNOS2 del tipo T_ALUMNO e inserta objetos en ella.
@@ -38,6 +52,9 @@ insert into alumnos2 values (Persona(2, 'Mateo', Direccion('C/Fiesta 7', 'Ciudad
 --• Al menos 2 alumnos que sean de GUADALAJARA
 insert into alumnos2 values (Persona(3, 'Juan', Direccion('C/Palomino 56', 'Guadalajara', 14009), sysdate ), 8.4, 6, 5);
 insert into alumnos2 values (Persona(4, 'Jota', Direccion('C/Futbol 43', 'Guadalajara', 14009), sysdate ), 4, 6, 6);
+--==============OTROS EJEMPLOS================================
+insert into alumnos2 values (Persona(1, 'Juan', Direccion('C/Patata 4', 'Ciudad Real', 13005), to_date('26-05-2005', 'DD-MM-YYYY')), 6.7, 7.8, 8.9);
+insert into alumnos2 values (Persona(2, 'Jorge', Direccion('C/Albondiga 45', 'Ciudad Real', 13005),  sysdate),  1.2, 3.4, 5.6);
 
 
 --Realiza las siguientes consultas:
