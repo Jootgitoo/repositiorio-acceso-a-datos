@@ -1,0 +1,107 @@
+-----------------------------------------------------
+--NOMBRE Y APELLIDOS: JORGE HERRERA MARTÍN
+--NOTA:
+--OBSERVACIONES:
+----------------------------------------------------
+
+-----------------------------------------------------
+--EJERCICIO 1:
+--NOTA:
+--OBSERVACIONES:
+-----------------------------------------------------
+--Escribe aquí tu respuesta:
+
+create or replace type piloto as object(
+    dni varchar2(9),
+    horas_de_vuelo number(6),
+    horas_de_vuelo_anual number(6)
+);
+
+-----------------------------------------------------
+--EJERCICIO 2:
+--NOTA:
+--OBSERVACIONES:
+-----------------------------------------------------
+--Escribe aquí tu respuesta:
+
+create or replace type vuelo as object(
+    idVuelo number(10),
+    compañia varchar2(30),
+    piloto_avion piloto,
+    member procedure vuelosDatos,
+    constructor function vuelo (idVuelo number, compañia varchar2) return self as result
+)not final;
+
+
+
+create or replace type body vuelo as
+    member procedure vuelosDatos is
+        begin
+            dbms_output.put_line('id vuelo' ||idVuelo|| ', dni piloto: ' ||piloto_avion.dni);
+        end;
+
+    constructor function vuelo(idVuelo number, compañia varchar2) return self as result is
+        begin
+            self.idVuelo := idVuelo;
+            self.compañia := compañia;
+        end;
+end;
+-----------------------------------------------------
+--EJERCICIO 3:
+--NOTA:
+--OBSERVACIONES:
+-----------------------------------------------------
+--Escribe aquí tu respuesta:
+create or replace type vuelo_mercancias under vuelo(
+    kilos_de_carga number(5),
+    precio_por_kilo number(2),
+    overriding member procedure vuelosDatos,
+    member function coste_transporte return number
+);
+
+
+create or replace type body vuelo_mercancias as
+    
+    overriding member procedure vuelosDatos is
+        begin
+            dbms_output.put_line('id vuelo' ||idVuelo|| ', dni piloto: ' ||piloto_avion.dni|| 'kilos de carga: ' ||kilos_de_carga );
+       end;
+        
+    member function coste_transporte return number is
+        begin
+            return kilos_de_carga * precio_por_kilo;
+        end;
+end;
+
+
+-----------------------------------------------------
+--EJERCICIO 4:
+--NOTA:
+--OBSERVACIONES:
+-----------------------------------------------------
+--Escribe aquí tu respuesta:
+create table t_vuelos_mercancias of vuelo_mercancias(
+    idVuelo primary key
+);
+
+
+-----------------------------------------------------
+--EJERCICIO 5:
+--NOTA:
+--OBSERVACIONES:
+-----------------------------------------------------
+--Escribe aquí tu respuesta:
+create type vuelos as table of vuelo_mercancias;
+
+
+-----------------------------------------------------
+--EJERCICIO 6:
+--NOTA:
+--OBSERVACIONES:
+-----------------------------------------------------
+--Escribe aquí tu respuesta:
+
+
+
+-----------------------------------------------------
+
