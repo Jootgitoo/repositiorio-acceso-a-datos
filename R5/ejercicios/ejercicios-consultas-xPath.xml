@@ -1,5 +1,5 @@
 <!--Obtener los nodos denominación y precio de todos los productos. -->
-  /productos/produc/(denominacion | precio)/node()
+  /productos/produc/(denominacion | precio)
 
 
 <!--Obtener los nodos de los productos que sean placas base.-->
@@ -14,7 +14,6 @@
   count(/productos/produc[contains(denominacion, 'Memoria') and cod_zona = 10])
 
 
-
 <!--Obtener la media de precio de los micros. -->
   format-number(avg(/productos/produc[contains(denominacion, 'Micro')]/precio), '#.00')
 
@@ -25,20 +24,19 @@
 
 <!--Obtener el nombre de producto y el precio de aquellos cuyo stock mínimo sea mayor que su stock actual y sean de la zona 40 -->
   /productos/produc[(number(stock_minimo) > number(stock_actual)) and (cod_zona = 40)]/(denominacion | precio)
+  /productos/produc[(number(stock_minimo) > number(stock_actual)) and (cod_zona = 40)]/concat(denominacion, ' ', precio)
 
 
 <!--Obtener el producto más caro.-->
-  let $maxPrecio := max(/productos/produc/precio)
-  return /productos/produc[precio = $maxPrecio]
+  /productos/produc[precio = max(precio)]
+
 
 <!--Obtener el producto más barato de la zona 20. -->
-  let $minPrecio := min(/productos/produc[cod_zona = 20]/precio)
-  return /productos/produc[(precio = $minPrecio) and (cod_zona = 20) ]
+  /productos/produc[cod_zona=20 and precio = min(precio)]
 
 
 <!--Obtener el producto más caro de la zona 10. --> 
-  let $maxPrecio := max(/productos/produc[cod_zona = 10]/precio)
-  return /productos/produc[(precio = $maxPrecio) and (cod_zona = 10) ]
+  /productos/produc[cod_zona=10 and precio = max(precio)]
 
 
 <!--Obtener los datos de las cuentas bancarias cuyo tipo sea AHORRO. -->
@@ -58,11 +56,11 @@
 
 
 <!--Obtener todos los elementos de las sucursales con más de 3 cuentas. -->
-  /sucursales/sucursal[ count(/cuenta) > 3 ]
+  /sucursales/sucursal[ count(cuenta) > 3 ]
 
 
 <!--Obtener todos los elementos de las sucursales con más de 3 cuentas del tipo AHORRO. -->
-  /sucursales/sucursal[ (count(/cuenta[@tipo = 'AHORRO']) > 3)]
+  /sucursales/sucursal[ (count(cuenta[@tipo = 'AHORRO']) > 3)]
 
 
 <!--Obtener los nodos del director y la población de las sucursales con más de 3 cuentas. -->
@@ -73,8 +71,13 @@
   /sucursales/count(/sucursal[ poblacion = 'Madrid'])
 
 
-
-SE HACEN CON BUCLES
 <!--Obtener por cada sucursal, su código y la suma de las aportaciones de las cuentas del tipo PENSIONES. -->
+  /sucursales/sucursal/concat(@codigo, '-', sum(cuenta[@tipo='PENSIONES']/aportacion) )
+
+
 <!--Obtener los nodos número de cuenta, nombre de cuenta y el saldo haber de las cuentas con saldo haber mayor de 10000. -->
+  /sucursales/sucursal/cuenta[saldohaber > 10000]/(numero|nombre|saldohaber)
+
+
 <!--Obtener por cada sucursal con más de 3 cuentas del tipo AHORRO, su código y la suma del saldo debe de esas cuentas. -->
+  /sucursales/sucursal[count(cuenta[@tipo = 'AHORRO']) > 3]/concat(@codigo, ' ', sum(cuenta[@tipo = 'AHORRO']/saldodebe))
