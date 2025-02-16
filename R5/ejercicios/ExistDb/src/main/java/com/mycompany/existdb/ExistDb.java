@@ -27,16 +27,22 @@ public class ExistDb {
     private static XQDataSource server;
     private static XQConnection con;
     
-//------------------------------------------------------------------------------    
+//------------------------------------------------------------------------------
     //MÉTODOS
     
     public static void main(String[] args) {
         conecta();
         
         //consulta("/EMPLEADOS");
-        //modificacion("update rename /EMPLEADOS/fila_emple as 'EMP_ROW' ");
-        
-        
+        //modificacion("update rename /EMPLEADOS/fila_emple as 'EMP_ROW' ");        
+        modificacion( "update insert "
+                + "<empleado salario='2340'>"
+                    + "<puesto>Técnico</puesto>"
+                    + "<nombre>Pedro Fraile</nombre>"
+                + "</empleado>"
+                + "into /universidad/departamento[codigo = 'MAT1']");
+
+
         
         desconecta();
     }
@@ -62,6 +68,7 @@ public class ExistDb {
             Logger.getLogger(ExistDb.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        System.out.println("Conectado con exito \n");
     }
     
     
@@ -75,6 +82,8 @@ public class ExistDb {
         } catch (XQException ex) {
             Logger.getLogger(ExistDb.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        System.out.println("\n Desconectado con exito");
     }
     
     
