@@ -65,7 +65,7 @@ public class FicheroEmpleados {
     public File getRuta() {
         return ruta;
     }
-    
+     
     public void setRuta (String ruta){
         this.ruta = new File(ruta);
     }

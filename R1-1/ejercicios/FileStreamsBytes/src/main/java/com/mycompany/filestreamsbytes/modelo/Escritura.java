@@ -50,7 +50,7 @@ public class Escritura extends Fichero{
             //los datosOut que tengamos los vamos a escribir en ficheroOut
             datosOut = new DataOutputStream(ficheroOut);
 
-            //Todos estos datos los escribirmos gracias al metodo .write+lo q queremos escribri
+            //Todos estos datos los escribirmos gracias al metodo .write+ lo q queremos escribrir
             datosOut.writeByte((byte) 123);
             datosOut.writeShort( (short) 1234);
             datosOut.writeInt(1234567);

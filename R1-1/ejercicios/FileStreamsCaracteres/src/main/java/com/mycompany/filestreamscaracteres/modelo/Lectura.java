@@ -38,14 +38,15 @@ public class Lectura extends Fichero{
         try {          
             //Creamos el flujo de lectura:
             ficheroIn = new FileReader(getRuta());
+            
             //Leemos el código ASCII del carácter contenido en el fichero
             int i;
             
-            i= ficheroIn.read();
+            i = ficheroIn.read();
             
-            while (i!=-1) {              
-                texto.append((char)i);
-                i= ficheroIn.read();
+            while (i != -1) {              
+                texto.append( (char)i );
+                i = ficheroIn.read();
             } 
      
         } catch (IOException ex) {
@@ -64,6 +65,7 @@ public class Lectura extends Fichero{
         
     }
     
+    
     /**
      * Lee el contenido de un archivo utilizando un array de caracteres
      * 
@@ -81,13 +83,15 @@ public class Lectura extends Fichero{
 
             int i;
             char cadena[] = new char[5];
-            i= ficheroIn.read(cadena);
+            //Lo leido se guarda en cadena[]
+            i = ficheroIn.read(cadena);
             
             while (i!=-1) {   
                 texto.append(cadena);
                 Arrays.fill(cadena, ' ');
                 i= ficheroIn.read(cadena);
             }           
+            
         } catch (IOException ex) {
             Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

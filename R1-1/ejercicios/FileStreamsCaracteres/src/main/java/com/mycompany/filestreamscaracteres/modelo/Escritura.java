@@ -31,7 +31,7 @@ public class Escritura extends Fichero{
     /**
      * Escribe un carécter en un archivo si no existe te lo crea
      * 
-     * @param caracter      Carácter a escribir
+     * @param caracter Carácter a escribir
      * @param add  Si vamos a sobreescribir el archivo o no
      */
     public void escribirCaracter(char caracter, boolean add){
@@ -40,7 +40,7 @@ public class Escritura extends Fichero{
         
         FileWriter ficheroOut = null;
         
-        if ( ficheroExiste.isFile()){
+        if ( ficheroExiste.isFile() ){
             
             try {
                 ficheroOut = new FileWriter(getRuta(), add);
@@ -75,6 +75,7 @@ public class Escritura extends Fichero{
         }   
     }
     
+    
     /**
      * Escribe un array de caracteres en un archivo
      * 
@@ -82,7 +83,9 @@ public class Escritura extends Fichero{
      * @param sobreescribe  Si vamos a sobreescribir el archivo o no 
      */
     public void escribirArrayCaracteres(char[] caracteres, boolean sobreescribe){
+        
         FileWriter ficheroOut = null;
+        
         try {
             ficheroOut = new FileWriter(getRuta(), sobreescribe);
             
@@ -101,6 +104,7 @@ public class Escritura extends Fichero{
         }
     } 
     
+    
     /**
      * Escribe una cadena de caracteres en un archivo utilizando BufferedWriter
      * 
@@ -108,15 +112,22 @@ public class Escritura extends Fichero{
      * @param sobreescribe  Si vamos a sobreescribir el archivo o no
      */
     public void escribirStreamBufferedCaracteres(String cadena, boolean sobreescribe){
+        
         FileWriter ficheroOut = null;
+        
         try {
+            
             ficheroOut = new FileWriter(getRuta(), sobreescribe);
+            
             BufferedWriter bufferficheroOut = new BufferedWriter(ficheroOut);
+            
             bufferficheroOut.write(cadena);
+            
             bufferficheroOut.newLine(); // Salto de linea
             
             //Guardamos los cambios en el fichero
             bufferficheroOut.flush();
+            
         } catch (IOException ex) {
             Logger.getLogger(Fichero.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -128,6 +139,7 @@ public class Escritura extends Fichero{
         }
     } 
 
+    
     /**
      * Escribe una cadena de caracteres en un archivo utilizando PrintWriter
      * 
@@ -135,10 +147,15 @@ public class Escritura extends Fichero{
      * @param sobreescribe  Si vamos a sobreescribir el archivo o no
      */
     public void escribirBufferedPrintCaracteres(String cadena, boolean sobreescribe){
+        
         FileWriter ficheroOut = null;
+        
         try {
+            
             ficheroOut = new FileWriter(getRuta(), sobreescribe);
+            
             PrintWriter bufferficheroOut = new PrintWriter(ficheroOut);
+            
             bufferficheroOut.println(cadena);
             
             //Guardamos los cambios del fichero
@@ -185,6 +202,7 @@ public class Escritura extends Fichero{
             System.out.println(e);
         }  
     }
+    
     
     /**
      * Creas un archivo desencriptado

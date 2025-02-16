@@ -103,6 +103,7 @@ public class Lectura extends Fichero{
                 retorno = datosIn.readObject();
                 retornoList.add(retorno);
             }
+            
         }catch  (FileNotFoundException ex) {
             Logger.getLogger(Escritura.class.getName()).log(Level.SEVERE, null, ex);           
         }catch (IOException ex){
