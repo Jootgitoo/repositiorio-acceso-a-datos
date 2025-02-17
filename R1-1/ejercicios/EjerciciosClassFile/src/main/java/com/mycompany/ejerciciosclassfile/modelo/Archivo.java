@@ -190,18 +190,18 @@ public class Archivo {
             Scanner scanner = new Scanner(System.in);
             
             System.out.print("Indica la ruta del archivo original: ");
-            String rutaOriginal = scanner.nextLine();
+            String rutaOrigen = scanner.nextLine();
             
             System.out.print("Indica la ruta destino: ");
             String rutaDestino = scanner.nextLine();
             
-            File fRutaOriginal = new File(rutaOriginal);
+            File fRutaOriginal = new File(rutaOrigen);
             File fRutaDestino = new File(rutaDestino);
             
             //Para poder leer el archivoOriginal
             leer = new FileInputStream(fRutaOriginal);
             
-            //Para poder leer el archivoDestino
+            //Para poder escribir el archivoDestino
             escribir = new FileOutputStream(fRutaDestino);
             
             //Leo el archivo

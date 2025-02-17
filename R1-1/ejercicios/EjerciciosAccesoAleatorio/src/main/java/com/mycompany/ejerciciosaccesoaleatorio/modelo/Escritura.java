@@ -23,6 +23,12 @@ public class Escritura extends FicheroEmpleados{
         super(ruta);
     }
     
+    
+    /**
+     * Escribe un empleado al final del archivo
+     *  - Calculamos el id según la posicion
+     * @param empleado Empleado que va a escribir al final del archivo
+     */
     public void escribirEmpleadoFinalArchivo(Empleado empleado){
         
         //Accedo al fichero de forma aleatoria
@@ -83,5 +89,96 @@ public class Escritura extends FicheroEmpleados{
         }
     }
 
+    
+    /**
+     * Escribe un empleado en la posicion de su identificador
+     *  Si el id es 2 el empleado se inserta en segunda posicion
+     * @param empleado Empleado que se va a insertar
+     */
+    public void escribirSegunIdentificador(Empleado empleado){
+        
+        RandomAccessFile randomFile = null;
+        StringBuffer bufferStr = null;
+        
+        try {
+            
+            randomFile = new RandomAccessFile( getRuta(), "rw" );
+            
+            //Obtengo la posicion
+            // - 1 por que el empleado cuyo identificador = 1 se escribe en la pos 0
+            // y así sucesivamente
+            long posicion = getLONGITUD_TOTAL() * ( empleado.getIdentificador() - 1 );
+            
+            //Me coloco en la posicion
+            randomFile.seek(posicion);
+            
+            //Escribo al empleado
+            randomFile.writeLong( empleado.getIdentificador() );
+            
+            bufferStr = new StringBuffer( empleado.getApellido() );
+            bufferStr.setLength( super.getCARACTERES_APELLIDO() );
+            randomFile.writeChars( bufferStr.toString() );
+            
+            randomFile.writeInt( empleado.getDepartamento() );
+            
+            randomFile.writeDouble( empleado.getSalario() );
+
+        } catch (FileNotFoundException ex) {
+            
+            Logger.getLogger(Escritura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Escritura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    /**
+     * Borra el id del empleado que le pasamos por parametro
+     *  - Transforma el id pasado por un 0
+     * @param identificador 
+     */
+    public void borradoLogico(long identificador){
+        
+        RandomAccessFile randomFile = null;
+        
+        try {
+            
+            //Inicializo el fichero
+            randomFile = new RandomAccessFile ( getRuta(), "rw" );
+            
+            long posicion = getLONGITUD_TOTAL() * (identificador - 1);
+            
+            randomFile.seek(posicion);
+            
+            randomFile.writeLong(0L);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Escritura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Escritura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -37,7 +37,7 @@ public class Archivo {
     /**
      * Crea un archvio
      * @param ruta ruta con /nombre_archivo.txt incluida
-     *  - ./ejercicios/archivoCreado.txt
+     *  - ./ejercicios/archivoNuevo.txt
      */
     public void crearArchivo(String ruta){
         
@@ -87,7 +87,7 @@ public class Archivo {
         if( Files.isDirectory(p) ){ //Si es un directorio...
             try {
             
-                System.out.println("===== HE ENCONTRADO UN DIRECTORIO =====");
+                System.out.println("===== HE ENCONTRADO UNA CARPETA =====");
                 
                 //Lo guardo así para poder hacer el for each
                 //.list(p) devuelve un Stream, con eso no puedo interactuar

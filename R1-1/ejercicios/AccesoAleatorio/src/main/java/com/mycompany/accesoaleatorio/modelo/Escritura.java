@@ -92,6 +92,7 @@ public class Escritura extends FicheroEmpleados{
         }  
     }
     
+    
     /**
      * Ejercicio 1 apliacion FUNCIONA!
      * 

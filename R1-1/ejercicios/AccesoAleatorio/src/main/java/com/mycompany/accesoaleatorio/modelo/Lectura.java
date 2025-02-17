@@ -5,14 +5,10 @@
 
 package com.mycompany.accesoaleatorio.modelo;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.RandomAccessFile;
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

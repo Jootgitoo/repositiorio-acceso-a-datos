@@ -24,7 +24,7 @@ public class FicheroEmpleados {
     private final int LONGITUD_CHAR = 2;
     
     //Tamaño para las cadenas de caracteres
-    private final int CARACTERES_APELLIDO = 10;
+    final int CARACTERES_APELLIDO = 10;
     
     //Tamaño para los campos
     private final int LONGITUD_IDENTIFICADOR = LONGITUD_LONG;
