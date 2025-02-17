@@ -36,13 +36,14 @@ public class ExistDb {
         //consulta("/EMPLEADOS");
         //modificacion("update rename /EMPLEADOS/fila_emple as 'EMP_ROW' ");        
         modificacion( "update insert "
-                + "<empleado salario='2340'>"
+                + "<empleado salario= '2340'>"
                     + "<puesto>Técnico</puesto>"
                     + "<nombre>Pedro Fraile</nombre>"
                 + "</empleado>"
                 + "into /universidad/departamento[codigo = 'MAT1']");
-
-
+        
+        
+        //update value /universidad/departamento[/codigo = 'MAT1']/empleado/@salario with xs:integer(.) + 100
         
         desconecta();
     }
