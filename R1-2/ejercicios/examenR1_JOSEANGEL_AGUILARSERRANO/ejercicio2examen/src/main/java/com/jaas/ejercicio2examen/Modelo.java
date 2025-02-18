@@ -51,12 +51,14 @@ public class Modelo {
         try {
             randomFile = new RandomAccessFile("./ORIGEN/datosReformas.dat","rw");
             randomFile.seek(posicion);
-            if(randomFile.length()!=0){
+            if(randomFile.length()!= 0){ //Hay datos
                 
                 //Si el identificador que leo es el mismo que le paso como parametro, ya existe
-                if(id==randomFile.readInt()){
+                if(id == randomFile.readInt()){
                     //posiciono el cursor
-                    posicion = posicion +this.LONGITUD_INT+ this.LONGITUD_DESCRIPCION+this.LONGITUD_DIRECCION;
+                    //posicion = posicion +this.LONGITUD_INT+ this.LONGITUD_DESCRIPCION+this.LONGITUD_DIRECCION;
+                    posicion = posicion +this.LONGITUD_DESCRIPCION+this.LONGITUD_DIRECCION;
+
                     randomFile.seek(posicion);
                     //cambio el valor de coste
                     randomFile.writeDouble(coste);

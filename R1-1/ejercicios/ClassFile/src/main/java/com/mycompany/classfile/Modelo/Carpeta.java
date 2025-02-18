@@ -166,7 +166,7 @@ public class Carpeta extends ModeloDirectorios {
     }
   }
 
-//POR AQUÍ    
+    
    // metodo "borrar recursivo" | borra todo dentro de una carpeta =>
   public void customDeleteRecursive (File folderPath) {
     if (folderPath.isFile()) {

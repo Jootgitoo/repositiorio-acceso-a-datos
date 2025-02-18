@@ -25,7 +25,6 @@ public class Modelo {
     }
     
     
-    
     public void busquedaEjercicio1(String nombreArchivo, String rutaPartida, String rutaCopia){
         File destino = new File(rutaCopia);
         File partida = new File(rutaPartida);

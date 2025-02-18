@@ -43,8 +43,8 @@ public class Examen {
     
     public Examen(String nombre) {
         try {
-            factory=DocumentBuilderFactory.newInstance(); //factory es con .getInstance
-            builder=factory.newDocumentBuilder();//Creamos un constructor de documentos
+            factory = DocumentBuilderFactory.newInstance(); //factory es con .getInstance
+            builder = factory.newDocumentBuilder();//Creamos un constructor de documentos
             
             DOMImplementation implementation = builder.getDOMImplementation();//Se necesita para crear el documento
             this.documento = (Document) implementation.createDocument(null, nombre, null);//Asi se crea el nodo principal
@@ -80,6 +80,7 @@ public class Examen {
         //Y luego meto el nodo en el elemento raiz
         raiz.appendChild(dato);
     }
+    
     public void cargarArchivoEnMemoria(String nombreArchivo){
         try {
             //Para leer un archivo XML necesitamos usar el .parse()

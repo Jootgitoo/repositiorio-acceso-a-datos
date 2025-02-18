@@ -172,6 +172,21 @@ public class Archivo {
         
         scanner.close();
     }
+    
+    
+    public void renombrar(String rutaConAntiguoNombre, String rutaConNuevoNombre){
+        
+        File archivoAntiguo = new File(rutaConAntiguoNombre);
+        File archivoNuevo = new File(rutaConNuevoNombre);
+        
+        boolean exito = archivoAntiguo.renameTo(archivoNuevo);
+        
+        if(exito){
+            System.out.println("Nombre cambiado con exito");
+        } else {
+            System.out.println("No se ha cambiado el nombre de la carpeta correctamente");
+        }
+    }
 
     
     /**
