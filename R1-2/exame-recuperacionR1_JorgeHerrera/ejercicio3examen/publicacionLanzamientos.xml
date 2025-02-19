@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<lanzamientos>
+	<lanzamiento>
+		<id>3</id>
+		<fecha_lanzamiento>01/04/2025</fecha_lanzamiento>
+		<lugar_lanzamiento>Guayana Francesa</lugar_lanzamiento>
+		<horas_vuelo_estimadas>240</horas_vuelo_estimadas>
+	</lanzamiento>
+	<lanzamiento>
+		<id>6</id>
+		<fecha_lanzamiento>12/04/2025</fecha_lanzamiento>
+		<lugar_lanzamiento>Cabo Cñaveral</lugar_lanzamiento>
+		<horas_vuelo_estimadas>360</horas_vuelo_estimadas>
+	</lanzamiento>
+</lanzamientos>

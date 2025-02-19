@@ -18,6 +18,7 @@ import java.io.IOException;
  */
 public class Archivo extends ModeloDirectorios {
     //ATRIBUTOS
+    
     private FileInputStream inputStream = null;
     private FileOutputStream outputStream = null;
 

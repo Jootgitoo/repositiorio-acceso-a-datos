@@ -200,7 +200,6 @@ public class Escritura extends FicheroEmpleados{
     }
     
     
-    
     /**
      * Ejercicio 4 Funciona!
      * Modifica el apellido del empleado 

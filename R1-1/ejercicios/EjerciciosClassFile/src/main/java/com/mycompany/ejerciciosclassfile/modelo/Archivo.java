@@ -96,7 +96,6 @@ public class Archivo {
             for(String s: contenidoDirectorio){
                 System.out.println("--> " +s);
             }
-            
         }
     }
     
