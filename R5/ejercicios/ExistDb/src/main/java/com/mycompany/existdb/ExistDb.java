@@ -19,6 +19,7 @@ import javax.xml.xquery.XQConnection;
 import javax.xml.xquery.XQDataSource;
 import javax.xml.xquery.XQException;
 import javax.xml.xquery.XQExpression;
+import javax.xml.xquery.XQItemType;
 import javax.xml.xquery.XQPreparedExpression;
 import javax.xml.xquery.XQResultItem;
 import javax.xml.xquery.XQResultSequence;
@@ -39,10 +40,12 @@ public class ExistDb {
     
     //Variables para la conexión a la bbdd
     private static XQDataSource server;
-    private static XQConnection con;
+    private static XQConnection connection;
     
     private static TransformerFactory transformerFactory = TransformerFactory.newInstance();
     private static Transformer transformer;
+    
+    
     
 //------------------------------------------------------------------------------
     //MÉTODOS
@@ -72,6 +75,7 @@ public class ExistDb {
         //PRACTICA EXTRA
         
         //consulta("/universidad/departamento[codigo = 'MAT1']");
+        
         //modificacion("update rename /EMPLEADOS/fila_emple as 'EMP_ROW' "); 
         
 //------------------------------------------------------------------------------------------------------------------
@@ -119,9 +123,10 @@ public class ExistDb {
         //actualizará los datos si el departamento pasado existe si no un mensaje de error
         //modificarDepartamento();
         
+//------------------------------------------------------------------------------------------------------------------
 
-
-        
+        //Obtener todos los apellidos de los empleados que aparecen en el documento
+        consulta("/EMPLEADOS/EMP_ROW/APELLIDO");
         
         desconecta();
     }
@@ -142,7 +147,7 @@ public class ExistDb {
             server.setProperty("password", "dam2");
         
             
-            con = server.getConnection();
+            connection = server.getConnection();
         } catch (XQException ex) {
             Logger.getLogger(ExistDb.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -157,7 +162,7 @@ public class ExistDb {
     private static void desconecta(){
         
         try {
-            con.close();
+            connection.close();
         } catch (XQException ex) {
             Logger.getLogger(ExistDb.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -201,7 +206,7 @@ public class ExistDb {
         XQResultSequence resultado = null;
         
         try {
-            consulta = con.prepareExpression(textoConsulta);
+            consulta = connection.prepareExpression(textoConsulta);
             resultado = consulta.executeQuery();
             
         } catch (XQException ex) {
@@ -211,6 +216,30 @@ public class ExistDb {
         return resultado;
     }
     
+    /**
+     * Realiza una consulta y te muestra solo el contenido en caso de q quieras /text()
+     * @param inputConsulta 
+     */
+    public void realizarConsulta (String inputConsulta) {
+        try {
+            XQPreparedExpression xqConsulta = connection.prepareExpression(inputConsulta);
+            XQResultSequence xqResultado = xqConsulta.executeQuery();
+
+            XQResultItem resultItem;
+            while (xqResultado.next()) {
+                resultItem = (XQResultItem) xqResultado.getItem();
+
+                if (resultItem.getItemType().getBaseType() == XQItemType.XQBASETYPE_STRING) {
+                    System.out.println(resultItem.getAtomicValue());
+                } else {
+                    System.out.println(eliminarNamespace(resultItem));
+                }
+            }
+        } catch (XQException ex) {
+            ex.printStackTrace();
+        }
+  }
+    
     
     public static void verEmpleadosDeDepartamento(String codDepartamento){
         
@@ -219,7 +248,7 @@ public class ExistDb {
         
         try {
             
-            consulta = con.prepareExpression("/universidad/departamento[codigo = "+codDepartamento+"]/empleado");
+            consulta = connection.prepareExpression("/universidad/departamento[codigo = "+codDepartamento+"]/empleado");
             
             resultado = consulta.executeQuery();
             
@@ -247,7 +276,7 @@ public class ExistDb {
             
             XQExpression expresion;
             
-            expresion = con.createExpression();
+            expresion = connection.createExpression();
             
             expresion.executeCommand(textoDML);
             
@@ -447,6 +476,9 @@ public class ExistDb {
         return writer.toString();
         
     }
+    
+    
+    
 }
 
 
