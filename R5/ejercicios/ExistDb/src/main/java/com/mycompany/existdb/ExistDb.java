@@ -30,17 +30,21 @@ public class ExistDb {
 //------------------------------------------------------------------------------
     //MÉTODOS
     
+    
+    //COMO QUITAR EL XMLNS AL MOSTRAR EL CONSULTA POR PANTALLA
+    //COMO HACER QUE SE MUESTREN LAS LETRAS CON TILDES
+    
     public static void main(String[] args) {
         conecta();
         
-        //consulta("/EMPLEADOS");
+        consulta("/universidad/departamento[codigo = 'MAT1']");
         //modificacion("update rename /EMPLEADOS/fila_emple as 'EMP_ROW' ");        
-        modificacion( "update insert "
-                + "<empleado salario= '2340'>"
-                    + "<puesto>Técnico</puesto>"
-                    + "<nombre>Pedro Fraile</nombre>"
-                + "</empleado>"
-                + "into /universidad/departamento[codigo = 'MAT1']");
+        //modificacion( "update insert "
+//                + "<empleado salario= '2340'>"
+//                    + "<puesto>Técnico</puesto>"
+//                    + "<nombre>Pedro Fraile</nombre>"
+//                + "</empleado>"
+//                + "into /universidad/departamento[codigo = 'MAT1']");
         
         
         //update value /universidad/departamento[/codigo = 'MAT1']/empleado/@salario with xs:integer(.) + 100
@@ -132,5 +136,7 @@ public class ExistDb {
         } catch (XQException ex) {
             Logger.getLogger(ExistDb.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        System.out.println("Modificacion realizada con exito");
     }
 }
