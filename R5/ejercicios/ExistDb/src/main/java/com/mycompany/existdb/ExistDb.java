@@ -121,12 +121,12 @@ public class ExistDb {
        
         //Lee por teclado un departamento entero, su codigo nuevo y su nombre nuevo
         //actualizará los datos si el departamento pasado existe si no un mensaje de error
-        //modificarDepartamento();
+        modificarDepartamento();
         
 //------------------------------------------------------------------------------------------------------------------
 
         //Obtener todos los apellidos de los empleados que aparecen en el documento
-        consulta("/EMPLEADOS/EMP_ROW/APELLIDO");
+        //consulta("/EMPLEADOS/EMP_ROW/APELLIDO");
         
         desconecta();
     }
